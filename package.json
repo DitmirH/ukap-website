@@ -12,6 +12,7 @@
     "@portabletext/react": "^4.0.3",
     "@sanity/client": "^7.13.2",
     "@sanity/image-url": "^2.0.2",
+    "nodemailer": "^6.9.10",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-router-dom": "^7.10.1"

@@ -247,14 +247,15 @@ The website and Sanity Studio are **deployed separately**:
 └────────────────────────────────────────────────────────────────────┘
 
 ┌────────────────────────────────────────────────────────────────────┐
-│                         NETLIFY                                    │
+│                      VERCEL (Recommended)                          │
 │                                                                    │
-│              Your website (reads from Sanity API)                  │
-│                           │                                        │
-│              VITE_SANITY_DATASET=production                        │
-│                           │                                        │
-│                           ▼                                        │
-│                 Fetches from production dataset                    │
+│   ┌──────────────────────┐    ┌──────────────────────┐            │
+│   │   Static Frontend    │    │  Serverless API      │            │
+│   │   (dist/)            │    │  (api/contact.js)    │            │
+│   │                      │    │                      │            │
+│   │   Fetches from       │    │   Sends emails via   │            │
+│   │   Sanity API         │    │   Microsoft 365      │            │
+│   └──────────────────────┘    └──────────────────────┘            │
 │                                                                    │
 └────────────────────────────────────────────────────────────────────┘
 ```
@@ -262,8 +263,7 @@ The website and Sanity Studio are **deployed separately**:
 | App | Hosted On | Rebuild for content changes? |
 |-----|-----------|------------------------------|
 | **Sanity Studio** | sanity.studio (free) | N/A (it's the editor) |
-| **Website** | Netlify | **No** - fetches live from API |
-| **Email Server** | Railway/Render | No |
+| **Website + API** | Vercel (free) | **No** - fetches live from API |
 
 ### 1. Deploy Sanity Studio
 
@@ -281,7 +281,101 @@ Choose a hostname (e.g., `ukap`) → Your studio will be at:
 
 Content editors use these URLs to create/edit content. No Netlify involvement.
 
-### 2. Deploy Website (Netlify)
+### 2. Deploy Website (Vercel) - Recommended
+
+Vercel is the recommended platform as it supports both the frontend and serverless API functions.
+
+#### Step 1: Connect Repository
+
+1. Go to [vercel.com](https://vercel.com) and sign in
+2. Click **"Add New Project"**
+3. Import your GitHub repository
+4. Vercel will auto-detect it as a Vite project
+
+#### Step 2: Configure Build Settings
+
+Vercel should auto-detect these, but verify:
+
+| Setting | Value |
+|---------|-------|
+| Framework Preset | Vite |
+| Build Command | `npm run build` |
+| Output Directory | `dist` |
+| Install Command | `npm install` |
+
+#### Step 3: Add Environment Variables
+
+Go to **Project Settings → Environment Variables** and add:
+
+| Variable | Value | Description |
+|----------|-------|-------------|
+| `VITE_SANITY_PROJECT_ID` | `ijgeixey` | Sanity project ID |
+| `VITE_SANITY_DATASET` | `production` | Sanity dataset |
+| `SMTP_USER` | `your-email@domain.org` | Microsoft 365 email |
+| `SMTP_PASS` | `your-password` | Email password/app password |
+| `CONTACT_EMAIL` | `contact@domain.org` | Where to receive form submissions |
+
+#### Step 4: Deploy
+
+Click **Deploy** - Vercel will build and deploy your site.
+
+#### How It Works
+
+```
+┌─────────────────────────────────────────────────────────────────┐
+│                         VERCEL                                   │
+├─────────────────────────────────────────────────────────────────┤
+│                                                                  │
+│   ┌─────────────────┐          ┌─────────────────┐              │
+│   │                 │          │                 │              │
+│   │  Static Site    │          │  Serverless     │              │
+│   │  (dist/)        │          │  Functions      │              │
+│   │                 │          │  (api/)         │              │
+│   │  • Homepage     │          │                 │              │
+│   │  • Blog         │          │  /api/contact   │              │
+│   │  • Team         │          │  → Sends email  │              │
+│   │                 │          │                 │              │
+│   └─────────────────┘          └─────────────────┘              │
+│           │                            │                         │
+│           │  Fetches content           │  POST /api/contact      │
+│           ▼                            ▼                         │
+│   ┌─────────────────┐          ┌─────────────────┐              │
+│   │  Sanity API     │          │  Microsoft 365  │              │
+│   │  (ijgeixey)     │          │  SMTP           │              │
+│   └─────────────────┘          └─────────────────┘              │
+│                                                                  │
+└─────────────────────────────────────────────────────────────────┘
+```
+
+#### Project Structure for Vercel
+
+```
+ukap-web/
+├── api/                    # Vercel Serverless Functions
+│   └── contact.js          # POST /api/contact → sends email
+├── dist/                   # Built frontend (after npm run build)
+├── src/                    # React source
+├── vercel.json             # Vercel configuration
+└── package.json
+```
+
+#### Redeploying
+
+- **Automatic**: Push to `main` branch triggers redeploy
+- **Manual**: Vercel Dashboard → Deployments → Redeploy
+
+#### Troubleshooting
+
+| Issue | Solution |
+|-------|----------|
+| CORS errors from Sanity | Add your Vercel URL to Sanity CORS origins (see below) |
+| Contact form fails | Check environment variables are set in Vercel |
+| 404 on page refresh | `vercel.json` handles SPA routing |
+| Build fails | Check Node.js version (needs 18+) |
+
+---
+
+### Alternative: Deploy Website (Netlify)
 
 ```bash
 npm run build
@@ -295,20 +389,20 @@ VITE_SANITY_PROJECT_ID=ijgeixey
 VITE_SANITY_DATASET=production
 ```
 
+> **Note:** Netlify requires a separate backend for the contact form (see below).
+
 The website fetches content **at runtime** from Sanity's API. When you update content in the studio, the website shows it immediately (after page refresh) - **no rebuild needed!**
 
-Update API URL in `src/components/ContactForm/ContactForm.jsx`:
-```javascript
-fetch('https://your-api-domain.com/api/contact', ...)
-```
+### 3. Deploy Email Server (Only if using Netlify)
 
-### 3. Deploy Email Server (Railway/Render)
+If using Vercel, the serverless function handles email. If using Netlify, deploy `server/` folder to Railway/Render:
 
-Deploy `server/` folder with environment variables:
 - `PORT`
 - `SMTP_USER`
 - `SMTP_PASS`
 - `CONTACT_EMAIL`
+
+Then update the contact form API URL accordingly.
 
 ### Content Workflow
 
@@ -357,13 +451,39 @@ The server also reads from the same env files based on `NODE_ENV`.
 
 ## CORS Configuration
 
-Add your production URLs to Sanity:
+Add your production URLs to Sanity's allowed origins.
+
+### Option 1: Via Sanity CLI (Recommended)
+
+```bash
+cd studio
+
+# Add localhost for development
+npx sanity cors add http://localhost:5173 --credentials
+
+# Add your Vercel domain
+npx sanity cors add https://your-app.vercel.app --credentials
+
+# Add custom domain if you have one
+npx sanity cors add https://your-domain.com --credentials
+```
+
+### Option 2: Via Sanity Dashboard
 
 1. Go to [sanity.io/manage](https://sanity.io/manage)
-2. Select project → API → CORS origins
-3. Add:
+2. Select project → **API** → **CORS origins**
+3. Click **Add CORS origin**
+4. Add:
    - `http://localhost:5173` (development)
-   - `https://your-domain.com` (production)
+   - `https://your-app.vercel.app` (Vercel)
+   - `https://your-domain.com` (custom domain)
+5. Enable **"Allow credentials"** for each
+
+### View Current CORS Origins
+
+```bash
+cd studio && npx sanity cors list
+```
 
 ---
 

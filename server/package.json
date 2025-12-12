@@ -1,0 +1,14 @@
+{
+  "name": "ukap-server",
+  "type": "module",
+  "scripts": {
+    "start": "NODE_ENV=production node index.js",
+    "dev": "NODE_ENV=development node --watch index.js"
+  },
+  "dependencies": {
+    "cors": "^2.8.5",
+    "dotenv": "^17.2.3",
+    "express": "^4.18.2",
+    "nodemailer": "^6.9.7"
+  }
+}

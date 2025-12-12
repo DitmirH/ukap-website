@@ -1,0 +1,131 @@
+.home {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background: #0a0a0f;
+}
+
+/* Contact Section */
+.contact-section {
+  position: relative;
+  padding: 6rem 2rem;
+  overflow: hidden;
+}
+
+.ambient-bg {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+.orb {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(100px);
+  opacity: 0.4;
+  animation: float 20s ease-in-out infinite;
+}
+
+.orb-1 {
+  width: 500px;
+  height: 500px;
+  background: #ff6b35;
+  top: -150px;
+  right: -100px;
+}
+
+.orb-2 {
+  width: 350px;
+  height: 350px;
+  background: #4a90d9;
+  bottom: -100px;
+  left: -100px;
+  animation-delay: -10s;
+}
+
+@keyframes float {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  50% { transform: translate(20px, -20px) scale(1.05); }
+}
+
+.contact-content {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+.section-heading {
+  font-size: clamp(2rem, 5vw, 3.5rem);
+  margin-bottom: 1rem;
+  line-height: 1.1;
+}
+
+.section-heading .accent {
+  background: linear-gradient(135deg, #ff6b35 0%, #f7c59f 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* Blog Preview */
+.blog-preview {
+  position: relative;
+  z-index: 1;
+  padding: 4rem 2rem;
+  max-width: 1200px;
+  margin: 0 auto;
+  width: 100%;
+}
+
+.section-title {
+  text-align: center;
+  font-size: 2rem;
+  margin-bottom: 2rem;
+}
+
+.section-title .accent {
+  background: linear-gradient(135deg, #ff6b35 0%, #f7c59f 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.blog-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  gap: 2rem;
+}
+
+.view-all-link {
+  display: block;
+  text-align: center;
+  margin-top: 2rem;
+  color: #ff6b35;
+  text-decoration: none;
+  font-size: 1rem;
+  transition: opacity 0.3s;
+}
+
+.view-all-link:hover {
+  opacity: 0.8;
+}
+
+@media (max-width: 768px) {
+  .hero {
+    padding: 3rem 1.5rem;
+  }
+  
+  .blog-preview {
+    padding: 3rem 1.5rem;
+  }
+  
+  .blog-grid {
+    grid-template-columns: 1fr;
+  }
+}
+

@@ -1,0 +1,98 @@
+.team-card {
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 16px;
+  overflow: hidden;
+  transition: all 0.3s ease;
+}
+
+.team-card:hover {
+  transform: translateY(-5px);
+  border-color: rgba(255, 107, 53, 0.3);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+}
+
+.team-card-image {
+  width: 100%;
+  aspect-ratio: 1;
+  overflow: hidden;
+  background: rgba(255, 255, 255, 0.05);
+}
+
+.team-card-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.3s ease;
+}
+
+.team-card:hover .team-card-image img {
+  transform: scale(1.05);
+}
+
+.team-card-placeholder {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg, #ff6b35 0%, #f7c59f 100%);
+}
+
+.team-card-placeholder span {
+  font-size: 4rem;
+  font-weight: 700;
+  color: #0a0a0f;
+}
+
+.team-card-content {
+  padding: 1.5rem;
+}
+
+.team-card-name {
+  font-size: 1.25rem;
+  margin-bottom: 0.25rem;
+  color: #fafafa;
+}
+
+.team-card-role {
+  display: block;
+  font-size: 0.9rem;
+  color: #ff6b35;
+  font-weight: 500;
+  margin-bottom: 1rem;
+}
+
+.team-card-bio {
+  font-size: 0.9rem;
+  color: #9898a6;
+  line-height: 1.6;
+  margin-bottom: 1rem;
+  display: -webkit-box;
+  -webkit-line-clamp: 4;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.team-card-linkedin {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: #0a66c2;
+  text-decoration: none;
+  font-size: 0.9rem;
+  font-weight: 500;
+  padding: 0.5rem 1rem;
+  background: rgba(10, 102, 194, 0.1);
+  border-radius: 8px;
+  transition: all 0.3s;
+}
+
+.team-card-linkedin:hover {
+  background: rgba(10, 102, 194, 0.2);
+}
+
+.team-card-linkedin svg {
+  flex-shrink: 0;
+}
+

@@ -1,0 +1,44 @@
+.nav {
+  position: relative;
+  z-index: 10;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1.5rem 4rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.nav-logo {
+  font-family: system-ui, -apple-system, sans-serif;
+  font-size: 1.5rem;
+  font-weight: 800;
+  background: linear-gradient(135deg, #ff6b35 0%, #f7c59f 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  text-decoration: none;
+}
+
+.nav-links {
+  display: flex;
+  gap: 2rem;
+}
+
+.nav-links a {
+  color: #9898a6;
+  text-decoration: none;
+  font-size: 0.95rem;
+  transition: color 0.3s;
+}
+
+.nav-links a:hover,
+.nav-links a.active {
+  color: #fafafa;
+}
+
+@media (max-width: 768px) {
+  .nav {
+    padding: 1rem 1.5rem;
+  }
+}
+

@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react'
 import { useParams, Link } from 'react-router-dom'
 import { PortableText } from '@portabletext/react'
-import { Nav, Footer, ContactForm } from '../../components'
+import { Nav, Footer, ContactForm, EmbedCode } from '../../components'
 import { client, urlFor } from '../../lib/sanityClient'
 import './BlogPost.css'
 
@@ -31,6 +31,9 @@ const portableTextComponents = {
       }
       return null
     },
+    embedCode: ({ value }) => (
+      <EmbedCode code={value.code} title={value.title} />
+    ),
   },
   block: {
     h2: ({ children }) => <h2 className="content-h2">{children}</h2>,

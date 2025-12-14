@@ -1,0 +1,20 @@
+.embed-code-wrapper {
+  width: 100%;
+  margin: 2rem 0;
+}
+
+.embed-code-container {
+  width: 100%;
+}
+
+/* Common embed styles */
+.embed-code-container iframe {
+  max-width: 100%;
+  border: none;
+}
+
+/* Ticket Tailor specific overrides */
+.embed-code-container .tt-widget {
+  width: 100%;
+}
+

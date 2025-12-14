@@ -72,6 +72,17 @@
   background-clip: text;
 }
 
+/* Events Preview */
+.events-preview {
+  position: relative;
+  z-index: 1;
+  padding: 4rem 2rem;
+  max-width: 1100px;
+  margin: 0 auto;
+  width: 100%;
+  background: rgba(255, 255, 255, 0.02);
+}
+
 /* Blog Preview */
 .blog-preview {
   position: relative;

@@ -4,4 +4,7 @@ export { default as ContactForm } from './ContactForm'
 export { default as BlogCard } from './BlogCard'
 export { default as TeamCard } from './TeamCard'
 export { default as HeroCarousel } from './HeroCarousel'
+export { default as EventsList } from './EventsList'
+export { default as TicketTailorEmbed } from './TicketTailorEmbed'
+export { default as EmbedCode } from './EmbedCode'
 

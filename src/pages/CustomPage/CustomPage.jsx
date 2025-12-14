@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react'
 import { useParams, Link } from 'react-router-dom'
 import { PortableText } from '@portabletext/react'
-import { Nav, Footer, ContactForm } from '../../components'
+import { Nav, Footer, ContactForm, EventsList, TicketTailorEmbed, EmbedCode } from '../../components'
 import { client, urlFor } from '../../lib/sanityClient'
 import './CustomPage.css'
 
@@ -84,6 +84,34 @@ const pageContentComponents = {
         {value.title && <h4 className="info-box-title">{value.title}</h4>}
         {value.content && <p className="info-box-content">{value.content}</p>}
       </div>
+    ),
+    eventsList: ({ value }) => (
+      <div className="page-events-embed">
+        <EventsList
+          title={value.title}
+          showPastEvents={value.showPastEvents}
+          limit={value.limit}
+          category={value.category}
+          style={value.style || 'timeline'}
+          showViewAll={value.showViewAll}
+        />
+      </div>
+    ),
+    ticketTailor: ({ value }) => (
+      <div className="page-ticket-tailor-embed">
+        <TicketTailorEmbed
+          eventUrl={value.eventUrl}
+          showSearchFilter={value.showSearchFilter}
+          showDateFilter={value.showDateFilter}
+          showSort={value.showSort}
+          minimal={value.minimal}
+          showLogo={value.showLogo}
+          bgFill={value.bgFill}
+        />
+      </div>
+    ),
+    embedCode: ({ value }) => (
+      <EmbedCode code={value.code} title={value.title} />
     ),
   },
   block: {

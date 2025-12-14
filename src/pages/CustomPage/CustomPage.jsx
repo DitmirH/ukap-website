@@ -33,16 +33,36 @@ const pageContentComponents = {
       }
       return null
     },
-    cta: ({ value }) => (
-      <div className={`page-cta align-${value.alignment || 'left'}`}>
-        <Link 
-          to={value.link} 
-          className={`cta-button style-${value.style || 'primary'}`}
-        >
-          {value.text}
-        </Link>
-      </div>
-    ),
+    cta: ({ value }) => {
+      const isExternal = value.openExternal || value.link?.startsWith('http')
+      
+      if (isExternal) {
+        return (
+          <div className={`page-cta align-${value.alignment || 'left'}`}>
+            <a 
+              href={value.link}
+              target="_blank"
+              rel="noopener noreferrer"
+              className={`cta-button style-${value.style || 'primary'}`}
+            >
+              {value.text}
+              <span className="external-icon"> ↗</span>
+            </a>
+          </div>
+        )
+      }
+      
+      return (
+        <div className={`page-cta align-${value.alignment || 'left'}`}>
+          <Link 
+            to={value.link} 
+            className={`cta-button style-${value.style || 'primary'}`}
+          >
+            {value.text}
+          </Link>
+        </div>
+      )
+    },
     divider: ({ value }) => {
       if (value.style === 'line') {
         return <hr className="page-divider" />

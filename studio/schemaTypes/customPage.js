@@ -167,7 +167,15 @@ export default {
               name: 'link',
               title: 'Link URL',
               type: 'string',
+              description: 'Use "/" for internal pages or full URL for external',
               validation: Rule => Rule.required(),
+            },
+            {
+              name: 'openExternal',
+              title: 'Open in New Tab',
+              type: 'boolean',
+              description: 'Open link in a new browser tab (for external links)',
+              initialValue: false,
             },
             {
               name: 'style',

@@ -52,7 +52,16 @@
 }
 
 .events-list.style-timeline .event-item.past {
-  opacity: 0.6;
+  opacity: 0.7;
+}
+
+.date-past-label {
+  display: block;
+  font-size: 0.75rem;
+  color: #999;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin-top: 0.25rem;
 }
 
 .event-date-column {
@@ -119,6 +128,11 @@
   background: #f3f4f6;
   color: #6b7280;
   text-decoration: line-through;
+}
+
+.status-badge.postponed {
+  background: #fef3c7;
+  color: #d97706;
 }
 
 .event-excerpt {

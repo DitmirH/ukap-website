@@ -35,7 +35,7 @@ export default function Home() {
           <div className="orb orb-2"></div>
         </div>
         <div className="contact-content">
-          <h2 className="section-heading">CONTACT <span className="accent">UKAP</span></h2>
+          {/* ContactForm fetches default form config from Sanity */}
           <ContactForm />
         </div>
       </section>

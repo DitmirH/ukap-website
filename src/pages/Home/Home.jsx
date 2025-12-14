@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
-import { Nav, Footer, ContactForm, BlogCard, HeroCarousel } from '../../components'
+import { Nav, Footer, ContactForm, BlogCard, HeroCarousel, EventsList } from '../../components'
 import { client } from '../../lib/sanityClient'
 import './Home.css'
 
@@ -38,6 +38,16 @@ export default function Home() {
           {/* ContactForm fetches default form config from Sanity */}
           <ContactForm />
         </div>
+      </section>
+
+      {/* Upcoming Events Section */}
+      <section className="events-preview">
+        <EventsList 
+          title="Upcoming Events"
+          limit={3}
+          style="timeline"
+          showViewAll={true}
+        />
       </section>
 
       {posts.length > 0 && (

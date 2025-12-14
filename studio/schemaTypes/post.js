@@ -156,6 +156,38 @@ export default {
             },
           },
         },
+        {
+          type: 'object',
+          name: 'embedCode',
+          title: 'Embed Code',
+          icon: () => '</>',
+          fields: [
+            {
+              name: 'title',
+              title: 'Label (for reference)',
+              type: 'string',
+              description: 'e.g., "Ticket Tailor Widget", "YouTube Video"',
+            },
+            {
+              name: 'code',
+              title: 'Embed Code',
+              type: 'text',
+              rows: 10,
+              description: 'Paste your embed code here (HTML, iframes, scripts)',
+              validation: Rule => Rule.required(),
+            },
+          ],
+          preview: {
+            select: { title: 'title', code: 'code' },
+            prepare({ title, code }) {
+              const preview = code?.substring(0, 50) || 'No code'
+              return {
+                title: `</> ${title || 'Embed Code'}`,
+                subtitle: preview + (code?.length > 50 ? '...' : ''),
+              }
+            },
+          },
+        },
       ],
     },
   ],

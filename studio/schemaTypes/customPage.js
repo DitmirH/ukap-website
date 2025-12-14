@@ -348,6 +348,112 @@ export default {
             },
           },
         },
+        // Embed Code (HTML/Scripts like Ticket Tailor, YouTube, etc.)
+        {
+          type: 'object',
+          name: 'embedCode',
+          title: 'Embed Code',
+          icon: () => '</> ',
+          fields: [
+            {
+              name: 'title',
+              title: 'Label (for reference)',
+              type: 'string',
+              description: 'e.g., "Ticket Tailor Widget", "YouTube Video"',
+            },
+            {
+              name: 'code',
+              title: 'Embed Code',
+              type: 'text',
+              rows: 10,
+              description: 'Paste your embed code here (HTML, iframes, scripts)',
+              validation: Rule => Rule.required(),
+            },
+          ],
+          preview: {
+            select: { title: 'title', code: 'code' },
+            prepare({ title, code }) {
+              const preview = code?.substring(0, 50) || 'No code'
+              return {
+                title: `</> ${title || 'Embed Code'}`,
+                subtitle: preview + (code?.length > 50 ? '...' : ''),
+              }
+            },
+          },
+        },
+        // Events List
+        {
+          type: 'object',
+          name: 'eventsList',
+          title: 'Events List',
+          icon: () => '📅',
+          fields: [
+            {
+              name: 'title',
+              title: 'Section Title',
+              type: 'string',
+              initialValue: 'Upcoming Events',
+            },
+            {
+              name: 'showPastEvents',
+              title: 'Show Past Events',
+              type: 'boolean',
+              description: 'Include events that have already happened',
+              initialValue: false,
+            },
+            {
+              name: 'limit',
+              title: 'Number of Events',
+              type: 'number',
+              description: 'Maximum events to display (leave empty for all)',
+            },
+            {
+              name: 'category',
+              title: 'Filter by Category',
+              type: 'string',
+              options: {
+                list: [
+                  { title: 'All Categories', value: '' },
+                  { title: 'Concert', value: 'concert' },
+                  { title: 'Workshop', value: 'workshop' },
+                  { title: 'Networking', value: 'networking' },
+                  { title: 'Gala', value: 'gala' },
+                  { title: 'Fundraiser', value: 'fundraiser' },
+                  { title: 'Exhibition', value: 'exhibition' },
+                  { title: 'Conference', value: 'conference' },
+                ],
+              },
+            },
+            {
+              name: 'style',
+              title: 'Display Style',
+              type: 'string',
+              options: {
+                list: [
+                  { title: 'Timeline (Elegant)', value: 'timeline' },
+                  { title: 'Cards', value: 'cards' },
+                  { title: 'Compact List', value: 'compact' },
+                ],
+              },
+              initialValue: 'timeline',
+            },
+            {
+              name: 'showViewAll',
+              title: 'Show "View All Events" Link',
+              type: 'boolean',
+              initialValue: true,
+            },
+          ],
+          preview: {
+            select: { title: 'title', style: 'style' },
+            prepare({ title, style }) {
+              return {
+                title: `📅 ${title || 'Events List'}`,
+                subtitle: style || 'timeline',
+              }
+            },
+          },
+        },
       ],
     },
     // Navigation settings

@@ -1,0 +1,35 @@
+.ticket-tailor-embed {
+  width: 100%;
+  min-height: 200px;
+  margin: 2rem 0;
+}
+
+.ticket-tailor-loading {
+  text-align: center;
+  padding: 3rem;
+  color: #666;
+}
+
+/* Override Ticket Tailor styles to match site theme */
+.ticket-tailor-embed .tt-widget {
+  width: 100%;
+}
+
+/* Style the fallback link */
+.ticket-tailor-embed .tt-widget-fallback {
+  text-align: center;
+  padding: 2rem;
+  background: rgba(139, 115, 85, 0.05);
+  border: 1px dashed rgba(139, 115, 85, 0.3);
+  border-radius: 8px;
+}
+
+.ticket-tailor-embed .tt-widget-fallback a {
+  color: #8b7355;
+}
+
+.ticket-tailor-embed .tt-widget-powered {
+  color: #999 !important;
+  font-size: 0.8rem;
+}
+

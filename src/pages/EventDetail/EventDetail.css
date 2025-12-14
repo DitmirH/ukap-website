@@ -260,6 +260,30 @@
   border-top: 1px solid #eee;
 }
 
+.event-status-notice {
+  text-align: center;
+  font-size: 0.9rem;
+  font-weight: 500;
+  margin-top: 1rem;
+  padding: 0.75rem;
+  border-radius: 6px;
+}
+
+.event-status-notice.sold-out {
+  background: #fee2e2;
+  color: #dc2626;
+}
+
+.event-status-notice.cancelled {
+  background: #f3f4f6;
+  color: #6b7280;
+}
+
+.event-status-notice.postponed {
+  background: #fef3c7;
+  color: #d97706;
+}
+
 /* Responsive */
 @media (max-width: 900px) {
   .event-detail-grid {

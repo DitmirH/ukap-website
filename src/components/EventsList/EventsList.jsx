@@ -101,7 +101,7 @@ export default function EventsList({
           return (
             <article 
               key={event._id} 
-              className={`event-item ${isPast ? 'past' : ''} ${event.featured ? 'featured' : ''} ${event.status !== 'upcoming' ? `status-${event.status}` : ''}`}
+              className={`event-item ${isPast ? 'past' : ''} ${event.featured ? 'featured' : ''} ${event.status ? `status-${event.status}` : ''}`}
             >
               {/* Timeline Style */}
               {style === 'timeline' && (
@@ -112,6 +112,7 @@ export default function EventsList({
                       <span className="date-month">/{String(new Date(event.date).getMonth() + 1).padStart(2, '0')}</span>
                       <span className="date-year">/{date.year}</span>
                     </time>
+                    {isPast && !event.status && <span className="date-past-label">Past</span>}
                   </div>
                   
                   <div className="event-content">
@@ -119,6 +120,7 @@ export default function EventsList({
                       <Link to={`/events/${event.slug?.current}`}>{event.title}</Link>
                       {event.status === 'sold-out' && <span className="status-badge sold-out">Sold Out</span>}
                       {event.status === 'cancelled' && <span className="status-badge cancelled">Cancelled</span>}
+                      {event.status === 'postponed' && <span className="status-badge postponed">Postponed</span>}
                     </h3>
                     
                     {event.excerpt && (

@@ -110,6 +110,38 @@ export default {
             { name: 'caption', title: 'Caption', type: 'string' },
           ],
         },
+        {
+          type: 'object',
+          name: 'embedCode',
+          title: 'Embed Code',
+          icon: () => '</>',
+          fields: [
+            {
+              name: 'title',
+              title: 'Label (for reference)',
+              type: 'string',
+              description: 'e.g., "Ticket Tailor Widget", "YouTube Video"',
+            },
+            {
+              name: 'code',
+              title: 'Embed Code',
+              type: 'text',
+              rows: 10,
+              description: 'Paste your embed code here (HTML, iframes, scripts)',
+              validation: Rule => Rule.required(),
+            },
+          ],
+          preview: {
+            select: { title: 'title', code: 'code' },
+            prepare({ title, code }) {
+              const preview = code?.substring(0, 50) || 'No code'
+              return {
+                title: `</> ${title || 'Embed Code'}`,
+                subtitle: preview + (code?.length > 50 ? '...' : ''),
+              }
+            },
+          },
+        },
       ],
     },
     {
@@ -162,17 +194,18 @@ export default {
     },
     {
       name: 'status',
-      title: 'Event Status',
+      title: 'Special Status (Optional)',
       type: 'string',
+      description: 'Only set this for sold out/cancelled events. Past/upcoming is automatic based on date.',
       options: {
         list: [
-          { title: 'Upcoming', value: 'upcoming' },
+          { title: 'None (Auto)', value: '' },
           { title: 'Sold Out', value: 'sold-out' },
           { title: 'Cancelled', value: 'cancelled' },
           { title: 'Postponed', value: 'postponed' },
         ],
       },
-      initialValue: 'upcoming',
+      initialValue: '',
     },
   ],
   orderings: [

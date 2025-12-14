@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react'
 import { useParams, Link } from 'react-router-dom'
 import { PortableText } from '@portabletext/react'
-import { Nav, Footer } from '../../components'
+import { Nav, Footer, EmbedCode } from '../../components'
 import { client, urlFor } from '../../lib/sanityClient'
 import './EventDetail.css'
 
@@ -12,6 +12,9 @@ const portableTextComponents = {
         <img src={urlFor(value).width(800).url()} alt={value.alt || ''} />
         {value.caption && <figcaption>{value.caption}</figcaption>}
       </figure>
+    ),
+    embedCode: ({ value }) => (
+      <EmbedCode code={value.code} title={value.title} />
     ),
   },
   block: {
@@ -186,7 +189,8 @@ export default function EventDetail() {
                 </div>
               </div>
 
-              {event.ticketLink && event.status === 'upcoming' && !isPast && (
+              {/* Show ticket button only for upcoming events that aren't sold out/cancelled */}
+              {event.ticketLink && !isPast && event.status !== 'sold-out' && event.status !== 'cancelled' && (
                 <a 
                   href={event.ticketLink} 
                   target="_blank" 
@@ -197,7 +201,23 @@ export default function EventDetail() {
                 </a>
               )}
 
-              {isPast && (
+              {/* Show sold out message */}
+              {event.status === 'sold-out' && !isPast && (
+                <p className="event-status-notice sold-out">🔴 This event is sold out</p>
+              )}
+
+              {/* Show cancelled message */}
+              {event.status === 'cancelled' && (
+                <p className="event-status-notice cancelled">❌ This event has been cancelled</p>
+              )}
+
+              {/* Show postponed message */}
+              {event.status === 'postponed' && (
+                <p className="event-status-notice postponed">⏸️ This event has been postponed</p>
+              )}
+
+              {/* Show past event message (only if not cancelled) */}
+              {isPast && event.status !== 'cancelled' && (
                 <p className="event-past-notice">This event has already taken place.</p>
               )}
             </div>

@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react'
 import { useParams, Link } from 'react-router-dom'
 import { PortableText } from '@portabletext/react'
-import { Nav, Footer } from '../../components'
+import { Nav, Footer, ContactForm } from '../../components'
 import { client, urlFor } from '../../lib/sanityClient'
 import './BlogPost.css'
 
@@ -16,6 +16,21 @@ const portableTextComponents = {
         {value.caption && <figcaption>{value.caption}</figcaption>}
       </figure>
     ),
+    contactFormEmbed: ({ value }) => {
+      // If form data was expanded in query, use it directly
+      if (value.formRef) {
+        return (
+          <div className="embedded-contact-form">
+            <ContactForm 
+              config={value.formRef}
+              overrideTitle={value.overrideTitle}
+              className="inline"
+            />
+          </div>
+        )
+      }
+      return null
+    },
   },
   block: {
     h2: ({ children }) => <h2 className="content-h2">{children}</h2>,
@@ -53,7 +68,27 @@ export default function BlogPost() {
           excerpt,
           mainImage,
           style,
-          body,
+          body[]{
+            ...,
+            _type == "contactFormEmbed" => {
+              ...,
+              formRef->{
+                name,
+                title,
+                highlightedWord,
+                description,
+                fields,
+                placeholders,
+                buttonText,
+                sendingText,
+                successMessage,
+                errorMessage,
+                recipients,
+                emailSubjectPrefix,
+                styling
+              }
+            }
+          },
           author->{
             name,
             image,

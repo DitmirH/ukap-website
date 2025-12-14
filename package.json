@@ -5,6 +5,10 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
+    "dev:studio": "cd studio && npm run dev",
+    "dev:server": "cd server && npm run dev",
+    "dev:all": "concurrently \"npm run dev\" \"npm run dev:studio\" \"npm run dev:server\"",
+    "dev:frontend": "concurrently \"npm run dev\" \"npm run dev:studio\"",
     "build": "vite build",
     "preview": "vite preview"
   },
@@ -19,6 +23,7 @@
   },
   "devDependencies": {
     "@vitejs/plugin-react": "^4.2.1",
+    "concurrently": "^8.2.2",
     "vite": "^5.0.8"
   }
 }

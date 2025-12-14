@@ -123,6 +123,39 @@ export default {
             },
           ],
         },
+        {
+          type: 'object',
+          name: 'contactFormEmbed',
+          title: 'Contact Form',
+          icon: () => '📧',
+          fields: [
+            {
+              name: 'formRef',
+              title: 'Select Form',
+              type: 'reference',
+              to: [{ type: 'contactForm' }],
+              description: 'Choose a contact form configuration to embed',
+            },
+            {
+              name: 'overrideTitle',
+              title: 'Override Title (optional)',
+              type: 'string',
+              description: 'Leave empty to use the form\'s default title',
+            },
+          ],
+          preview: {
+            select: {
+              formName: 'formRef.name',
+              overrideTitle: 'overrideTitle',
+            },
+            prepare({ formName, overrideTitle }) {
+              return {
+                title: '📧 Contact Form',
+                subtitle: overrideTitle || formName || 'No form selected',
+              }
+            },
+          },
+        },
       ],
     },
   ],

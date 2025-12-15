@@ -1,0 +1,122 @@
+.sponsors-carousel-section {
+  background: linear-gradient(180deg, transparent 0%, rgba(255, 255, 255, 0.02) 100%);
+  border-top: 1px solid rgba(255, 255, 255, 0.06);
+  padding: 3rem 0 2rem;
+  text-align: center;
+  overflow: hidden;
+}
+
+.sponsors-carousel-title {
+  font-size: 0.85rem;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  color: #666;
+  font-weight: 400;
+  margin: 0 0 2rem;
+}
+
+.sponsors-carousel-wrapper {
+  position: relative;
+  width: 100%;
+  overflow: hidden;
+  mask-image: linear-gradient(
+    to right,
+    transparent 0%,
+    black 10%,
+    black 90%,
+    transparent 100%
+  );
+  -webkit-mask-image: linear-gradient(
+    to right,
+    transparent 0%,
+    black 10%,
+    black 90%,
+    transparent 100%
+  );
+}
+
+.sponsors-carousel-track {
+  display: flex;
+  gap: 3rem;
+  animation: scroll 30s linear infinite;
+  width: max-content;
+}
+
+.sponsors-carousel-track:hover {
+  animation-play-state: paused;
+}
+
+@keyframes scroll {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
+.sponsor-slide {
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 80px;
+  min-width: 150px;
+}
+
+.sponsor-logo-link {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0.6;
+  transition: opacity 0.3s, transform 0.3s;
+  filter: grayscale(100%);
+}
+
+.sponsor-logo-link:hover {
+  opacity: 1;
+  transform: scale(1.05);
+  filter: grayscale(0%);
+}
+
+.sponsor-logo-link img {
+  max-width: 150px;
+  max-height: 70px;
+  object-fit: contain;
+}
+
+.sponsors-view-all {
+  display: inline-block;
+  margin-top: 1.5rem;
+  color: #888;
+  text-decoration: none;
+  font-size: 0.9rem;
+  transition: color 0.2s;
+}
+
+.sponsors-view-all:hover {
+  color: #ff6b35;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .sponsors-carousel-section {
+    padding: 2rem 0 1.5rem;
+  }
+  
+  .sponsors-carousel-track {
+    gap: 2rem;
+    animation-duration: 20s;
+  }
+  
+  .sponsor-slide {
+    min-width: 120px;
+    height: 60px;
+  }
+  
+  .sponsor-logo-link img {
+    max-width: 120px;
+    max-height: 50px;
+  }
+}
+

@@ -1,3 +1,5 @@
+import { SlugWithPreview } from '../components/SlugWithPreview'
+
 export default {
   name: 'post',
   title: 'Blog Post',
@@ -13,9 +15,12 @@ export default {
       name: 'slug',
       title: 'Slug',
       type: 'slug',
+      components: { input: SlugWithPreview },
       options: {
         source: 'title',
         maxLength: 96,
+        urlPrefix: '/blog/',
+        slugify: input => input.toLowerCase().replace(/\s+/g, '-').slice(0, 96),
       },
       validation: (Rule) => Rule.required(),
     },
@@ -127,7 +132,6 @@ export default {
           type: 'object',
           name: 'contactFormEmbed',
           title: 'Contact Form',
-          icon: () => '📧',
           fields: [
             {
               name: 'formRef',
@@ -160,7 +164,6 @@ export default {
           type: 'object',
           name: 'embedCode',
           title: 'Embed Code',
-          icon: () => '</>',
           fields: [
             {
               name: 'title',

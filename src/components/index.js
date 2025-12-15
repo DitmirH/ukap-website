@@ -7,4 +7,5 @@ export { default as HeroCarousel } from './HeroCarousel'
 export { default as EventsList } from './EventsList'
 export { default as TicketTailorEmbed } from './TicketTailorEmbed'
 export { default as EmbedCode } from './EmbedCode'
+export { default as SponsorsCarousel } from './SponsorsCarousel'
 

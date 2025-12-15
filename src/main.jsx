@@ -1,7 +1,7 @@
 import React from 'react'
 import ReactDOM from 'react-dom/client'
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
-import { Home, Blog, BlogPost, Team, CustomPage, Events, EventDetail } from './pages'
+import { Home, Blog, BlogPost, Team, CustomPage, Events, EventDetail, Sponsors, Donate } from './pages'
 import './styles/index.css'
 
 ReactDOM.createRoot(document.getElementById('root')).render(
@@ -14,6 +14,8 @@ ReactDOM.createRoot(document.getElementById('root')).render(
       <Route path="/page/:slug" element={<CustomPage />} />
       <Route path="/events" element={<Events />} />
       <Route path="/events/:slug" element={<EventDetail />} />
+      <Route path="/sponsors" element={<Sponsors />} />
+      <Route path="/donate" element={<Donate />} />
     </Routes>
   </BrowserRouter>
 )

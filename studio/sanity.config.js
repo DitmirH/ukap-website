@@ -1,6 +1,7 @@
 import {defineConfig} from 'sanity'
 import {structureTool} from 'sanity/structure'
 import {schemaTypes} from './schemaTypes'
+import {deskStructure} from './deskStructure'
 
 const projectId = 'ijgeixey'
 
@@ -12,7 +13,7 @@ export default defineConfig([
     projectId,
     dataset: 'development',
     basePath: '/dev',
-    plugins: [structureTool()],
+    plugins: [structureTool({structure: deskStructure})],
     schema: {
       types: schemaTypes,
     },
@@ -23,7 +24,7 @@ export default defineConfig([
     projectId,
     dataset: 'production',
     basePath: '/prod',
-    plugins: [structureTool()],
+    plugins: [structureTool({structure: deskStructure})],
     schema: {
       types: schemaTypes,
     },

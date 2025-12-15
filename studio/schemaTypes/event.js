@@ -1,8 +1,9 @@
+import { SlugWithPreview } from '../components/SlugWithPreview'
+
 export default {
   name: 'event',
   title: 'Event',
   type: 'document',
-  icon: () => '📅',
   fields: [
     {
       name: 'title',
@@ -14,9 +15,12 @@ export default {
       name: 'slug',
       title: 'Slug',
       type: 'slug',
+      components: { input: SlugWithPreview },
       options: {
         source: 'title',
         maxLength: 96,
+        urlPrefix: '/events/',
+        slugify: input => input.toLowerCase().replace(/\s+/g, '-').slice(0, 96),
       },
       validation: Rule => Rule.required(),
     },
@@ -114,7 +118,6 @@ export default {
           type: 'object',
           name: 'embedCode',
           title: 'Embed Code',
-          icon: () => '</>',
           fields: [
             {
               name: 'title',

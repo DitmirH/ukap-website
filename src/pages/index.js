@@ -5,4 +5,6 @@ export { default as Team } from './Team'
 export { default as CustomPage } from './CustomPage'
 export { default as Events } from './Events'
 export { default as EventDetail } from './EventDetail'
+export { default as Sponsors } from './Sponsors'
+export { default as Donate } from './Donate'
 

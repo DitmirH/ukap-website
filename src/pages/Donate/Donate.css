@@ -1,0 +1,453 @@
+.donate-page {
+  min-height: 100vh;
+  background: #0a0a0f;
+  color: #fafafa;
+}
+
+.donate-container {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 0 2rem;
+}
+
+/* Hero */
+.donate-hero {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+  padding: 8rem 2rem 4rem;
+  text-align: center;
+}
+
+.donate-hero-content {
+  max-width: 800px;
+}
+
+.donate-hero h1 {
+  font-size: clamp(2rem, 5vw, 3rem);
+  font-weight: 700;
+  line-height: 1.2;
+  margin-bottom: 1rem;
+  background: linear-gradient(135deg, #ff6b35 0%, #f7c59f 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.donate-hero p {
+  color: #999;
+  font-size: 1.1rem;
+}
+
+/* Content */
+.donate-content {
+  padding: 3rem 0;
+}
+
+/* Introduction */
+.donate-intro {
+  text-align: center;
+  margin-bottom: 3rem;
+}
+
+.donate-intro p {
+  font-size: 1.1rem;
+  line-height: 1.8;
+  color: #ccc;
+  max-width: 700px;
+  margin: 0 auto;
+}
+
+/* Givey Widget */
+.givey-widget-container {
+  margin: 3rem 0;
+}
+
+.givey-placeholder {
+  background: rgba(255, 255, 255, 0.03);
+  border: 2px dashed rgba(255, 107, 53, 0.3);
+  border-radius: 12px;
+  padding: 3rem 2rem;
+  text-align: center;
+  min-height: 300px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.placeholder-content {
+  color: #666;
+}
+
+.placeholder-content p {
+  font-size: 1.25rem;
+  color: #888;
+  margin-bottom: 0.5rem;
+}
+
+.placeholder-content small {
+  color: #555;
+}
+
+/* Sponsorship Tiers */
+.sponsorship-tiers {
+  padding: 4rem 0;
+  text-align: center;
+}
+
+.sponsorship-tiers h2 {
+  font-size: 2rem;
+  margin-bottom: 0.5rem;
+}
+
+.tiers-subtitle {
+  color: #888;
+  margin-bottom: 3rem;
+}
+
+.tiers-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 1.5rem;
+  max-width: 1100px;
+  margin: 0 auto;
+}
+
+.tier-card {
+  position: relative;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 16px;
+  padding: 2rem;
+  text-align: left;
+  transition: border-color 0.2s, transform 0.2s;
+}
+
+.tier-card:hover {
+  border-color: rgba(255, 107, 53, 0.3);
+  transform: translateY(-4px);
+}
+
+.tier-card.highlighted {
+  border-color: #ff6b35;
+  background: rgba(255, 107, 53, 0.05);
+}
+
+.tier-badge {
+  position: absolute;
+  top: -12px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: linear-gradient(135deg, #ff6b35 0%, #e55a2b 100%);
+  color: #fff;
+  font-size: 0.75rem;
+  font-weight: 600;
+  padding: 0.35rem 1rem;
+  border-radius: 20px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.tier-name {
+  font-size: 1.5rem;
+  margin: 0.5rem 0 0.25rem;
+  color: #fff;
+}
+
+.tier-price {
+  font-size: 2rem;
+  font-weight: 700;
+  color: #ff6b35;
+  margin: 0 0 1rem;
+}
+
+.tier-description {
+  color: #888;
+  font-size: 0.95rem;
+  margin-bottom: 1.5rem;
+}
+
+.tier-benefits {
+  list-style: none;
+  padding: 0;
+  margin: 0 0 1.5rem;
+}
+
+.tier-benefits li {
+  position: relative;
+  padding: 0.5rem 0 0.5rem 1.5rem;
+  color: #ccc;
+  font-size: 0.9rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+}
+
+.tier-benefits li:last-child {
+  border-bottom: none;
+}
+
+.tier-benefits li::before {
+  content: '✓';
+  position: absolute;
+  left: 0;
+  color: #ff6b35;
+}
+
+.tier-cta {
+  display: inline-block;
+  width: 100%;
+  text-align: center;
+  background: rgba(255, 107, 53, 0.1);
+  color: #ff6b35;
+  padding: 0.75rem 1.5rem;
+  border-radius: 8px;
+  text-decoration: none;
+  font-weight: 500;
+  transition: background 0.2s;
+}
+
+.tier-cta:hover {
+  background: rgba(255, 107, 53, 0.2);
+}
+
+/* Why Donate */
+.donate-why {
+  padding: 4rem 0;
+  background: rgba(255, 255, 255, 0.02);
+}
+
+.donate-why h2 {
+  text-align: center;
+  font-size: 2rem;
+  margin-bottom: 3rem;
+  color: #fff;
+}
+
+.why-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 2rem;
+}
+
+.why-card {
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 12px;
+  padding: 2rem;
+  text-align: center;
+  transition: border-color 0.2s, transform 0.2s;
+}
+
+.why-card:hover {
+  border-color: rgba(255, 107, 53, 0.3);
+  transform: translateY(-4px);
+}
+
+.why-icon {
+  font-size: 2.5rem;
+  display: block;
+  margin-bottom: 1rem;
+}
+
+.why-card h3 {
+  font-size: 1.25rem;
+  margin-bottom: 0.75rem;
+  color: #ff6b35;
+}
+
+.why-card p {
+  color: #999;
+  font-size: 0.95rem;
+  line-height: 1.6;
+}
+
+/* Impact */
+.donate-impact {
+  padding: 4rem 0;
+  text-align: center;
+}
+
+.donate-impact h2 {
+  font-size: 2rem;
+  margin-bottom: 0.5rem;
+}
+
+.impact-subtitle {
+  color: #888;
+  font-size: 1.1rem;
+  margin-bottom: 2.5rem;
+}
+
+.impact-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  gap: 2rem;
+  margin-bottom: 2rem;
+}
+
+.impact-stat {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.stat-number {
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: #ff6b35;
+  line-height: 1;
+}
+
+.stat-label {
+  color: #888;
+  font-size: 0.9rem;
+}
+
+.impact-description {
+  color: #999;
+  max-width: 600px;
+  margin: 0 auto;
+  line-height: 1.7;
+}
+
+/* Achievements */
+.donate-achievements {
+  padding: 4rem 0;
+  background: rgba(255, 255, 255, 0.02);
+}
+
+.donate-achievements h2 {
+  text-align: center;
+  font-size: 1.75rem;
+  margin-bottom: 2rem;
+}
+
+.achievements-list {
+  list-style: none;
+  padding: 0;
+  max-width: 700px;
+  margin: 0 auto;
+}
+
+.achievements-list li {
+  position: relative;
+  padding: 1rem 0 1rem 2rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+  color: #ccc;
+  line-height: 1.6;
+}
+
+.achievements-list li::before {
+  content: '✓';
+  position: absolute;
+  left: 0;
+  color: #ff6b35;
+  font-weight: bold;
+}
+
+.achievements-list li strong {
+  color: #fff;
+}
+
+/* CTA */
+.donate-cta {
+  padding: 4rem 0;
+  text-align: center;
+}
+
+.donate-button {
+  display: inline-block;
+  background: linear-gradient(135deg, #ff6b35 0%, #e55a2b 100%);
+  color: #fff;
+  font-size: 1.25rem;
+  font-weight: 600;
+  padding: 1rem 3rem;
+  border: none;
+  border-radius: 50px;
+  cursor: pointer;
+  text-decoration: none;
+  transition: transform 0.2s, box-shadow 0.2s;
+  box-shadow: 0 4px 20px rgba(255, 107, 53, 0.3);
+}
+
+.donate-button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 30px rgba(255, 107, 53, 0.4);
+}
+
+.donate-button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.donate-note {
+  margin-top: 1.5rem;
+  color: #666;
+  font-size: 0.9rem;
+}
+
+/* Additional Content */
+.donate-additional {
+  padding: 3rem 0;
+  border-top: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.donate-additional h2 {
+  font-size: 1.75rem;
+  margin-bottom: 1rem;
+}
+
+.donate-additional h3 {
+  font-size: 1.25rem;
+  margin: 1.5rem 0 0.75rem;
+  color: #ff6b35;
+}
+
+.donate-additional p {
+  color: #ccc;
+  line-height: 1.7;
+  margin-bottom: 1rem;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .donate-hero {
+    min-height: 40vh;
+    padding: 6rem 1.5rem 3rem;
+  }
+  
+  .donate-container {
+    padding: 0 1.5rem;
+  }
+  
+  .donate-why,
+  .donate-impact,
+  .donate-achievements,
+  .donate-cta {
+    padding: 3rem 0;
+  }
+  
+  .stat-number {
+    font-size: 2rem;
+  }
+  
+  .donate-button {
+    padding: 0.875rem 2rem;
+    font-size: 1.1rem;
+  }
+  
+  .sponsorship-tiers {
+    padding: 3rem 0;
+  }
+  
+  .tiers-grid {
+    grid-template-columns: 1fr;
+    padding: 0 1rem;
+  }
+  
+  .tier-price {
+    font-size: 1.75rem;
+  }
+}
+

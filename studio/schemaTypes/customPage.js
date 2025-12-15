@@ -1,8 +1,9 @@
+import { SlugWithPreview } from '../components/SlugWithPreview'
+
 export default {
   name: 'customPage',
   title: 'Custom Page',
   type: 'document',
-  icon: () => '📄',
   fields: [
     {
       name: 'title',
@@ -14,10 +15,12 @@ export default {
       name: 'slug',
       title: 'URL Slug',
       type: 'slug',
-      description: 'The URL path for this page (e.g., "mentor-signup" becomes /page/mentor-signup)',
+      components: { input: SlugWithPreview },
       options: {
         source: 'title',
         maxLength: 96,
+        urlPrefix: '/page/',
+        slugify: input => input.toLowerCase().replace(/\s+/g, '-').slice(0, 96),
       },
       validation: Rule => Rule.required(),
     },
@@ -121,7 +124,6 @@ export default {
           type: 'object',
           name: 'formEmbed',
           title: 'Contact Form',
-          icon: () => '📧',
           fields: [
             {
               name: 'form',
@@ -155,7 +157,6 @@ export default {
           type: 'object',
           name: 'cta',
           title: 'Call to Action',
-          icon: () => '🔗',
           fields: [
             {
               name: 'text',
@@ -219,7 +220,6 @@ export default {
           type: 'object',
           name: 'divider',
           title: 'Divider / Spacer',
-          icon: () => '—',
           fields: [
             {
               name: 'style',
@@ -250,7 +250,6 @@ export default {
           type: 'object',
           name: 'twoColumn',
           title: 'Two Column Layout',
-          icon: () => '▥',
           fields: [
             {
               name: 'leftColumn',
@@ -309,7 +308,6 @@ export default {
           type: 'object',
           name: 'infoBox',
           title: 'Info Box',
-          icon: () => 'ℹ️',
           fields: [
             {
               name: 'title',
@@ -353,7 +351,6 @@ export default {
           type: 'object',
           name: 'embedCode',
           title: 'Embed Code',
-          icon: () => '</> ',
           fields: [
             {
               name: 'title',
@@ -386,7 +383,6 @@ export default {
           type: 'object',
           name: 'eventsList',
           title: 'Events List',
-          icon: () => '📅',
           fields: [
             {
               name: 'title',

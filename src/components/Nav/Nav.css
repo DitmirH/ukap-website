@@ -36,6 +36,21 @@
   color: #fafafa;
 }
 
+.nav-links a.nav-donate {
+  background: linear-gradient(135deg, #ff6b35 0%, #e55a2b 100%);
+  color: #fff;
+  padding: 0.5rem 1.25rem;
+  border-radius: 25px;
+  font-weight: 500;
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.nav-links a.nav-donate:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 4px 15px rgba(255, 107, 53, 0.3);
+  color: #fff;
+}
+
 @media (max-width: 768px) {
   .nav {
     padding: 1rem 1.5rem;

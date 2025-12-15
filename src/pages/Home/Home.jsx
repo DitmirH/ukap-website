@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
-import { Nav, Footer, ContactForm, BlogCard, HeroCarousel, EventsList } from '../../components'
+import { Nav, Footer, ContactForm, BlogCard, HeroCarousel, EventsList, SponsorsCarousel } from '../../components'
 import { client } from '../../lib/sanityClient'
 import './Home.css'
 
@@ -61,6 +61,8 @@ export default function Home() {
           <Link to="/blog" className="view-all-link">View all posts →</Link>
         </section>
       )}
+
+      <SponsorsCarousel />
 
       <Footer />
     </div>

@@ -206,7 +206,6 @@ export default {
   name: 'contactForm',
   title: 'Contact Form',
   type: 'document',
-  icon: () => '📧',
   fields: [
     {
       name: 'name',

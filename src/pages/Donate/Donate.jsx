@@ -1,7 +1,26 @@
 import { useState, useEffect } from 'react'
-import { Nav, Footer } from '../../components'
+import { Nav, Footer, EmbedCode } from '../../components'
 import { client } from '../../lib/sanityClient'
 import './Donate.css'
+
+// ⬇️ Your Zeffy donation form. To change forms later, update this slug
+// (from your Zeffy embed code: data-form-url="/embed/donation-form/<slug>").
+const ZEFFY_FORM_SLUG = 'donate-to-change-lives-16341'
+
+const ZEFFY_FORM_PATH = `/embed/donation-form/${ZEFFY_FORM_SLUG}`
+const ZEFFY_FORM_URL = `https://www.zeffy.com${ZEFFY_FORM_PATH}`
+const zeffyReady = ZEFFY_FORM_SLUG && !ZEFFY_FORM_SLUG.includes('YOUR-FORM')
+
+// Official Zeffy v2 embed (auto-resizing). Falls back to a fixed-height
+// iframe if their script fails to load.
+const ZEFFY_EMBED_CODE = `
+<div>
+  <div data-zeffy-embed data-form-url="${ZEFFY_FORM_PATH}"></div>
+  <div data-zeffy-embed-fallback style="display:none;">
+    <div style="position:relative;overflow:hidden;height:900px;width:100%;"><iframe title="Donation form powered by Zeffy" style="position:absolute;border:0;top:0;left:0;bottom:0;right:0;width:100%;height:100%" data-zeffy-embed-src="${ZEFFY_FORM_URL}" allowpaymentrequest allowTransparency="true"></iframe></div>
+  </div>
+  <script src="https://www.zeffy.com/embed/v2/zeffy-embed.js" onerror="document.querySelectorAll('[data-zeffy-embed-fallback]').forEach(function(el){el.style.display='block';el.querySelectorAll('iframe[data-zeffy-embed-src]').forEach(function(f){f.src=f.getAttribute('data-zeffy-embed-src');});});"></script>
+</div>`
 
 export default function Donate() {
   const [tiers, setTiers] = useState([])
@@ -49,20 +68,40 @@ export default function Donate() {
             </p>
           </div>
 
-          {/* Givey Widget Placeholder */}
-          <div className="givey-widget-container">
-            <div className="givey-placeholder">
-              {/* 
-                GIVEY WIDGET GOES HERE
-                Paste your Givey embed code below, replacing this placeholder.
-                Example:
-                <div data-givey-widget="donation" data-charity-id="YOUR_ID"></div>
-              */}
-              <div className="placeholder-content">
-                <p>Givey Donation Widget</p>
-                <small>Paste your Givey embed code here</small>
+          {/* Gift Aid note */}
+          <aside className="giftaid-note-box">
+            <span className="giftaid-note-badge">Gift Aid</span>
+            <h3>Make your gift worth 25% more — at no extra cost</h3>
+            <p>
+              If you&rsquo;re a UK taxpayer, please support us by ticking the
+              <strong> Gift Aid box</strong> in the form below and completing the required
+              details (your full name, home address and postcode) so we can claim Gift Aid
+              from HMRC. It costs you nothing and means every &pound;1 you give is worth
+              &pound;1.25 to us.
+            </p>
+            <p className="giftaid-note-foot">
+              If any required information is missing, we may reach out to confirm it.
+              Thank you for your support. — UKAP
+            </p>
+          </aside>
+
+          {/* Zeffy Donation Form */}
+          <div className="zeffy-widget-container">
+            {zeffyReady ? (
+              <div className="zeffy-embed">
+                <EmbedCode code={ZEFFY_EMBED_CODE} title="Donate via Zeffy" />
               </div>
-            </div>
+            ) : (
+              <div className="zeffy-placeholder">
+                <div className="placeholder-content">
+                  <p>Zeffy donation form</p>
+                  <small>
+                    Add your Zeffy form slug in <code>src/pages/Donate/Donate.jsx</code> to
+                    show the form here.
+                  </small>
+                </div>
+              </div>
+            )}
           </div>
 
           {/* Sponsorship Tiers */}

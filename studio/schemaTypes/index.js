@@ -8,5 +8,8 @@ import event from './event'
 import sponsor from './sponsor'
 import donationPage from './donationPage'
 import sponsorshipTier from './sponsorshipTier'
+import missionSection from './missionSection'
+import programme from './programme'
+import announcementModal from './announcementModal'
 
-export const schemaTypes = [post, author, teamMember, heroSlide, contactForm, customPage, event, sponsor, donationPage, sponsorshipTier]
+export const schemaTypes = [post, author, teamMember, heroSlide, contactForm, customPage, event, sponsor, donationPage, sponsorshipTier, missionSection, programme, announcementModal]

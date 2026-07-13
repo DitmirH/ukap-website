@@ -3,6 +3,24 @@ import { Link } from 'react-router-dom'
 import { client, urlFor } from '../../lib/sanityClient'
 import './HeroCarousel.css'
 
+// Resolve a slide's solid colour (preset or custom hex)
+const solidColorOf = (slide) =>
+  slide.backgroundColor === 'custom' ? slide.customColor : slide.backgroundColor
+
+// True if a hex colour is light enough to need dark text
+const isLightColor = (hex) => {
+  if (!hex) return false
+  let h = hex.replace('#', '')
+  if (h.length === 3) h = h.split('').map((c) => c + c).join('')
+  if (h.length !== 6) return false
+  const r = parseInt(h.slice(0, 2), 16)
+  const g = parseInt(h.slice(2, 4), 16)
+  const b = parseInt(h.slice(4, 6), 16)
+  // Relative luminance (perceptual); > 0.6 reads as light
+  const lum = (0.299 * r + 0.587 * g + 0.114 * b) / 255
+  return lum > 0.6
+}
+
 export default function HeroCarousel() {
   const [slides, setSlides] = useState([])
   const [currentSlide, setCurrentSlide] = useState(0)
@@ -16,6 +34,9 @@ export default function HeroCarousel() {
           _id,
           title,
           subtitle,
+          backgroundType,
+          backgroundColor,
+          customColor,
           image,
           overlay,
           duration,
@@ -99,22 +120,31 @@ export default function HeroCarousel() {
 
   return (
     <div className="hero-carousel">
-      {slides.map((s, index) => (
-        <div
-          key={s._id}
-          className={`hero-slide ${index === currentSlide ? 'active' : ''}`}
-          style={{
-            backgroundImage: `url(${urlFor(s.image).width(1920).height(1080).url()})`,
-          }}
-        >
-          <div 
-            className="hero-overlay" 
-            style={{ opacity: (s.overlay ?? 50) / 100 }} 
-          />
-        </div>
-      ))}
+      {slides.map((s, index) => {
+        const isSolid = s.backgroundType === 'solid'
+        const solid = solidColorOf(s)
+        return (
+          <div
+            key={s._id}
+            className={`hero-slide ${index === currentSlide ? 'active' : ''}`}
+            style={
+              isSolid
+                ? { backgroundColor: solid || '#02537e' }
+                : { backgroundImage: `url(${urlFor(s.image).width(1920).height(1080).url()})` }
+            }
+          >
+            {!isSolid && (
+              <div className="hero-overlay" style={{ opacity: (s.overlay ?? 50) / 100 }} />
+            )}
+          </div>
+        )
+      })}
 
-      <div className={`hero-content align-${slide.textAlign || 'center'}`}>
+      <div
+        className={`hero-content align-${slide.textAlign || 'center'} ${
+          slide.backgroundType === 'solid' && isLightColor(solidColorOf(slide)) ? 'on-light' : ''
+        }`}
+      >
         <h1 className="hero-title">{slide.title}</h1>
         {slide.subtitle && <p className="hero-subtitle">{slide.subtitle}</p>}
         

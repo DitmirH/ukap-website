@@ -1,59 +1,143 @@
 .nav {
-  position: relative;
-  z-index: 10;
+  position: sticky;
+  top: 0;
+  z-index: 100;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 1.5rem 4rem;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+  gap: 1rem;
+  padding: 0.9rem clamp(1.25rem, 4vw, 4rem);
+  background: rgba(255, 255, 255, 0.85);
+  backdrop-filter: saturate(180%) blur(14px);
+  -webkit-backdrop-filter: saturate(180%) blur(14px);
+  border-bottom: 1px solid var(--color-border);
+}
+
+/* Tri-colour brand hairline along the top edge */
+.nav::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: var(--gradient-tri);
 }
 
 .nav-logo {
-  font-family: system-ui, -apple-system, sans-serif;
-  font-size: 1.5rem;
-  font-weight: 800;
-  background: linear-gradient(135deg, #ff6b35 0%, #f7c59f 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
   text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.65rem;
+}
+
+/* Stacked 2x2 brand mark (per brand guidelines logotype) */
+.nav-logo-mark {
+  display: grid;
+  grid-template-columns: auto auto;
+  justify-items: center;
+  font-weight: var(--fw-heavy);
+  font-size: 1.15rem;
+  line-height: 0.82;
+  letter-spacing: -0.04em;
+  color: var(--ukap-black);
+  transition: transform 0.25s var(--ease-out);
+}
+
+.nav-logo:hover .nav-logo-mark {
+  transform: translateY(-2px) rotate(-3deg);
+}
+
+.nav-logo-mark .l-blue { color: var(--ukap-blue); }
+.nav-logo-mark .l-red  { color: var(--ukap-red); }
+
+.nav-logo-word {
+  display: flex;
+  flex-direction: column;
+  font-weight: var(--fw-heavy);
+  font-size: 1.05rem;
+  line-height: 1.05;
+  letter-spacing: 0.04em;
+  color: var(--ukap-black);
+}
+
+.nav-logo-word em {
+  font-style: normal;
+  font-weight: var(--fw-semibold);
+  font-size: 0.62rem;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--color-text-muted);
 }
 
 .nav-links {
   display: flex;
-  gap: 2rem;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: clamp(0.9rem, 2.2vw, 2rem);
 }
 
 .nav-links a {
-  color: #9898a6;
+  position: relative;
+  color: var(--color-text-muted);
   text-decoration: none;
   font-size: 0.95rem;
-  transition: color 0.3s;
+  font-weight: var(--fw-semibold);
+  padding: 0.25rem 0;
+  transition: color 0.2s ease;
+}
+
+/* Animated underline */
+.nav-links a:not(.nav-donate)::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -3px;
+  height: 3px;
+  border-radius: 2px;
+  background: var(--gradient-gold);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.3s var(--ease-out);
 }
 
 .nav-links a:hover,
 .nav-links a.active {
-  color: #fafafa;
+  color: var(--ukap-blue);
 }
 
-.nav-links a.nav-donate {
-  background: linear-gradient(135deg, #ff6b35 0%, #e55a2b 100%);
-  color: #fff;
-  padding: 0.5rem 1.25rem;
-  border-radius: 25px;
-  font-weight: 500;
-  transition: transform 0.2s, box-shadow 0.2s;
+.nav-links a:not(.nav-donate):hover::after,
+.nav-links a:not(.nav-donate).active::after {
+  transform: scaleX(1);
 }
 
-.nav-links a.nav-donate:hover {
-  transform: translateY(-1px);
-  box-shadow: 0 4px 15px rgba(255, 107, 53, 0.3);
-  color: #fff;
+/* Donate — the loudest thing in the nav */
+.nav-links .nav-donate {
+  background: var(--gradient-gold);
+  color: var(--ukap-black);
+  padding: 0.5rem 1.3rem;
+  border-radius: var(--radius-pill);
+  box-shadow: var(--shadow-gold);
+  transition: transform 0.2s var(--ease-out), box-shadow 0.2s var(--ease-out);
 }
 
-@media (max-width: 768px) {
+.nav-links .nav-donate:hover,
+.nav-links .nav-donate.active {
+  color: var(--ukap-black);
+  transform: translateY(-2px) scale(1.03);
+  box-shadow: 0 14px 32px -8px rgba(232, 148, 0, 0.65);
+}
+
+@media (max-width: 640px) {
   .nav {
-    padding: 1rem 1.5rem;
+    flex-direction: column;
+    gap: 0.75rem;
+    padding-block: 0.75rem;
+  }
+
+  .nav-links {
+    justify-content: center;
+    row-gap: 0.5rem;
   }
 }
-

@@ -487,6 +487,54 @@ cd studio && npx sanity cors list
 
 ---
 
+## Branching Strategy
+
+This project uses a two-branch deployment workflow with automatic deployments via Vercel.
+
+### Branches
+
+| Branch | Environment | URL | Sanity Dataset |
+|--------|-------------|-----|----------------|
+| `main` | Production | www.ukapfoundation.org | `production` |
+| `dev` | Development | development.ukapfoundation.org | `development` |
+
+### Workflow
+
+1. **Create a feature branch** from `dev`
+   ```bash
+   git checkout dev
+   git pull origin dev
+   git checkout -b feature/my-new-feature
+   ```
+
+2. **Make your changes** and commit
+   ```bash
+   git add .
+   git commit -m "Add new feature"
+   ```
+
+3. **Push and open a Pull Request** to `dev`
+   ```bash
+   git push origin feature/my-new-feature
+   ```
+
+4. **Review and merge to `dev`**
+   - Once merged, changes auto-deploy to development.ukapfoundation.org
+   - Test and verify on the development site
+
+5. **Promote to production**
+   - When ready, open a Pull Request from `dev` → `main`
+   - Once merged, changes auto-deploy to www.ukapfoundation.org
+
+### Rules
+
+- Never push directly to `main` or `dev`
+- All changes must go through Pull Requests
+- Test on development before merging to production
+- Keep `dev` up to date with `main` after production releases
+
+---
+
 ## Tech Stack
 
 | Layer | Technology |

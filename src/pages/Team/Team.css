@@ -1,84 +1,59 @@
 .team-page {
   min-height: 100vh;
-  background: #0a0a0f;
-  color: #fafafa;
   display: flex;
   flex-direction: column;
 }
 
 .team-page-content {
   flex: 1;
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 4rem 2rem;
   width: 100%;
+  max-width: var(--container);
+  margin: 0 auto;
+  padding: clamp(3.5rem, 7vw, 5.5rem) clamp(1.25rem, 4vw, 2rem) 5.5rem;
 }
 
 .team-header {
   text-align: center;
-  margin-bottom: 4rem;
+  max-width: 760px;
+  margin: 0 auto 4rem;
 }
 
-.page-title {
-  font-size: 3rem;
-  margin-bottom: 1.5rem;
-}
-
-.page-title .accent {
-  background: linear-gradient(135deg, #ff6b35 0%, #f7c59f 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-}
-
-.page-description {
+.team-header .page-description {
+  margin-top: 1rem;
   font-size: 1.1rem;
-  color: #9898a6;
-  max-width: 700px;
-  margin: 0 auto;
-  line-height: 1.7;
+  color: var(--color-text-muted);
 }
 
-.loading,
-.empty {
-  text-align: center;
-  color: #9898a6;
-  padding: 2rem;
-}
-
-/* Team Sections */
 .team-section {
-  margin-bottom: 4rem;
+  margin-bottom: 4.5rem;
 }
 
-.section-title {
-  font-size: 2rem;
-  margin-bottom: 0.75rem;
-  color: #fafafa;
+.team-section .section-title {
+  position: relative;
+  display: inline-block;
+  padding-bottom: 0.5rem;
 }
 
-.section-description {
-  color: #9898a6;
-  margin-bottom: 2rem;
+/* Gold underline bar */
+.team-section .section-title::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 56px;
+  height: 5px;
+  border-radius: 3px;
+  background: var(--gradient-gold);
+}
+
+.team-section .section-description {
+  color: var(--color-text-muted);
+  max-width: 620px;
+  margin-bottom: 2.25rem;
 }
 
 .team-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-  gap: 2rem;
+  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  gap: 1.75rem;
 }
-
-@media (max-width: 768px) {
-  .team-page-content {
-    padding: 3rem 1.5rem;
-  }
-  
-  .page-title {
-    font-size: 2rem;
-  }
-  
-  .team-grid {
-    grid-template-columns: 1fr;
-  }
-}
-

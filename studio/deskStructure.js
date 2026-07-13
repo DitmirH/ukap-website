@@ -24,6 +24,9 @@ export const deskStructure = (S) =>
             .title('Components')
             .items([
               S.documentTypeListItem('heroSlide').title('Hero Slides'),
+              S.documentTypeListItem('missionSection').title('Mission Section'),
+              S.documentTypeListItem('announcementModal').title('Announcement Modal'),
+              S.documentTypeListItem('programme').title('Programmes'),
               S.documentTypeListItem('contactForm').title('Contact Forms'),
               S.documentTypeListItem('teamMember').title('Team Members'),
               S.documentTypeListItem('author').title('Authors'),

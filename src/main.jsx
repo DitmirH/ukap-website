@@ -1,7 +1,8 @@
 import React from 'react'
 import ReactDOM from 'react-dom/client'
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
-import { Home, Blog, BlogPost, Team, CustomPage, Events, EventDetail, Sponsors, Donate } from './pages'
+import { Home, Blog, BlogPost, Team, CustomPage, Events, EventDetail, Sponsors, Donate, About, PrivacyPolicy, TermsAndConditions } from './pages'
+import { initScrollReveal } from './lib/scrollReveal'
 import './styles/index.css'
 
 ReactDOM.createRoot(document.getElementById('root')).render(
@@ -16,6 +17,11 @@ ReactDOM.createRoot(document.getElementById('root')).render(
       <Route path="/events/:slug" element={<EventDetail />} />
       <Route path="/sponsors" element={<Sponsors />} />
       <Route path="/donate" element={<Donate />} />
+      <Route path="/about" element={<About />} />
+      <Route path="/privacy-policy" element={<PrivacyPolicy />} />
+      <Route path="/terms-and-conditions" element={<TermsAndConditions />} />
     </Routes>
   </BrowserRouter>
 )
+
+initScrollReveal()

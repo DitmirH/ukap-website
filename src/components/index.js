@@ -9,3 +9,6 @@ export { default as TicketTailorEmbed } from './TicketTailorEmbed'
 export { default as EmbedCode } from './EmbedCode'
 export { default as SponsorsCarousel } from './SponsorsCarousel'
 
+export { default as MissionStrip } from './MissionStrip'
+export { default as ProgrammesGrid } from './ProgrammesGrid'
+export { default as AnnouncementModal } from './AnnouncementModal'

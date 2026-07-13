@@ -138,8 +138,9 @@ const pageContentComponents = {
   },
 }
 
-export default function CustomPage() {
-  const { slug } = useParams()
+export default function CustomPage({ slug: slugProp, fallbackTitle, fallbackBody, fallbackDescription }) {
+  const { slug: slugParam } = useParams()
+  const slug = slugProp || slugParam
   const [page, setPage] = useState(null)
   const [loading, setLoading] = useState(true)
 
@@ -203,6 +204,34 @@ export default function CustomPage() {
   }
 
   if (!page) {
+    // Placeholder for pages that are expected but not yet published in Sanity
+    if (fallbackTitle) {
+      return (
+        <div className="custom-page">
+          <Nav />
+          <div className="page-container">
+            <header className="page-header">
+              <h1 className="page-title">{fallbackTitle}</h1>
+              {fallbackDescription && (
+                <p className="page-description">{fallbackDescription}</p>
+              )}
+            </header>
+            {fallbackBody ? (
+              <div className="page-content">{fallbackBody}</div>
+            ) : (
+              <>
+                <p className="page-description">
+                  This page is coming soon. Content is managed in the UKAP Studio —
+                  create a Custom Page with the slug “{slug}” to publish it here.
+                </p>
+                <Link to="/" className="back-link">← Back to home</Link>
+              </>
+            )}
+          </div>
+          <Footer />
+        </div>
+      )
+    }
     return (
       <div className="custom-page">
         <Nav />

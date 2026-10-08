@@ -159,7 +159,22 @@
   .footer-inner { grid-template-columns: 1fr; }
 }
 
+/* Mobile: the tall vertical strip becomes a slim horizontal band.
+   (.footer prefix so it beats .brand-strip in index.css, which loads later.) */
 @media (max-width: 760px) {
   .footer-body { grid-template-columns: 1fr; }
-  .footer-strip { display: none; }
+  .footer .footer-strip {
+    flex-direction: row;
+    justify-content: center;
+    gap: 0.75rem;
+    padding: 0.85rem var(--gutter);
+  }
+  .footer .footer-strip img { width: 30px; }
+  .footer .footer-strip .brand-strip-word {
+    writing-mode: horizontal-tb;
+    align-items: baseline;
+    gap: 0.5rem;
+  }
+  .footer .footer-strip .brand-strip-word b { font-size: 1.7rem; }
+  .footer .footer-strip .brand-strip-word span { font-size: 0.8rem; }
 }

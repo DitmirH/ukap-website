@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react'
 import { useParams, Link } from 'react-router-dom'
 import { PortableText } from '@portabletext/react'
-import { Nav, Footer, ContactForm, EventsList, TicketTailorEmbed, EmbedCode } from '../../components'
+import { Nav, Footer, ContactForm, EventsList, TicketTailorEmbed, EmbedCode, PageHeader } from '../../components'
 import { client, urlFor } from '../../lib/sanityClient'
 import './CustomPage.css'
 
@@ -138,8 +138,9 @@ const pageContentComponents = {
   },
 }
 
-export default function CustomPage() {
-  const { slug } = useParams()
+export default function CustomPage({ slug: slugProp, fallbackTitle, fallbackBody, fallbackDescription }) {
+  const { slug: slugParam } = useParams()
+  const slug = slugProp || slugParam
   const [page, setPage] = useState(null)
   const [loading, setLoading] = useState(true)
 
@@ -203,6 +204,35 @@ export default function CustomPage() {
   }
 
   if (!page) {
+    // Placeholder for pages that are expected but not yet published in Sanity
+    if (fallbackTitle) {
+      return (
+        <div className="custom-page">
+          <Nav />
+          <PageHeader
+            tone="ink"
+            size="compact"
+            title={fallbackTitle}
+            subtitle={fallbackDescription}
+            crumbs={[{ label: fallbackTitle }]}
+          />
+          <div className="page-container">
+            {fallbackBody ? (
+              <div className="page-content">{fallbackBody}</div>
+            ) : (
+              <>
+                <p className="page-description">
+                  This page is coming soon. Content is managed in the UKAP Studio —
+                  create a Custom Page with the slug “{slug}” to publish it here.
+                </p>
+                <Link to="/" className="back-link">← Back to home</Link>
+              </>
+            )}
+          </div>
+          <Footer />
+        </div>
+      )
+    }
     return (
       <div className="custom-page">
         <Nav />
@@ -216,46 +246,40 @@ export default function CustomPage() {
   }
 
   const heroStyle = page.heroStyle || 'overlay'
+  const imageOverlayHero = page.heroImage && heroStyle === 'overlay'
+  const sideImage =
+    page.heroImage && (heroStyle === 'banner' || heroStyle === 'contained')
+      ? urlFor(page.heroImage).width(900).height(675).url()
+      : null
 
   return (
     <div className="custom-page">
       <Nav />
       
       {/* Hero Section */}
-      {page.heroImage && heroStyle !== 'none' && (
+      {imageOverlayHero ? (
         <div className={`page-hero hero-${heroStyle}`}>
           <img 
             src={urlFor(page.heroImage).width(1400).height(heroStyle === 'banner' ? 400 : 500).url()} 
             alt={page.heroImage.alt || page.title} 
           />
-          {heroStyle === 'overlay' && (
-            <div className="hero-overlay">
-              <h1 className="hero-title">{page.title}</h1>
-              {page.description && <p className="hero-description">{page.description}</p>}
-            </div>
-          )}
+          <div className="hero-overlay">
+            <h1 className="hero-title">{page.title}</h1>
+            {page.description && <p className="hero-description">{page.description}</p>}
+          </div>
         </div>
+      ) : (
+        <PageHeader
+          tone="blue"
+          title={page.title}
+          subtitle={page.description}
+          image={sideImage}
+          imageAlt={page.heroImage?.alt || page.title}
+          crumbs={[{ label: page.title }]}
+        />
       )}
 
       <div className="page-container">
-        {/* Title if no hero or hero without overlay */}
-        {(heroStyle === 'none' || heroStyle === 'banner' || heroStyle === 'contained') && (
-          <header className="page-header">
-            <h1 className="page-title">{page.title}</h1>
-            {page.description && <p className="page-description">{page.description}</p>}
-          </header>
-        )}
-
-        {/* Contained hero image */}
-        {page.heroImage && heroStyle === 'contained' && (
-          <div className="page-hero-contained">
-            <img 
-              src={urlFor(page.heroImage).width(900).url()} 
-              alt={page.heroImage.alt || page.title} 
-            />
-          </div>
-        )}
-
         {/* Page Content */}
         {page.content && (
           <div className="page-content">

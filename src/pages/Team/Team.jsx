@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react'
-import { Nav, Footer, TeamCard } from '../../components'
+import { Nav, Footer, TeamCard, PageHeader } from '../../components'
 import { client } from '../../lib/sanityClient'
 import './Team.css'
 
@@ -36,23 +36,28 @@ export default function Team() {
     <div className="team-page">
       <Nav activePage="team" />
 
+      <PageHeader
+        tone="blue"
+        photo="/images/team.jpg"
+        eyebrow="Our people"
+        title={<>Meet the <span className="accent">team</span></>}
+        subtitle="Students and professionals working together to help young people make meaningful progress in their personal and professional lives."
+        crumbs={[{ label: 'Team' }]}
+      />
+
       <main className="team-page-content">
-        <header className="team-header">
-          <h1 className="page-title">Meet the <span className="accent">Team</span></h1>
-          <p className="page-description">
-            The UKAP Foundation is supported by students and professionals who work together 
-            to help members achieve meaningful progress in their personal and professional lives.
-          </p>
-        </header>
 
         {loading && <p className="loading">Loading team...</p>}
 
         {!loading && leads.length > 0 && (
           <section className="team-section">
-            <h2 className="section-title">Leads</h2>
-            <p className="section-description">
-              Our Leads oversee key initiatives and drive the foundation forward.
-            </p>
+            <div className="block-head">
+              <div className="block-head-text">
+                <span className="eyebrow">Leadership</span>
+                <h2 className="section-title">Leads</h2>
+                <p className="block-head-lead">Our Leads oversee key initiatives and drive the foundation forward.</p>
+              </div>
+            </div>
             <div className="team-grid">
               {leads.map((member) => (
                 <TeamCard key={member._id} member={member} />
@@ -63,10 +68,13 @@ export default function Team() {
 
         {!loading && volunteers.length > 0 && (
           <section className="team-section">
-            <h2 className="section-title">Volunteers</h2>
-            <p className="section-description">
-              A passionate group whose enthusiasm and commitment bring our initiatives to life.
-            </p>
+            <div className="block-head">
+              <div className="block-head-text">
+                <span className="eyebrow">Volunteers</span>
+                <h2 className="section-title">The people behind every event</h2>
+                <p className="block-head-lead">A passionate group whose enthusiasm and commitment bring our initiatives to life.</p>
+              </div>
+            </div>
             <div className="team-grid">
               {volunteers.map((member) => (
                 <TeamCard key={member._id} member={member} />

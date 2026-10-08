@@ -1,0 +1,13 @@
+.action-cards {
+  padding: clamp(2.5rem, 5vw, 3.5rem) 0 var(--section-y);
+}
+
+.action-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.5rem;
+}
+
+@media (max-width: 900px) {
+  .action-grid { grid-template-columns: 1fr; max-width: 560px; }
+}

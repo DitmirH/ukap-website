@@ -2,141 +2,97 @@
   min-height: 100vh;
   display: flex;
   flex-direction: column;
-  background: #0a0a0f;
+  background: var(--color-bg);
 }
 
-/* Contact Section */
-.contact-section {
-  position: relative;
-  padding: 6rem 2rem;
-  overflow: hidden;
-}
-
-.ambient-bg {
-  position: absolute;
-  inset: 0;
-  z-index: 0;
-  pointer-events: none;
-  overflow: hidden;
-}
-
-.orb {
-  position: absolute;
-  border-radius: 50%;
-  filter: blur(100px);
-  opacity: 0.4;
-  animation: float 20s ease-in-out infinite;
-}
-
-.orb-1 {
-  width: 500px;
-  height: 500px;
-  background: #ff6b35;
-  top: -150px;
-  right: -100px;
-}
-
-.orb-2 {
-  width: 350px;
-  height: 350px;
-  background: #4a90d9;
-  bottom: -100px;
-  left: -100px;
-  animation-delay: -10s;
-}
-
-@keyframes float {
-  0%, 100% { transform: translate(0, 0) scale(1); }
-  50% { transform: translate(20px, -20px) scale(1.05); }
-}
-
-.contact-content {
-  position: relative;
-  z-index: 1;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  text-align: center;
-}
-
-.section-heading {
-  font-size: clamp(2rem, 5vw, 3.5rem);
-  margin-bottom: 1rem;
-  line-height: 1.1;
-}
-
-.section-heading .accent {
-  background: linear-gradient(135deg, #ff6b35 0%, #f7c59f 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-}
-
-/* Events Preview */
-.events-preview {
-  position: relative;
-  z-index: 1;
-  padding: 4rem 2rem;
-  max-width: 1100px;
-  margin: 0 auto;
-  width: 100%;
-  background: rgba(255, 255, 255, 0.02);
-}
-
-/* Blog Preview */
-.blog-preview {
-  position: relative;
-  z-index: 1;
-  padding: 4rem 2rem;
-  max-width: 1200px;
-  margin: 0 auto;
-  width: 100%;
-}
-
-.section-title {
-  text-align: center;
-  font-size: 2rem;
-  margin-bottom: 2rem;
-}
-
-.section-title .accent {
-  background: linear-gradient(135deg, #ff6b35 0%, #f7c59f 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-}
-
+/* --- Latest news --- */
 .blog-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
-  gap: 2rem;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 1.5rem;
 }
 
-.view-all-link {
-  display: block;
-  text-align: center;
+/* --- Contact: split block --- */
+/* Full-bleed: blue left half, white right half */
+.contact-section {
+  scroll-margin-top: var(--nav-h);
+  background: linear-gradient(90deg, var(--ukap-blue) 50%, var(--ukap-white) 50%);
+  border-top: 1px solid var(--color-border);
+}
+
+.contact-grid {
+  max-width: var(--container);
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+}
+
+.contact-intro {
+  position: relative;
+  background: var(--ukap-blue);
+  color: var(--ukap-white);
+  padding: var(--section-y) clamp(1.5rem, 4vw, 4rem) var(--section-y) var(--gutter);
+}
+
+.contact-intro h2 {
+  color: inherit;
+  text-transform: uppercase;
+  font-size: clamp(2rem, 1.4rem + 2.4vw, 3.2rem);
+  line-height: 1;
+}
+
+.contact-intro p {
+  margin-top: 1.25rem;
+  font-size: 1.1rem;
+  line-height: 1.65;
+  max-width: 40ch;
+  opacity: 0.92;
+}
+
+.contact-email {
+  display: inline-block;
   margin-top: 2rem;
-  color: #ff6b35;
-  text-decoration: none;
-  font-size: 1rem;
-  transition: opacity 0.3s;
+  font-weight: var(--fw-bold);
+  font-size: 1.1rem;
+  color: var(--ukap-white);
+  border-bottom: 2px solid var(--ukap-yellow);
+  padding-bottom: 0.2rem;
+  position: relative;
+  z-index: 1;
 }
 
-.view-all-link:hover {
-  opacity: 0.8;
+.contact-email:hover { color: var(--ukap-yellow); }
+
+.contact-watermark {
+  position: absolute;
+  right: clamp(1.5rem, 4vw, 4rem);
+  bottom: var(--section-y);
+  width: 110px;
+  color: rgba(255, 175, 26, 0.45);
 }
 
-@media (max-width: 768px) {
-  .hero {
-    padding: 3rem 1.5rem;
-  }
-  
-  .blog-preview {
-    padding: 3rem 1.5rem;
-  }
-  
-  .blog-grid {
-    grid-template-columns: 1fr;
-  }
+.contact-form-col {
+  background: var(--ukap-white);
+  padding: var(--section-y) var(--gutter) var(--section-y) clamp(1.5rem, 5vw, 5rem);
+  display: flex;
+  align-items: center;
 }
 
+.contact-form-col > * {
+  width: 100%;
+}
+
+@media (max-width: 900px) {
+  .contact-section { background: var(--ukap-white); }
+  .contact-grid { grid-template-columns: 1fr; }
+  .contact-form-col { padding-left: var(--gutter); }
+  .contact-watermark { display: none; }
+}
+
+.contact-form-col .contact-form-wrapper {
+  border: 0;
+  padding: 0;
+  box-shadow: none;
+  max-width: none;
+  background: transparent;
+}

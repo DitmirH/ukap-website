@@ -1,4 +1,4 @@
-import { Nav, Footer } from '../../components'
+import { Nav, Footer, PageHeader } from '../../components'
 import EventsList from '../../components/EventsList'
 import './Events.css'
 
@@ -7,10 +7,14 @@ export default function Events() {
     <div className="events-page">
       <Nav activePage="events" />
       
-      <div className="events-hero">
-        <h1>Upcoming Events</h1>
-        <p>Join us at our upcoming events and be part of the UKAP community</p>
-      </div>
+      <PageHeader
+        tone="red"
+        photo="/images/audience.jpg"
+        eyebrow="Events"
+        title={<>Learn, connect and <span className="accent">grow</span></>}
+        subtitle="Panels, workshops, webinars and flagship evenings that connect young people with industry leaders."
+        crumbs={[{ label: 'Events' }]}
+      />
 
       <div className="events-page-container">
         <EventsList 

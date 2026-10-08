@@ -1,0 +1,191 @@
+.about-page {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.about-split {
+  display: grid;
+  grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr);
+  gap: clamp(2rem, 6vw, 5rem);
+  align-items: start;
+}
+
+.about-prose p {
+  margin-bottom: 1.25rem;
+  font-size: 1.08rem;
+  line-height: 1.75;
+  color: var(--color-text-muted);
+}
+
+.about-prose .about-lead {
+  font-size: clamp(1.2rem, 1.05rem + 0.5vw, 1.45rem);
+  line-height: 1.55;
+  font-weight: var(--fw-regular);
+  color: var(--color-text);
+}
+
+/* Mission — red block */
+.about-mission {
+  position: relative;
+  overflow: hidden;
+  background: var(--ukap-red);
+  color: var(--ukap-white);
+  padding-block: clamp(4rem, 8vw, 6.5rem);
+}
+
+.about-mission blockquote {
+  position: relative;
+  z-index: 1;
+  font-size: clamp(1.7rem, 1.1rem + 2.4vw, 3rem);
+  font-weight: var(--fw-bold);
+  line-height: 1.15;
+  letter-spacing: -0.025em;
+  max-width: 24ch;
+}
+
+.about-mission-mark {
+  position: absolute;
+  right: max(-40px, calc((100vw - var(--container)) / 2));
+  top: 50%;
+  transform: translateY(-50%);
+  width: clamp(160px, 20vw, 260px);
+  color: rgba(255, 255, 255, 0.22);
+}
+
+/* Programmes */
+.about-programmes {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.5rem;
+}
+
+.about-programme {
+  min-height: 280px;
+  display: flex;
+  flex-direction: column;
+}
+
+.about-programme-num {
+  font-weight: var(--fw-bold);
+  font-size: 0.85rem;
+  letter-spacing: 0.14em;
+  color: var(--ukap-blue);
+  margin-bottom: auto;
+}
+
+.tint-red .about-programme-num { color: var(--ukap-red); }
+.tint-yellow .about-programme-num { color: var(--ukap-yellow-deep); }
+
+.about-programme h3 {
+  font-size: 1.4rem;
+  margin: 2.5rem 0 0.7rem;
+}
+
+.about-programme p {
+  color: var(--color-text-muted);
+  line-height: 1.6;
+}
+
+.about-after {
+  margin-top: 2rem;
+  max-width: 70ch;
+  color: var(--color-text-muted);
+  font-size: 1.05rem;
+}
+
+/* Impact */
+.about-stats {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 12px;
+}
+
+.about-stats .tile {
+  min-height: 180px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.about-highlights {
+  margin-top: clamp(3rem, 6vw, 5rem);
+}
+
+.about-subheading {
+  font-size: clamp(1.5rem, 1.2rem + 1vw, 2rem);
+  margin-bottom: 1rem;
+}
+
+.about-muted {
+  color: var(--color-text-muted);
+  max-width: 44ch;
+}
+
+.about-achievements {
+  list-style: none;
+  border-top: 1px solid var(--color-border-strong);
+}
+
+.about-achievements li {
+  position: relative;
+  display: grid;
+  gap: 0.2rem;
+  padding: 1rem 0 1rem 1.75rem;
+  border-bottom: 1px solid var(--color-border-strong);
+}
+
+.about-achievements li::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 1.35rem;
+  width: 12px;
+  height: 12px;
+  background: var(--ukap-blue);
+}
+
+.about-achievements li:nth-child(3n + 2)::before { background: var(--ukap-red); }
+.about-achievements li:nth-child(3n)::before { background: var(--ukap-yellow); }
+
+.about-achievements strong {
+  font-weight: var(--fw-bold);
+  color: var(--color-heading);
+}
+
+.about-achievements span {
+  color: var(--color-text-muted);
+  font-size: 0.97rem;
+}
+
+/* Note */
+.about-note-wrap { padding-bottom: var(--section-y); }
+
+.about-note {
+  border-left: 6px solid var(--ukap-yellow);
+  background: var(--ukap-yellow-soft);
+  padding: 1.75rem 2rem;
+  max-width: 860px;
+}
+
+.about-note h3 {
+  font-size: 1.15rem;
+  margin-bottom: 0.5rem;
+}
+
+.about-note p {
+  color: var(--color-text-muted);
+}
+
+.about-cta-buttons {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.85rem;
+}
+
+@media (max-width: 900px) {
+  .about-split,
+  .about-programmes { grid-template-columns: 1fr; }
+  .about-stats { grid-template-columns: 1fr 1fr; }
+  .about-programme { min-height: 0; }
+}

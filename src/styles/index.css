@@ -1,23 +1,176 @@
+/* ============================================================
+   UKAP Foundation — Brand Design Tokens
+   Palette & typography from the official brand guidelines.
+   Primary typeface: Segoe Pro Display (Bold / Semibold / Light).
+   Selawik (Microsoft's free, OFL-licensed Segoe substitute) is
+   self-hosted as the closest legally-usable match.
+   ============================================================ */
+
+@font-face {
+  font-family: "Selawik";
+  src: url("/fonts/selawkl.woff2") format("woff2"),
+       url("/fonts/selawkl.woff") format("woff");
+  font-weight: 300;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Selawik";
+  src: url("/fonts/selawk.woff2") format("woff2"),
+       url("/fonts/selawk.woff") format("woff");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Selawik";
+  src: url("/fonts/selawksb.woff2") format("woff2"),
+       url("/fonts/selawksb.woff") format("woff");
+  font-weight: 600;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Selawik";
+  src: url("/fonts/selawkb.woff2") format("woff2"),
+       url("/fonts/selawkb.woff") format("woff");
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+:root {
+  /* --- Core brand colours (Brand Identity by Betsu Works) --- */
+  --ukap-blue: #02537e;          /* Pantone Process Blue C — professional / academic */
+  --ukap-blue-mid: #0a7ab8;
+  --ukap-blue-light: #33b9ff;
+  --ukap-blue-soft: #ccedfe;     /* tile tint */
+  --ukap-blue-deep: #023853;     /* footer / deep blocks */
+
+  --ukap-red: #b11823;           /* Pantone Red 032C — mentorship / student */
+  --ukap-red-deep: #8e111a;
+  --ukap-red-light: #ef5a64;
+  --ukap-red-soft: #fbced1;      /* tile tint */
+
+  --ukap-yellow: #ffaf1a;        /* accent — always with black text */
+  --ukap-yellow-deep: #b26a00;
+  --ukap-yellow-light: #ffdfa5;
+  --ukap-yellow-soft: #fff2da;   /* tile tint */
+
+  /* --- Neutrals --- */
+  --ukap-black: #111317;
+  --ukap-ink: #1d2027;
+  --ukap-white: #ffffff;
+
+  /* --- Semantic roles --- */
+  --color-bg: #ffffff;
+  --color-bg-alt: #f4f6f8;
+  --color-surface: #ffffff;
+  --color-surface-2: #f4f6f8;
+  --color-border: #e3e6eb;
+  --color-border-strong: #c9ced6;
+
+  --color-text: var(--ukap-ink);
+  --color-text-muted: #4a515c;
+  --color-text-subtle: #7b8390;
+  --color-heading: var(--ukap-black);
+
+  --color-accent: var(--ukap-yellow);
+  --color-accent-hover: #f09e00;
+  --color-accent-contrast: var(--ukap-black);
+
+  --color-link: var(--ukap-blue);
+  --color-link-hover: var(--ukap-red);
+
+  /* --- Flat colour blocks (brand: no showy gradients) --- */
+  --gradient-gold: var(--ukap-yellow);
+  --gradient-blue: var(--ukap-blue);
+  --gradient-red: var(--ukap-red);
+  --gradient-tri: linear-gradient(90deg,
+    var(--ukap-blue) 0 33.4%,
+    var(--ukap-red) 33.4% 66.7%,
+    var(--ukap-yellow) 66.7% 100%);
+
+  /* --- Typography --- */
+  --font-sans: "Selawik", "Segoe Pro Display", "Segoe UI",
+    system-ui, -apple-system, "Helvetica Neue", Arial, sans-serif;
+  --fw-light: 300;
+  --fw-regular: 400;
+  --fw-semibold: 600;
+  --fw-bold: 700;
+  --fw-heavy: 700;
+
+  /* --- Radii: square, block-built brand --- */
+  --radius-sm: 2px;
+  --radius-md: 3px;
+  --radius-lg: 4px;
+  --radius-xl: 4px;
+  --radius-pill: 3px;
+
+  /* --- Shadows: kept minimal; blocks carry the weight --- */
+  --shadow-sm: none;
+  --shadow-md: 0 2px 0 rgba(17, 19, 23, 0.06);
+  --shadow-lg: 0 18px 40px -18px rgba(17, 19, 23, 0.28);
+  --shadow-gold: none;
+  --shadow-blue: none;
+
+  /* --- Motion --- */
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+  --speed-fast: 0.18s;
+  --speed-med: 0.35s;
+
+  /* --- Layout --- */
+  --container: 1240px;
+  --gutter: clamp(1.25rem, 4vw, 2.5rem);
+  --section-y: clamp(4rem, 8vw, 7rem);
+  --nav-h: 76px;
+}
+
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
 }
 
+html {
+  scroll-behavior: smooth;
+}
+
 body {
-  font-family: system-ui, -apple-system, sans-serif;
-  background: #0a0a0f;
-  color: #fafafa;
-  line-height: 1.6;
+  font-size: 1.0625rem;
+  font-family: var(--font-sans);
+  font-weight: var(--fw-light);
+  background: var(--color-bg);
+  color: var(--color-text);
+  line-height: 1.65;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
 h1, h2, h3, h4, h5, h6 {
-  font-weight: 700;
-  line-height: 1.2;
+  font-weight: var(--fw-bold);
+  line-height: 1.15;
+  color: var(--color-heading);
+  letter-spacing: -0.02em;
+  text-wrap: balance;
+}
+
+h4, h5, h6 {
+  font-weight: var(--fw-semibold);
+}
+
+p {
+  font-weight: var(--fw-light);
 }
 
 a {
-  color: inherit;
+  color: var(--color-link);
+  text-decoration: none;
+  transition: color var(--speed-fast) ease;
+}
+
+a:hover {
+  color: var(--color-link-hover);
 }
 
 img {
@@ -25,3 +178,425 @@ img {
   height: auto;
 }
 
+::selection {
+  background: var(--ukap-yellow);
+  color: var(--ukap-black);
+}
+
+:focus-visible {
+  outline: 3px solid var(--ukap-blue-light);
+  outline-offset: 3px;
+}
+
+button {
+  font-family: inherit;
+}
+
+/* ============================================================
+   Layout helpers
+   ============================================================ */
+
+.container {
+  width: 100%;
+  max-width: var(--container);
+  margin-inline: auto;
+  padding-inline: var(--gutter);
+}
+
+.section {
+  padding-block: var(--section-y);
+}
+
+.section-alt {
+  background: var(--color-bg-alt);
+}
+
+/* ============================================================
+   Typography patterns
+   ============================================================ */
+
+.section-title {
+  font-size: clamp(1.9rem, 1.3rem + 2vw, 2.8rem);
+  text-transform: uppercase;
+  letter-spacing: -0.005em;
+  line-height: 1.02;
+  margin-bottom: 0.75rem;
+}
+
+/* Two-line Oxfam-style heading: light kicker over bold title */
+.kicker-title {
+  text-align: center;
+  margin-bottom: clamp(2rem, 4vw, 3rem);
+}
+
+.kicker-title .kicker {
+  display: block;
+  font-size: clamp(1.3rem, 1rem + 1vw, 1.9rem);
+  font-weight: var(--fw-light);
+  text-transform: uppercase;
+  color: var(--color-text);
+  letter-spacing: 0.01em;
+}
+
+.page-title {
+  font-size: clamp(2.4rem, 1.5rem + 3.6vw, 4.4rem);
+  letter-spacing: -0.03em;
+  line-height: 1;
+}
+
+/* Small caps label above headings — square colour marker like the deck */
+.eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  font-size: 0.78rem;
+  font-weight: var(--fw-bold);
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--ukap-blue);
+  margin-bottom: 1rem;
+}
+
+.eyebrow::before {
+  content: "";
+  width: 12px;
+  height: 12px;
+  background: var(--ukap-red);
+  flex: none;
+}
+
+.eyebrow.on-dark { color: var(--ukap-yellow); }
+.eyebrow.on-dark::before { background: var(--ukap-yellow); }
+
+/* Highlight-block accent word inside headings (brand collateral pattern) */
+.accent {
+  background: var(--ukap-yellow);
+  color: var(--ukap-black);
+  padding: 0 0.16em;
+  -webkit-box-decoration-break: clone;
+  box-decoration-break: clone;
+}
+
+/* ============================================================
+   Block section header — eyebrow + title left, action right
+   ============================================================ */
+
+.block-head {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 1.5rem 3rem;
+  flex-wrap: wrap;
+  margin-bottom: clamp(2rem, 4vw, 3.25rem);
+}
+
+.block-head-text {
+  max-width: 720px;
+}
+
+.block-head .section-title {
+  margin-bottom: 0;
+}
+
+.block-head-lead {
+  margin-top: 1rem;
+  font-size: 1.12rem;
+  color: var(--color-text-muted);
+  max-width: 60ch;
+}
+
+/* ============================================================
+   Buttons — square blocks
+   ============================================================ */
+
+.btn,
+.btn-primary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.6rem;
+  font-family: inherit;
+  font-weight: var(--fw-bold);
+  font-size: 1rem;
+  line-height: 1.2;
+  padding: 0.95rem 1.6rem;
+  border: 2px solid transparent;
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  text-decoration: none;
+  transition: background-color var(--speed-fast) ease,
+              color var(--speed-fast) ease,
+              border-color var(--speed-fast) ease,
+              transform var(--speed-fast) var(--ease-out);
+}
+
+.btn::after,
+.btn-primary::after {
+  content: "→";
+  font-weight: var(--fw-bold);
+  transition: transform var(--speed-fast) var(--ease-out);
+}
+
+.btn:hover::after,
+.btn-primary:hover::after {
+  transform: translateX(4px);
+}
+
+.btn.no-arrow::after { content: none; }
+
+.btn-primary,
+.btn-yellow {
+  background: var(--ukap-yellow);
+  color: var(--ukap-black);
+}
+
+.btn-primary:hover,
+.btn-yellow:hover {
+  background: var(--ukap-black);
+  color: var(--ukap-white);
+}
+
+.btn-blue {
+  background: var(--ukap-blue);
+  color: var(--ukap-white);
+}
+
+.btn-blue:hover {
+  background: var(--ukap-black);
+  color: var(--ukap-white);
+}
+
+.btn-outline {
+  background: transparent;
+  color: var(--ukap-black);
+  border-color: currentColor;
+}
+
+.btn-outline:hover {
+  background: var(--ukap-black);
+  border-color: var(--ukap-black);
+  color: var(--ukap-white);
+}
+
+.btn-outline-light {
+  background: transparent;
+  color: var(--ukap-white);
+  border-color: rgba(255, 255, 255, 0.7);
+}
+
+.btn-outline-light:hover {
+  background: var(--ukap-white);
+  border-color: var(--ukap-white);
+  color: var(--ukap-black);
+}
+
+/* "View all →" text link */
+.view-all-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-weight: var(--fw-bold);
+  color: var(--ukap-blue);
+  padding: 0.35rem 0;
+  border-bottom: 2px solid var(--ukap-yellow);
+  transition: color var(--speed-fast) ease, gap var(--speed-fast) var(--ease-out);
+}
+
+.view-all-link::after {
+  content: "→";
+}
+
+.view-all-link:hover {
+  color: var(--ukap-red);
+  gap: 0.8rem;
+}
+
+/* Tri-colour block bar (logo colours) */
+.tri-bar {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  height: 8px;
+}
+.tri-bar > span:nth-child(1) { background: var(--ukap-blue); }
+.tri-bar > span:nth-child(2) { background: var(--ukap-red); }
+.tri-bar > span:nth-child(3) { background: var(--ukap-yellow); }
+
+/* Outline "UKAP" monogram watermark — tinted via currentColor */
+.ukap-watermark {
+  display: block;
+  aspect-ratio: 484 / 674;
+  background: currentColor;
+  -webkit-mask: url("/brand/ukap-outline.png") no-repeat center / contain;
+  mask: url("/brand/ukap-outline.png") no-repeat center / contain;
+  pointer-events: none;
+}
+
+/* Square tint tile (deck pattern) */
+.tile {
+  padding: clamp(1.4rem, 2.5vw, 2rem);
+  background: var(--ukap-blue-soft);
+}
+.tile.tint-blue { background: var(--ukap-blue-soft); }
+.tile.tint-red { background: var(--ukap-red-soft); }
+.tile.tint-yellow,
+.tile.tint-gold { background: var(--ukap-yellow-soft); }
+
+.stat-num {
+  display: block;
+  font-size: clamp(2rem, 1.4rem + 2vw, 2.9rem);
+  font-weight: var(--fw-bold);
+  line-height: 1;
+  letter-spacing: -0.03em;
+  color: var(--ukap-blue);
+}
+.tint-red .stat-num { color: var(--ukap-red); }
+.tint-yellow .stat-num { color: var(--ukap-black); }
+
+.stat-label {
+  display: block;
+  margin-top: 0.6rem;
+  font-size: 0.92rem;
+  line-height: 1.4;
+  color: var(--color-text);
+}
+
+/* ============================================================
+   Shared states
+   ============================================================ */
+
+.loading,
+.empty {
+  text-align: center;
+  color: var(--color-text-muted);
+  padding: 4rem 1rem;
+  font-size: 1.05rem;
+}
+
+.loading {
+  position: relative;
+  animation: pulse 1.4s ease-in-out infinite;
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.45; }
+}
+
+/* ============================================================
+   Scroll-reveal micro-interactions
+   Elements are tagged with [data-reveal] by src/lib/scrollReveal.js.
+   Hidden state only applies once JS confirms it's running
+   (body.reveal-ready), so content never gets stuck invisible.
+   ============================================================ */
+
+@media (prefers-reduced-motion: no-preference) {
+  body.reveal-ready [data-reveal] {
+    opacity: 0;
+    transform: translateY(26px);
+    transition:
+      opacity 0.7s var(--ease-out),
+      transform 0.7s var(--ease-out);
+    will-change: opacity, transform;
+  }
+
+  body.reveal-ready [data-reveal].in-view {
+    opacity: 1;
+    transform: none;
+  }
+
+  /* Directional variants — slide in from the side */
+  body.reveal-ready [data-reveal].reveal-left:not(.in-view) {
+    transform: translateX(-56px);
+  }
+
+  body.reveal-ready [data-reveal].reveal-right:not(.in-view) {
+    transform: translateX(56px);
+  }
+}
+
+/* ============================================================
+   Cards (image top, white body, solid button) — Oxfam pattern
+   ============================================================ */
+
+.card {
+  display: flex;
+  flex-direction: column;
+  background: var(--ukap-white);
+  border: 1px solid var(--color-border);
+  height: 100%;
+}
+
+.card-media {
+  position: relative;
+  aspect-ratio: 16 / 11;
+  overflow: hidden;
+  background: var(--ukap-blue);
+}
+
+.card-media img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: transform 0.6s var(--ease-out);
+}
+
+.card:hover .card-media img { transform: scale(1.04); }
+
+.card-tag {
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  background: var(--ukap-blue);
+  color: var(--ukap-white);
+  font-size: 0.8rem;
+  font-weight: var(--fw-semibold);
+  padding: 0.4rem 0.75rem;
+}
+
+.card-tag.tone-red { background: var(--ukap-red); }
+.card-tag.tone-yellow { background: var(--ukap-yellow); color: var(--ukap-black); }
+
+.card-body {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  padding: 1.5rem 1.5rem 1.75rem;
+}
+
+.card-title {
+  font-size: 1.35rem;
+  font-weight: var(--fw-semibold);
+  line-height: 1.2;
+  margin-bottom: 0.6rem;
+  color: var(--ukap-blue);
+}
+
+.card-text {
+  color: var(--color-text-muted);
+  font-size: 0.98rem;
+  line-height: 1.55;
+  margin-bottom: 1.5rem;
+}
+
+.card-body .btn,
+.card-body .btn-sm { margin-top: auto; align-self: flex-start; }
+
+.btn-sm {
+  display: inline-flex;
+  align-items: center;
+  font-weight: var(--fw-bold);
+  font-size: 0.95rem;
+  padding: 0.7rem 1.2rem;
+  border: 2px solid transparent;
+  transition: background-color var(--speed-fast) ease, color var(--speed-fast) ease, border-color var(--speed-fast) ease;
+}
+
+.btn-sm.solid-blue { background: var(--ukap-blue); color: var(--ukap-white); }
+.btn-sm.solid-blue:hover { background: var(--ukap-blue-deep); color: var(--ukap-white); }
+.btn-sm.solid-red { background: var(--ukap-red); color: var(--ukap-white); }
+.btn-sm.solid-red:hover { background: var(--ukap-red-deep); color: var(--ukap-white); }
+.btn-sm.solid-yellow { background: var(--ukap-yellow); color: var(--ukap-black); }
+.btn-sm.solid-yellow:hover { background: var(--ukap-black); color: var(--ukap-white); }
+.btn-sm.outline-blue { border-color: var(--ukap-blue); color: var(--ukap-blue); }
+.btn-sm.outline-blue:hover { background: var(--ukap-blue); color: var(--ukap-white); }

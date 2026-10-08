@@ -1,84 +1,23 @@
 .team-page {
   min-height: 100vh;
-  background: #0a0a0f;
-  color: #fafafa;
   display: flex;
   flex-direction: column;
 }
 
 .team-page-content {
   flex: 1;
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 4rem 2rem;
   width: 100%;
-}
-
-.team-header {
-  text-align: center;
-  margin-bottom: 4rem;
-}
-
-.page-title {
-  font-size: 3rem;
-  margin-bottom: 1.5rem;
-}
-
-.page-title .accent {
-  background: linear-gradient(135deg, #ff6b35 0%, #f7c59f 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-}
-
-.page-description {
-  font-size: 1.1rem;
-  color: #9898a6;
-  max-width: 700px;
+  max-width: var(--container);
   margin: 0 auto;
-  line-height: 1.7;
+  padding: var(--section-y) var(--gutter);
 }
 
-.loading,
-.empty {
-  text-align: center;
-  color: #9898a6;
-  padding: 2rem;
-}
-
-/* Team Sections */
-.team-section {
-  margin-bottom: 4rem;
-}
-
-.section-title {
-  font-size: 2rem;
-  margin-bottom: 0.75rem;
-  color: #fafafa;
-}
-
-.section-description {
-  color: #9898a6;
-  margin-bottom: 2rem;
+.team-section + .team-section {
+  margin-top: var(--section-y);
 }
 
 .team-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-  gap: 2rem;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  gap: 1.5rem;
 }
-
-@media (max-width: 768px) {
-  .team-page-content {
-    padding: 3rem 1.5rem;
-  }
-  
-  .page-title {
-    font-size: 2rem;
-  }
-  
-  .team-grid {
-    grid-template-columns: 1fr;
-  }
-}
-

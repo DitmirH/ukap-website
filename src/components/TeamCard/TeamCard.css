@@ -1,98 +1,87 @@
 .team-card {
-  background: rgba(255, 255, 255, 0.03);
-  border: 1px solid rgba(255, 255, 255, 0.08);
-  border-radius: 16px;
-  overflow: hidden;
-  transition: all 0.3s ease;
+  background: var(--color-surface);
+  display: flex;
+  flex-direction: column;
+  border-bottom: 4px solid var(--ukap-blue);
+  transition: transform var(--speed-med) var(--ease-out), border-color var(--speed-fast) ease;
 }
 
 .team-card:hover {
-  transform: translateY(-5px);
-  border-color: rgba(255, 107, 53, 0.3);
-  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+  transform: translateY(-4px);
+  border-color: var(--ukap-yellow);
 }
 
 .team-card-image {
-  width: 100%;
-  aspect-ratio: 1;
+  aspect-ratio: 1 / 1;
   overflow: hidden;
-  background: rgba(255, 255, 255, 0.05);
+  background: var(--ukap-blue);
 }
 
-.team-card-image img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  transition: transform 0.3s ease;
-}
-
-.team-card:hover .team-card-image img {
-  transform: scale(1.05);
-}
-
+.team-card-image img,
 .team-card-placeholder {
   width: 100%;
   height: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background: linear-gradient(135deg, #ff6b35 0%, #f7c59f 100%);
+  object-fit: cover;
+  display: block;
+  transition: transform 0.6s var(--ease-out);
 }
 
-.team-card-placeholder span {
-  font-size: 4rem;
-  font-weight: 700;
-  color: #0a0a0f;
+.team-card:hover .team-card-image img {
+  transform: scale(1.04);
+}
+
+.team-card-placeholder {
+  display: grid;
+  place-items: center;
+  background: var(--ukap-blue);
+  color: var(--ukap-yellow);
+  font-size: 4.5rem;
+  font-weight: var(--fw-bold);
 }
 
 .team-card-content {
-  padding: 1.5rem;
+  padding: 1.4rem 1.4rem 1.6rem;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  flex: 1;
+  border: 1px solid var(--color-border);
+  border-top: 0;
+  border-bottom: 0;
 }
 
 .team-card-name {
   font-size: 1.25rem;
-  margin-bottom: 0.25rem;
-  color: #fafafa;
+  margin-bottom: 0.4rem;
 }
 
 .team-card-role {
-  display: block;
-  font-size: 0.9rem;
-  color: #ff6b35;
-  font-weight: 500;
-  margin-bottom: 1rem;
+  display: inline-block;
+  font-size: 0.74rem;
+  font-weight: var(--fw-bold);
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--ukap-red);
+  margin-bottom: 0.9rem;
 }
 
 .team-card-bio {
-  font-size: 0.9rem;
-  color: #9898a6;
+  color: var(--color-text-muted);
+  font-size: 0.94rem;
   line-height: 1.6;
-  margin-bottom: 1rem;
-  display: -webkit-box;
-  -webkit-line-clamp: 4;
-  -webkit-box-orient: vertical;
-  overflow: hidden;
+  margin-bottom: 1.1rem;
 }
 
 .team-card-linkedin {
+  margin-top: auto;
   display: inline-flex;
   align-items: center;
-  gap: 0.5rem;
-  color: #0a66c2;
-  text-decoration: none;
+  gap: 0.45rem;
   font-size: 0.9rem;
-  font-weight: 500;
-  padding: 0.5rem 1rem;
-  background: rgba(10, 102, 194, 0.1);
-  border-radius: 8px;
-  transition: all 0.3s;
+  font-weight: var(--fw-bold);
+  color: var(--ukap-blue);
 }
 
 .team-card-linkedin:hover {
-  background: rgba(10, 102, 194, 0.2);
+  color: var(--ukap-red);
 }
-
-.team-card-linkedin svg {
-  flex-shrink: 0;
-}
-

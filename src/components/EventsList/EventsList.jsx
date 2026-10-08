@@ -3,6 +3,19 @@ import { Link } from 'react-router-dom'
 import { client, urlFor } from '../../lib/sanityClient'
 import './EventsList.css'
 
+// Map event categories to UKAP brand colour families
+const CATEGORY_COLORS = {
+  conference: 'blue',
+  networking: 'blue',
+  workshop: 'blue',
+  gala: 'red',
+  fundraiser: 'red',
+  concert: 'red',
+  exhibition: 'gold',
+  other: 'gold',
+}
+const catColor = (c) => CATEGORY_COLORS[c] || 'gold'
+
 export default function EventsList({ 
   title = 'Upcoming Events',
   showPastEvents = false,
@@ -82,8 +95,18 @@ export default function EventsList({
   if (events.length === 0) {
     return (
       <div className="events-empty">
-        <p>No upcoming events at the moment.</p>
-        <p>Check back soon!</p>
+        <span className="events-empty-mark" aria-hidden="true" />
+        <div>
+          <p className="events-empty-title">New events are on the way</p>
+          <p>
+            We&rsquo;re planning the next season of panels, workshops and flagship evenings.
+            Follow us on{' '}
+            <a href="https://www.linkedin.com/company/ukapfoundation/" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+            {' '}or{' '}
+            <a href="https://www.instagram.com/ukapfoundation/" target="_blank" rel="noopener noreferrer">Instagram</a>
+            {' '}to hear first.
+          </p>
+        </div>
       </div>
     )
   }
@@ -169,16 +192,16 @@ export default function EventsList({
 
               {/* Cards Style */}
               {style === 'cards' && (
-                <div className="event-card">
+                <div className={`event-card${event.category ? ` cat-${catColor(event.category)}` : ''}`}>
                   {event.image && (
                     <div className="event-card-image">
                       <img src={urlFor(event.image).width(400).height(250).url()} alt={event.title} />
-                      {event.category && (
-                        <span className="event-category">{event.category}</span>
-                      )}
                     </div>
                   )}
                   <div className="event-card-content">
+                    {event.category && (
+                      <span className="event-cat-label">{event.category}</span>
+                    )}
                     <time className="event-card-date">
                       {date.weekday}, {date.full}
                     </time>

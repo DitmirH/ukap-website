@@ -36,7 +36,10 @@ export default function SponsorsCarousel() {
 
   return (
     <section className="sponsors-carousel-section">
-      <h3 className="sponsors-carousel-title">Our Sponsors & Partners</h3>
+      <div className="sponsors-carousel-head">
+        <span className="eyebrow">With thanks to our partners</span>
+        <Link to="/sponsors" className="view-all-link">All partners</Link>
+      </div>
       
       <div className="sponsors-carousel-wrapper">
         <div className="sponsors-carousel-track">
@@ -72,9 +75,6 @@ export default function SponsorsCarousel() {
         </div>
       </div>
 
-      <Link to="/sponsors" className="sponsors-view-all">
-        View all sponsors →
-      </Link>
     </section>
   )
 }

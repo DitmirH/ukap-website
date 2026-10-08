@@ -1,0 +1,38 @@
+.help-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.5rem;
+}
+
+.help-card .card-body {
+  align-items: center;
+  text-align: center;
+  padding: 2rem 1.5rem 2.25rem;
+}
+
+.help-title {
+  font-size: clamp(1.3rem, 1.1rem + 0.6vw, 1.6rem);
+  font-weight: var(--fw-regular);
+  line-height: 1.2;
+  margin-bottom: 1.4rem;
+  max-width: 16ch;
+}
+
+.help-card .card-body .btn-sm { align-self: center; }
+
+.help-strap {
+  margin-top: clamp(2.5rem, 5vw, 3.5rem);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 1rem 1.5rem;
+  font-size: clamp(1.1rem, 1rem + 0.4vw, 1.3rem);
+  text-align: center;
+}
+
+.help-strap strong { font-weight: var(--fw-semibold); }
+
+@media (max-width: 900px) {
+  .help-grid { grid-template-columns: 1fr; max-width: 520px; margin: 0 auto; }
+}

@@ -8,3 +8,5 @@ export { default as EventDetail } from './EventDetail'
 export { default as Sponsors } from './Sponsors'
 export { default as Donate } from './Donate'
 
+export { default as About } from './About'
+export { PrivacyPolicy, TermsAndConditions } from './Legal'

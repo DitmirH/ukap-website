@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react'
 import { useParams, Link } from 'react-router-dom'
 import { PortableText } from '@portabletext/react'
-import { Nav, Footer, ContactForm, EmbedCode } from '../../components'
+import { Nav, Footer, ContactForm, EmbedCode, PageHeader } from '../../components'
 import { client, urlFor } from '../../lib/sanityClient'
 import './BlogPost.css'
 
@@ -126,7 +126,7 @@ export default function BlogPost() {
       <div className="blog-post-page">
         <Nav activePage="blog" />
         <div className="blog-post-container">
-          <h1>Post not found</h1>
+          <h1 className="page-title">Post not found</h1>
           <Link to="/blog" className="back-link">← Back to blog</Link>
         </div>
       </div>
@@ -134,36 +134,34 @@ export default function BlogPost() {
   }
 
   const postStyle = post.style || 'default'
+  // Sanity image refs encode dimensions: image-<id>-<w>x<h>-<ext>
+  const refWidth = Number(post.mainImage?.asset?._ref?.match(/-(\d+)x\d+-/)?.[1] || 0)
+  const wideImage = refWidth >= 1000
 
   return (
     <div className={`blog-post-page style-${postStyle}`}>
       <Nav activePage="blog" />
       
+      <PageHeader
+        tone="blue"
+        eyebrow={new Date(post.publishedAt).toLocaleDateString('en-GB', {
+          day: 'numeric',
+          month: 'long',
+          year: 'numeric'
+        })}
+        title={post.title}
+        subtitle={post.excerpt}
+        photo={wideImage ? urlFor(post.mainImage).width(2000).url() : null}
+        image={post.mainImage && !wideImage ? urlFor(post.mainImage).width(900).url() : null}
+        imageAlt={post.mainImage?.alt || post.title}
+        crumbs={[{ label: 'News', to: '/blog' }, { label: post.title }]}
+      />
+
       <div className="blog-post-container">
-        <Link to="/blog" className="back-link">← Back to blog</Link>
-        
-        {post.mainImage && (
-          <div className={`blog-post-hero ${postStyle === 'featured' ? 'featured-hero' : ''}`}>
-            <img 
-              src={urlFor(post.mainImage).width(1200).height(postStyle === 'featured' ? 700 : 500).url()} 
-              alt={post.title} 
-            />
-            {post.mainImage.caption && (
-              <p className="hero-caption">{post.mainImage.caption}</p>
-            )}
-          </div>
-        )}
-        
         <article className="blog-post-content">
-          <time className="blog-post-date">
-            {new Date(post.publishedAt).toLocaleDateString('en-GB', {
-              day: 'numeric',
-              month: 'long',
-              year: 'numeric'
-            })}
-          </time>
-          
-          <h1 className="blog-post-title">{post.title}</h1>
+          {post.mainImage?.caption && (
+            <p className="hero-caption">{post.mainImage.caption}</p>
+          )}
           
           {post.author && (
             <div className="blog-post-author">
@@ -181,7 +179,6 @@ export default function BlogPost() {
             </div>
           )}
           
-          {post.excerpt && <p className="blog-post-excerpt">{post.excerpt}</p>}
           
           {post.body && (
             <div className="blog-post-body">

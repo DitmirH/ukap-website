@@ -35,7 +35,7 @@ export default function EventCard({ event, colour, index = 0, overrides = {} }) 
   const tag = [CATEGORY_LABEL[event.category], event.featured && !isPast ? 'Featured' : null]
     .filter(Boolean).join(' · ')
   const dateLine = [
-    d.toLocaleDateString('en-GB', { weekday: 'long', day: 'numeric', month: 'long', ...(isPast ? { year: 'numeric' } : {}) }),
+    d.toLocaleDateString('en-GB', { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' }),
     event.time,
   ].filter(Boolean).join(' | ')
 

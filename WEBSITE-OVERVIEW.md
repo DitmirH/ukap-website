@@ -15,7 +15,7 @@ The public website for the **UKAP Foundation** (UK Albanian Professionals Founda
 | Styling | Plain CSS, one file per component/page, global design tokens in `src/styles/index.css` (CSS custom properties). No CSS framework, no preprocessor |
 | Contact email | Express + Nodemailer server (local dev, `server/index.js`, port 3001) and a Vercel serverless function (`api/contact.js`) in production. Sends via Microsoft 365 SMTP; supports base64 file attachments |
 | Donations | Zeffy embedded form (third-party); ticketing via TicketTailor embeds |
-| Hosting | Vercel, single Vite project (SPA rewrite of all routes to `index.html`, `/api/*` to serverless functions — see `vercel.json`). Studio is hosted by Sanity (`npx sanity deploy`). |
+| Hosting | Vercel, single Vite project (SPA rewrite of all routes to `index.html`, `/api/*` to serverless functions — see `vercel.json`). Studio is hosted by Sanity (`npx sanity deploy`). Hidden editor guide at `/editor-guide` (password `EDITOR_GUIDE_PASSWORD`, see `middleware.js`). |
 
 ## Repository layout
 
@@ -58,6 +58,8 @@ Dev scripts (root `package.json`): `npm run dev` (site), `dev:studio`, `dev:serv
 | `/events/:slug` | EventDetail | single event (body, venue, tickets, status) |
 | `/blog` | Blog | post documents |
 | `/blog/:slug` | BlogPost | single post (Portable Text body, author, embeds) |
+| `/resources` | Resources | resource documents (category filter + search) |
+| `/resources/:slug` | ResourceDetail | single resource (content, downloads, useful links, related) |
 | `/team` | Team | teamMember, grouped by category (lead / volunteer) |
 | `/sponsors` | Sponsors | sponsor, grouped by tier, with detail modal |
 | `/donate` | Donate | sponsorshipTier + hardcoded Zeffy embed + impact stats |
@@ -85,6 +87,7 @@ Homepage sections
 
 Content components
 - **EventCard** — poster card: image + gold date badge, colour body (15-swatch palette), tags, title, date/venue line, "Book now" (Ticket Tailor, hidden when past/sold out/cancelled) and "More info →" (whole card links to `/events/{slug}`). Past events go greyscale. Used on Home and `/events`.
+- **ResourceCard** — colour-block card for `/resources` (category tag, uppercase title, summary, download/link counts).
 - **EventsList** — (older component, still used by `customPage` embeds) — `timeline`, `cards`, `compact` styles; filters; status badges; branded empty state.
 - **BlogCard** — news card matching the event cards (colour bar + tag, uppercase title, "Read more →"); `variant="feature"` (lead story) and `variant="compact"` (list row) are used on Home, which shows the latest 5 posts.
 - **TeamCard** — square image card.
@@ -97,7 +100,7 @@ Work in progress (untracked, not wired in): AnnouncementBanner, AudiencePathways
 
 ## Sanity schemas (studio/schemaTypes/)
 
-`post`, `author`, `teamMember`, `heroSlide`, `contactForm`, `customPage`, `event`, `sponsor`, `donationPage`, `sponsorshipTier`, `missionSection`, `programme`, `announcementModal`, `eventsSection` (What's On cards).
+`post`, `author`, `teamMember`, `heroSlide`, `contactForm`, `customPage`, `event`, `sponsor`, `donationPage`, `sponsorshipTier`, `missionSection`, `programme`, `announcementModal`, `eventsSection` (What's On cards), `resource` (Resources pages at `/resources/{slug}` — rich content, downloads, links).
 
 Shared: `colourField()` + `ColourSwatchInput` give any field the 15-colour swatch picker (`studio/lib/palette.js`, mirrored in `src/lib/palette.js` — keep in sync). `event.cardColour` uses it.
 

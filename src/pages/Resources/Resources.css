@@ -1,0 +1,67 @@
+.resources-page { min-height: 100vh; display: flex; flex-direction: column; }
+
+.resources-tools {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem 2rem;
+  margin-bottom: 2rem;
+}
+
+/* Same look as the events year filter */
+.resources-filter { display: flex; flex-wrap: wrap; gap: 0.4rem; }
+.resources-filter button {
+  font: inherit;
+  font-weight: var(--fw-bold);
+  font-size: 0.95rem;
+  padding: 0.55rem 1rem;
+  border: 2px solid var(--ukap-black);
+  background: transparent;
+  color: var(--ukap-black);
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  transition: background-color var(--speed-fast) ease, color var(--speed-fast) ease;
+}
+.resources-filter button span { font-size: 0.78rem; opacity: 0.7; }
+.resources-filter button:hover { background: var(--ukap-gold); }
+.resources-filter button.active { background: var(--ukap-black); color: var(--ukap-white); }
+
+.resources-search {
+  position: relative;
+  flex: 0 1 300px;
+  display: flex;
+  align-items: center;
+}
+.resources-search svg { position: absolute; left: 14px; width: 18px; height: 18px; color: var(--color-text-muted); pointer-events: none; }
+.resources-search input {
+  width: 100%;
+  font: inherit;
+  font-size: 1rem;
+  padding: 0.7rem 1rem 0.7rem 2.6rem;
+  border: 2px solid var(--color-border);
+  background: var(--ukap-white);
+  outline: none;
+}
+.resources-search input:focus { border-color: var(--ukap-blue); }
+
+.resources-empty {
+  padding: clamp(2rem, 5vw, 3.5rem);
+  background: var(--ukap-gold-soft, #fcf0d7);
+  border-left: 6px solid var(--ukap-gold);
+}
+.resources-empty h2 { text-transform: uppercase; font-size: clamp(1.6rem, 1.2rem + 1.4vw, 2.3rem); margin-bottom: 0.5rem; }
+.resources-empty p { color: var(--color-text-muted); margin-bottom: 1rem; }
+
+.resource-skeleton { height: 360px; background: linear-gradient(90deg, #f1eee7, #f8f6f1, #f1eee7); background-size: 200% 100%; animation: rsk 1.4s linear infinite; }
+@keyframes rsk { to { background-position: -200% 0; } }
+
+.visually-hidden { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+
+@media (max-width: 640px) {
+  .resources-search { flex-basis: 100%; }
+  .resources-filter { flex-wrap: nowrap; overflow-x: auto; padding-bottom: 4px; margin-right: calc(var(--gutter) * -1); }
+  .resources-filter button { flex: none; }
+}

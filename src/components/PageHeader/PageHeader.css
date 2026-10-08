@@ -197,3 +197,7 @@
   .php-wrap { position: relative; margin-top: -48px; }
   .php-card { width: 100%; }
 }
+
+/* colour prop (palette swatch): readable heading — gold on black, otherwise black/white */
+.php-card.has-colour .php-title,
+.page-header-block.has-colour .phb-title { color: var(--ph-heading); }

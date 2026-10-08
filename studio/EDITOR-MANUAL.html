@@ -1,0 +1,518 @@
+<!doctype html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>UKAP Studio Manual</title>
+<style>
+@font-face { font-family: "Selawik"; src: url("/fonts/selawkl.woff2") format("woff2"), url("../public/fonts/selawkl.woff2") format("woff2"); font-weight: 300; }
+@font-face { font-family: "Selawik"; src: url("/fonts/selawk.woff2") format("woff2"), url("../public/fonts/selawk.woff2") format("woff2"); font-weight: 400; }
+@font-face { font-family: "Selawik"; src: url("/fonts/selawksb.woff2") format("woff2"), url("../public/fonts/selawksb.woff2") format("woff2"); font-weight: 600; }
+@font-face { font-family: "Selawik"; src: url("/fonts/selawkb.woff2") format("woff2"), url("../public/fonts/selawkb.woff2") format("woff2"); font-weight: 700; }
+@font-face { font-family: "Archivo"; src: url("/fonts/archivo-wdth.woff2") format("woff2"), url("../public/fonts/archivo-wdth.woff2") format("woff2"); font-weight: 100 900; font-stretch: 62% 125%; }
+
+:root {
+  --gold: #E2BE74; --gold-soft: #FCF0D7; --black: #0B0B0C; --charcoal: #3A3B3F;
+  --blue: #3F7EC2; --blue-deep: #1F4F86; --coral: #DB4A47; --coral-deep: #B5322F;
+  --white: #FFFFFF; --paper: #F5F3EE; --line: #E4E0D6; --muted: #5C5E64;
+  --display: "Archivo", "Arial Narrow", "Helvetica Neue", Arial, sans-serif;
+  --body: "Selawik", "Segoe UI", system-ui, -apple-system, sans-serif;
+}
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body { margin: 0; background: var(--white); color: var(--black); font: 400 17px/1.6 var(--body); }
+a { color: var(--blue-deep); text-underline-offset: 3px; }
+a:hover { color: var(--coral-deep); }
+
+/* Display headings: heavy, condensed, uppercase */
+h1, h2, h3, .display { font-family: var(--display); font-weight: 850; font-stretch: 78%; text-transform: uppercase; line-height: 0.95; letter-spacing: 0; margin: 0; }
+h2 { font-size: clamp(2rem, 1.4rem + 2vw, 3rem); }
+h3 { font-size: 1.45rem; margin: 2rem 0 0.6rem; }
+p { margin: 0.6rem 0; }
+.accent { background: var(--coral); color: var(--white); padding: 0 0.12em; }
+.tri-bar { display: grid; grid-template-columns: repeat(3, 1fr); height: 8px; }
+.tri-bar span:nth-child(1) { background: var(--blue); } .tri-bar span:nth-child(2) { background: var(--coral); } .tri-bar span:nth-child(3) { background: var(--gold); }
+
+/* Header */
+.top { background: var(--black); color: var(--white); }
+.top-inner { max-width: 1120px; margin: 0 auto; padding: 3.5rem 24px 3rem; display: grid; grid-template-columns: auto 1fr; gap: 2rem; align-items: end; }
+.brand-strip { background: var(--gold); padding: 18px 16px; display: flex; flex-direction: column; align-items: center; gap: 12px; }
+.brand-strip img { width: 54px; display: block; }
+.brand-strip span { writing-mode: vertical-rl; font-family: var(--display); font-weight: 900; font-stretch: 80%; font-size: 2.6rem; line-height: 0.85; text-transform: uppercase; }
+.top h1 { font-size: clamp(2.6rem, 1.6rem + 4vw, 5rem); color: var(--gold); }
+.top p { color: rgba(255,255,255,0.85); max-width: 60ch; font-size: 1.1rem; }
+.eyebrow { display: inline-flex; align-items: center; gap: 0.6rem; font: 700 0.78rem/1 var(--body); letter-spacing: 0.16em; text-transform: uppercase; margin-bottom: 1rem; }
+.eyebrow::before { content: ""; width: 10px; height: 10px; background: var(--coral); }
+
+/* Layout */
+.wrap { max-width: 1120px; margin: 0 auto; padding: 0 24px; display: grid; grid-template-columns: 240px minmax(0, 1fr); gap: 3rem; }
+nav.toc { position: sticky; top: 0; align-self: start; padding: 2.5rem 0; max-height: 100vh; overflow: auto; }
+nav.toc b { display: block; font: 700 0.75rem/1 var(--body); letter-spacing: 0.16em; text-transform: uppercase; color: var(--muted); margin: 1.2rem 0 0.5rem; }
+nav.toc a { display: block; padding: 0.28rem 0 0.28rem 0.8rem; border-left: 3px solid var(--line); color: var(--black); text-decoration: none; font-size: 0.95rem; }
+nav.toc a:hover { border-left-color: var(--coral); color: var(--coral-deep); }
+main { padding: 2.5rem 0 5rem; min-width: 0; }
+section { padding: 2.5rem 0; border-top: 1px solid var(--line); scroll-margin-top: 12px; }
+section:first-child { border-top: 0; padding-top: 0; }
+.where { display: inline-block; background: var(--black); color: var(--gold); font: 700 0.78rem/1 var(--body); letter-spacing: 0.12em; text-transform: uppercase; padding: 0.5rem 0.7rem; margin: 0.9rem 0 0.4rem; }
+.path { font-family: ui-monospace, Menlo, Consolas, monospace; font-size: 0.88em; background: var(--paper); border: 1px solid var(--line); padding: 0.1em 0.4em; white-space: nowrap; }
+
+/* Field tables */
+table { width: 100%; border-collapse: collapse; margin: 1rem 0; font-size: 0.97rem; }
+th { text-align: left; background: var(--black); color: var(--white); font: 700 0.75rem/1 var(--body); letter-spacing: 0.12em; text-transform: uppercase; padding: 0.75rem 0.9rem; }
+td { padding: 0.7rem 0.9rem; border-bottom: 1px solid var(--line); vertical-align: top; }
+td:first-child { font-weight: 700; width: 32%; }
+tr:nth-child(even) td { background: #FBFAF7; }
+
+/* Callouts */
+.tip, .warn, .steps { padding: 1.1rem 1.3rem; margin: 1.2rem 0; }
+.tip { background: var(--gold-soft); border-left: 6px solid var(--gold); }
+.warn { background: #FBE3E3; border-left: 6px solid var(--coral); }
+.tip strong:first-child, .warn strong:first-child { font-family: var(--display); font-weight: 850; font-stretch: 78%; text-transform: uppercase; font-size: 1.1rem; margin-right: 0.4rem; }
+.steps { background: var(--paper); counter-reset: s; list-style: none; padding-left: 1.3rem; }
+.steps li { counter-increment: s; position: relative; padding: 0.35rem 0 0.35rem 2.6rem; }
+.steps li::before { content: counter(s); position: absolute; left: 0; top: 0.3rem; width: 1.8rem; height: 1.8rem; display: grid; place-items: center; background: var(--black); color: var(--gold); font: 900 1rem/1 var(--display); }
+
+/* Workspace cards */
+.cards { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin: 1.2rem 0; }
+.card { padding: 1.4rem; color: var(--white); }
+.card h3 { margin: 0 0 0.5rem; }
+.card.dev { background: var(--blue); } .card.prod { background: var(--black); } .card.prod h3 { color: var(--gold); }
+.card p { margin: 0.3rem 0; }
+.card code { background: rgba(255,255,255,0.15); padding: 0.1em 0.35em; }
+
+/* Palette */
+.palette { display: grid; grid-template-columns: repeat(5, 1fr); gap: 6px; margin: 1.2rem 0; }
+.sw { aspect-ratio: 5 / 3; padding: 0.55rem; display: flex; flex-direction: column; justify-content: flex-end; font-size: 0.78rem; line-height: 1.25; }
+.sw b { font-weight: 700; }
+.sw.light { color: var(--black); box-shadow: inset 0 0 0 1px var(--line); } .sw.dark { color: var(--white); }
+.palette-head { display: grid; grid-template-columns: repeat(5, 1fr); gap: 6px; font: 700 0.72rem/1 var(--body); letter-spacing: 0.12em; text-transform: uppercase; color: var(--muted); }
+
+/* Mini mock of event card */
+.mock { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin: 1.2rem 0; }
+.mock div { padding: 0.9rem; min-height: 120px; display: flex; flex-direction: column; justify-content: flex-end; font: 850 1.15rem/0.95 var(--display); font-stretch: 78%; text-transform: uppercase; }
+
+footer.foot { background: var(--black); color: rgba(255,255,255,0.75); }
+footer.foot .in { max-width: 1120px; margin: 0 auto; padding: 2rem 24px; display: flex; justify-content: space-between; gap: 1rem; flex-wrap: wrap; font-size: 0.9rem; }
+
+@media (max-width: 860px) {
+  .wrap { grid-template-columns: 1fr; gap: 0; }
+  nav.toc { position: static; max-height: none; padding-bottom: 0; columns: 2; }
+  .cards { grid-template-columns: 1fr; }
+  .top-inner { grid-template-columns: 1fr; }
+  .brand-strip { flex-direction: row; justify-content: flex-start; padding: 10px 14px; }
+  .brand-strip img { width: 30px; } .brand-strip span { writing-mode: horizontal-tb; font-size: 1.5rem; }
+  .palette, .palette-head { grid-template-columns: repeat(3, 1fr); }
+  .mock { grid-template-columns: 1fr; }
+}
+@media print { nav.toc { display: none; } .wrap { grid-template-columns: 1fr; } section { break-inside: avoid-page; } }
+</style>
+</head>
+<body>
+
+<header class="top">
+  <div class="tri-bar" aria-hidden="true"><span></span><span></span><span></span></div>
+  <div class="top-inner">
+    <div class="brand-strip"><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAH0AAACrCAYAAABL55MXAAAWfmNhQlgAABZ+anVtYgAAAB5qdW1kYzJwYQARABCAAACqADibcQNjMnBhAAAAFlhqdW1iAAAAR2p1bWRjMm1hABEAEIAAAKoAOJtxA3VybjpjMnBhOjM1ZTNmZDBjLTZmMjItNDk3Yy05NTcxLWQ1OGMyZGU5MzBhYwAAAAOTanVtYgAAAClqdW1kYzJhcwARABCAAACqADibcQNjMnBhLmFzc2VydGlvbnMAAAAAuGp1bWIAAABEanVtZGNib3IAEQAQgAAAqgA4m3ETYzJwYS5pbmdyZWRpZW50LnYzAAAAABhjMnNolnnDwOop5cgFGwF6JnWibQAAAGxjYm9yo2lkYzpmb3JtYXRpaW1hZ2UvcG5namluc3RhbmNlSUR4LHhtcDppaWQ6ZTVkNTI3MjEtZjEwYi00YWEwLWExNWMtNTVlZjkzMTNiZmIybHJlbGF0aW9uc2hpcGhwYXJlbnRPZgAAAeJqdW1iAAAAQWp1bWRjYm9yABEAEIAAAKoAOJtxE2MycGEuYWN0aW9ucy52MgAAAAAYYzJzaMa6xXPrkxO8ruIiYV73Be8AAAGZY2JvcqJnYWN0aW9uc4KiZmFjdGlvbmtjMnBhLm9wZW5lZGpwYXJhbWV0ZXJzoWtpbmdyZWRpZW50c4GiY3VybHgtc2VsZiNqdW1iZj1jMnBhLmFzc2VydGlvbnMvYzJwYS5pbmdyZWRpZW50LnYzZGhhc2hYIE6WlBen2Gl8JLgRKWXPkJ0TF4hg+vytTdEZfrNaxngMpGZhY3Rpb254HWNvbS5hbnRocm9waWMuY2xhdWRlLnByb3ZpZGVkanBhcmFtZXRlcnOheB9jb20uYW50aHJvcGljLm9yaWdpbi1jb25maWRlbmNlZ3Vua25vd25rZGVzY3JpcHRpb254ZkNsYXVkZSBwcm92aWRlZCB0aGlzIGZpbGUgYXQgdGhlIHJlcXVlc3Qgb2YgYSB1c2VyIGFuZCBtYXkgaGF2ZSBjcmVhdGVkIG9yIG1vZGlmaWVkIHRoZSBmaWxlIGNvbnRlbnRzLm1zb2Z0d2FyZUFnZW50oWRuYW1lZkNsYXVkZXJhbGxBY3Rpb25zSW5jbHVkZWT1AAAAyGp1bWIAAABAanVtZGNib3IAEQAQgAAAqgA4m3ETYzJwYS5oYXNoLmRhdGEAAAAAGGMyc2ggSEg7iRSlRcGM/MKEYD/xAAAAgGNib3KlY2FsZ2ZzaGEyNTZjcGFkTQAAAAAAAAAAAAAAAABkaGFzaFggaDSbN1eqcbN93TRIm8nCXH04xDqwBz1e9auTccg3PwBkbmFtZW5qdW1iZiBtYW5pZmVzdGpleGNsdXNpb25zgaJlc3RhcnQYIWZsZW5ndGgZFooAAAI+anVtYgAAACdqdW1kYzJjbAARABCAAACqADibcQNjMnBhLmNsYWltLnYyAAAAAg9jYm9ypWNhbGdmc2hhMjU2aXNpZ25hdHVyZXhNc2VsZiNqdW1iZj0vYzJwYS91cm46YzJwYTozNWUzZmQwYy02ZjIyLTQ5N2MtOTU3MS1kNThjMmRlOTMwYWMvYzJwYS5zaWduYXR1cmVqaW5zdGFuY2VJRHgseG1wOmlpZDoxZjFlNGE1MS00YmYwLTQ5YjktODUwMC0zMThkOGVjZGRlNjFyY3JlYXRlZF9hc3NlcnRpb25zg6JjdXJseC1zZWxmI2p1bWJmPWMycGEuYXNzZXJ0aW9ucy9jMnBhLmluZ3JlZGllbnQudjNkaGFzaFggTpaUF6fYaXwkuBEpZc+QnRMXiGD6/K1N0Rl+s1rGeAyiY3VybHgqc2VsZiNqdW1iZj1jMnBhLmFzc2VydGlvbnMvYzJwYS5hY3Rpb25zLnYyZGhhc2hYIKoO7g3ATs11Twx9LWvFlx6uSPaG2CvLhpFC1NXN/CdgomN1cmx4KXNlbGYjanVtYmY9YzJwYS5hc3NlcnRpb25zL2MycGEuaGFzaC5kYXRhZGhhc2hYIGDF8+b90ckPAI1NuaFSuI9FOWQUnfe/8bfd1aasFw7JdGNsYWltX2dlbmVyYXRvcl9pbmZvo2RuYW1lb0FudGhyb3BpYyBGaWxlc2d2ZXJzaW9uZTEuMC4wa3NwZWNWZXJzaW9uZTIuNC4wAAAQOGp1bWIAAAAoanVtZGMyY3MAEQAQgAAAqgA4m3EDYzJwYS5zaWduYXR1cmUAAAAQCGNib3LShFkCEqIBJhghWQIKMIICBjCCAY2gAwIBAgIUQOWgCu7COdC+uIP6BkIFPWdVEwAwCgYIKoZIzj0EAwMwSTEXMBUGA1UEChMOQW50aHJvcGljLCBQQkMxLjAsBgNVBAMTJUFudGhyb3BpYyBDb250ZW50IENyZWRlbnRpYWxzIFJvb3QgQ0EwHhcNMjYwODA3MTg0MzU2WhcNMjgwODA2MTk0MzU2WjBEMRcwFQYDVQQKEw5BbnRocm9waWMsIFBCQzEpMCcGA1UEAxMgQW50aHJvcGljIENsYXVkZSBDb250ZW50IFNpZ25pbmcwWTATBgcqhkjOPQIBBggqhkjOPQMBBwNCAASYegpry1AYBRTVNL1CpTlbROnY3dey+UrsF9C3phYrATN3ZHf93Mo8RQN0KOUuOn19P4oWNFWe5n2/She9N7eTo1gwVjAOBgNVHQ8BAf8EBAMCB4AwFQYDVR0lBA4wDAYKKwYBBAGD6F4CATAMBgNVHRMBAf8EAjAAMB8GA1UdIwQYMBaAFM5R4gSBTmRbI/jjxM+aPpzB11zCMAoGCCqGSM49BAMDA2cAMGQCMDFzHRSeAXrSy1WOzkbhPZ6Km2wGTmZ/2gK18k8BQGXyqz88Rdrz6CTX9flAnYNVxgIwcF9c3fVhqmJKpi+UhasNUMko69cyX6STPfta3Q8EjyzDjzoyrol46FP6VFHhvUcJoWNwYWRZDZ4AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA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" alt="UKAP"><span>UKAP</span></div>
+    <div>
+      <div class="eyebrow">Editor guide · Sanity Studio</div>
+      <h1>How to run the<br>UKAP website</h1>
+      <p>Everything on ukapfoundation.org that you can change yourself — events, news, the homepage hero, sponsors and more — and exactly where to find it in Sanity Studio.</p>
+    </div>
+  </div>
+</header>
+
+<div class="wrap">
+  <nav class="toc" aria-label="Contents">
+    <b>Start here</b>
+    <a href="#basics">Studio basics</a>
+    <a href="#workspaces">Development vs Production</a>
+    <a href="#colours">The colour picker</a>
+    <b>Quick tasks</b>
+    <a href="#task-event">Add an event</a>
+    <a href="#task-news">Post a news article</a>
+    <a href="#task-hero">Change the homepage hero</a>
+    <a href="#task-resource">Add a resource</a>
+    <b>Pages</b>
+    <a href="#events">Events</a>
+    <a href="#posts">Blog posts (news)</a>
+    <a href="#resources">Resources</a>
+    <a href="#custom">Custom pages</a>
+    <a href="#donation">Donation page</a>
+    <b>Components</b>
+    <a href="#hero">Hero slides</a>
+    <a href="#whatson">What's On (events cards)</a>
+    <a href="#mission">Mission section</a>
+    <a href="#modal">Announcement popup</a>
+    <a href="#programmes">Programmes</a>
+    <a href="#forms">Contact forms</a>
+    <a href="#team">Team members &amp; authors</a>
+    <a href="#sponsors">Sponsors &amp; tiers</a>
+    <b>Help</b>
+    <a href="#automatic">What updates automatically</a>
+    <a href="#trouble">Troubleshooting</a>
+  </nav>
+
+  <main>
+
+    <!-- BASICS -->
+    <section id="basics">
+      <div class="eyebrow">Start here</div>
+      <h2>Studio <span class="accent">basics</span></h2>
+      <p>Sanity Studio is where all website content lives. The left-hand menu has two groups:</p>
+      <table>
+        <tr><th>Group</th><th>What's inside</th></tr>
+        <tr><td>Pages</td><td>Things that have their own web page: <b>Custom Pages</b>, <b>Blog Posts</b>, <b>Events</b>, <b>Resources</b> and the <b>Donation Page</b>.</td></tr>
+        <tr><td>Components</td><td>Building blocks that appear on pages: Hero Slides, What's On, Mission Section, Announcement Modal, Programmes, Contact Forms, Team Members, Authors, Sponsors and Sponsorship Tiers.</td></tr>
+      </table>
+      <ul class="steps">
+        <li>Open a list (e.g. <span class="path">Pages → Events</span>) and click a document, or press the <b>+</b> / pencil icon to create a new one.</li>
+        <li>Edit the fields. Changes save automatically as a <b>draft</b> — the website does not change yet.</li>
+        <li>Press the green <b>Publish</b> button (bottom right). The website updates within about a minute.</li>
+      </ul>
+      <div class="tip"><strong>Tip</strong> To take something off the site, use the menu next to Publish → <b>Unpublish</b>, or use the <b>Hidden</b> switch where a document has one (events, sponsors, programmes, tiers). Delete only when you're sure.</div>
+      <div class="tip"><strong>Photos</strong> Use landscape photos at least 1600px wide. After uploading, click the crop icon to set the <b>hotspot</b> — the part of the photo that must never be cropped (usually faces).</div>
+    </section>
+
+    <!-- WORKSPACES -->
+    <section id="workspaces">
+      <div class="eyebrow">Start here</div>
+      <h2>Development <span class="accent">vs</span> Production</h2>
+      <p>The Studio has two workspaces. Switch between them with the dropdown at the top left of the Studio.</p>
+      <div class="cards">
+        <div class="card dev">
+          <h3>Development</h3>
+          <p>Studio address ending <code>/dev</code></p>
+          <p>Feeds the <b>staging site</b> (ukap-website-rose.vercel.app) and previews.</p>
+          <p>Use it to practise and try things out.</p>
+        </div>
+        <div class="card prod">
+          <h3>Production</h3>
+          <p>Studio address ending <code>/prod</code></p>
+          <p>Feeds the <b>live site</b> — ukapfoundation.org.</p>
+          <p>What you publish here, the public sees.</p>
+        </div>
+      </div>
+      <div class="warn"><strong>Check first</strong> The two workspaces don't share content. Publishing an event in Development will <b>not</b> put it on the live site — create it again in Production.</div>
+    </section>
+
+    <!-- COLOURS -->
+    <section id="colours">
+      <div class="eyebrow">Start here</div>
+      <h2>The <span class="accent">colour</span> picker</h2>
+      <p>Anywhere you choose a colour (event cards, hero slides) you get the same grid of 15 brand swatches: five colours, each in three strengths. Click a swatch to choose it; click it again to clear it and go back to the default. Text on top always switches to black or white automatically so it stays readable.</p>
+      <div class="palette-head"><span>Blue</span><span>Coral</span><span>Gold</span><span>Black</span><span>White</span></div>
+      <div class="palette">
+        <div class="sw dark" style="background:#3F7EC2"><b>Main</b>#3F7EC2</div>
+        <div class="sw dark" style="background:#DB4A47"><b>Main</b>#DB4A47</div>
+        <div class="sw light" style="background:#E2BE74"><b>Main</b>#E2BE74</div>
+        <div class="sw dark" style="background:#0B0B0C"><b>Main</b>#0B0B0C</div>
+        <div class="sw light" style="background:#FFFFFF"><b>Main</b>#FFFFFF</div>
+        <div class="sw light" style="background:#55ADFA"><b>Lighter</b>#55ADFA</div>
+        <div class="sw light" style="background:#E06E71"><b>Lighter</b>#E06E71</div>
+        <div class="sw light" style="background:#F8DCA0"><b>Lighter</b>#F8DCA0</div>
+        <div class="sw dark" style="background:#3A3B3F"><b>Lighter</b>#3A3B3F</div>
+        <div class="sw light" style="background:#F5F3EE"><b>Lighter</b>#F5F3EE</div>
+        <div class="sw light" style="background:#CCE9FC"><b>Softest</b>#CCE9FC</div>
+        <div class="sw light" style="background:#F3C9CB"><b>Softest</b>#F3C9CB</div>
+        <div class="sw light" style="background:#FCF0D7"><b>Softest</b>#FCF0D7</div>
+        <div class="sw dark" style="background:#6B6E75"><b>Softest</b>#6B6E75</div>
+        <div class="sw light" style="background:#EDEAE3"><b>Softest</b>#EDEAE3</div>
+      </div>
+      <div class="tip"><strong>Brand rule</strong> Gold and black lead; blue and coral are accents. Use the <b>Main</b> row for most things and keep the lighter/softest shades for variety.</div>
+    </section>
+
+    <!-- QUICK TASKS -->
+    <section id="task-event">
+      <div class="eyebrow">Quick task</div>
+      <h2>Add an <span class="accent">event</span></h2>
+      <ul class="steps">
+        <li>Go to <span class="path">Pages → Events</span> and create a new event.</li>
+        <li>Fill in <b>Event Title</b>, press <b>Generate</b> next to Slug, then set the <b>Event Date</b>, <b>Time</b> (e.g. "6:30pm – 9:30pm"), <b>Venue / Location</b> and <b>Full Address</b>.</li>
+        <li>Add a <b>Short Description</b> (one or two sentences — it shows on the card) and a landscape <b>Event Image</b>.</li>
+        <li>Paste the Ticket Tailor link into <b>Ticket / Registration Link</b> and add the <b>Ticket Price</b> (or tick <b>Free Event</b>).</li>
+        <li>Pick an <b>Event Category</b> and a <b>Card colour</b>, write the full write-up in <b>Full Description</b>, then <b>Publish</b>.</li>
+      </ul>
+      <p>The event appears on the homepage "What's on" and on the Events page by itself. Once the date has passed it moves to the <b>Archive</b> automatically.</p>
+    </section>
+
+    <section id="task-news">
+      <div class="eyebrow">Quick task</div>
+      <h2>Post a <span class="accent">news</span> article</h2>
+      <ul class="steps">
+        <li>Go to <span class="path">Pages → Blog Posts</span> and create a new post.</li>
+        <li>Add the <b>Title</b>, generate the <b>Slug</b>, choose an <b>Author</b> and upload a <b>Main Image</b>.</li>
+        <li>Set <b>Published Date</b> to today, write a short <b>Excerpt</b> and the article in <b>Body</b>.</li>
+        <li><b>Publish</b>. It becomes the big "Latest" story on the homepage and appears on the News page.</li>
+      </ul>
+    </section>
+
+    <section id="task-hero">
+      <div class="eyebrow">Quick task</div>
+      <h2>Change the <span class="accent">homepage</span> hero</h2>
+      <ul class="steps">
+        <li>Go to <span class="path">Components → Hero Slides</span> and create or open a slide.</li>
+        <li>Add a <b>Title</b>, a short <b>Subtitle / Description</b>, a wide <b>Background Image</b> and up to two buttons.</li>
+        <li>Pick a <b>Card colour</b> and a <b>Title &amp; button colour</b>, set <b>Display Order</b>, make sure <b>Active</b> is on, then <b>Publish</b>.</li>
+      </ul>
+      <p>See <a href="#hero">Hero slides</a> for the details.</p>
+    </section>
+
+
+    <section id="task-resource">
+      <div class="eyebrow">Quick task</div>
+      <h2>Add a <span class="accent">resource</span></h2>
+      <ul class="steps">
+        <li>Go to <span class="path">Pages → Resources</span> and create a new resource.</li>
+        <li><b>Details</b> tab: add the <b>Title</b> (e.g. "Training materials — Finance 2026"), press <b>Generate</b> for the URL, pick a <b>Category</b>, write a short <b>Summary</b>, and optionally add a <b>Cover image</b> and <b>Card colour</b>.</li>
+        <li><b>Page content</b> tab: build the page with text, tips lists, callouts, images, videos and links.</li>
+        <li><b>Downloads &amp; links</b> tab: upload files (PDFs, slides, templates, images…) and add useful websites.</li>
+        <li><b>Publish</b>. It appears on <span class="path">/resources</span> and gets its own page at <span class="path">/resources/your-url</span>.</li>
+      </ul>
+    </section>
+
+    <!-- EVENTS -->
+    <section id="events">
+      <div class="eyebrow">Pages</div>
+      <h2>Events</h2>
+      <span class="where">Studio: Pages → Events</span>
+      <p>Each event has its own page at <span class="path">/events/your-slug</span> and appears as a poster card on the homepage and the Events page.</p>
+      <div class="mock" aria-hidden="true">
+        <div style="background:#DB4A47;color:#0B0B0C">Coral card</div>
+        <div style="background:#0B0B0C;color:#E2BE74">Black card</div>
+        <div style="background:#E2BE74;color:#0B0B0C">Gold card</div>
+      </div>
+      <table>
+        <tr><th>Field</th><th>What it does</th></tr>
+        <tr><td>Event Title / Slug</td><td>The event name, and its web address. Press <b>Generate</b> for the slug; don't change it once tickets are on sale.</td></tr>
+        <tr><td>Event Date &amp; End Date</td><td>When it starts (required) and optionally ends. The date decides whether it's "upcoming" or in the archive.</td></tr>
+        <tr><td>Time</td><td>Shown exactly as typed, e.g. "6:30pm – 9:30pm".</td></tr>
+        <tr><td>Venue / Location, Full Address, Map Link</td><td>Venue name and address show on the card and the event page.</td></tr>
+        <tr><td>Short Description</td><td>The text on the card. Keep to two sentences.</td></tr>
+        <tr><td>Event Image</td><td>The card and page photo. Landscape works best.</td></tr>
+        <tr><td>Full Description</td><td>The full write-up on the event page. Supports headings, links, images and embeds.</td></tr>
+        <tr><td>Ticket / Registration Link, Ticket Price, Free Event</td><td>The <b>Book now</b> button goes to the ticket link (e.g. Ticket Tailor).</td></tr>
+        <tr><td>Event Category</td><td>Shows as a tag on the card (Networking, Gala, Workshop…).</td></tr>
+        <tr><td>Featured</td><td>Adds a "Featured" tag to the card.</td></tr>
+        <tr><td>Status</td><td><b>Sold out</b> or <b>Cancelled</b> hide the Book now button and show a tag; <b>Postponed</b> shows a tag.</td></tr>
+        <tr><td>Card colour</td><td>The colour of the card's lower half. Leave empty to rotate coral → black → gold automatically.</td></tr>
+        <tr><td>Hidden</td><td>Removes the event from the site without deleting it.</td></tr>
+      </table>
+      <div class="tip"><strong>Good to know</strong> The <b>Book now</b> button disappears by itself once an event is in the past, sold out or cancelled. Past events go grey and move to the <b>Archive</b>, which visitors can filter by year.</div>
+    </section>
+
+    <!-- POSTS -->
+    <section id="posts">
+      <div class="eyebrow">Pages</div>
+      <h2>Blog posts <span class="accent">(news)</span></h2>
+      <span class="where">Studio: Pages → Blog Posts</span>
+      <p>Shown on the News page and in the homepage "Latest updates" section, which always shows the <b>5 newest</b> posts by <b>Published Date</b>.</p>
+      <table>
+        <tr><th>Field</th><th>What it does</th></tr>
+        <tr><td>Title / Slug</td><td>Headline and web address (<span class="path">/blog/your-slug</span>).</td></tr>
+        <tr><td>Author</td><td>Pick from <span class="path">Components → Authors</span>.</td></tr>
+        <tr><td>Main image</td><td>Card photo and article header. Images 1000px+ wide become a full-width header.</td></tr>
+        <tr><td>Published Date</td><td><b>Decides the order.</b> The newest is the big lead story on the homepage; the next four show as blue, coral, gold and charcoal rows.</td></tr>
+        <tr><td>Excerpt</td><td>The summary under the headline on cards.</td></tr>
+        <tr><td>Body</td><td>The article. Supports headings, quotes, links, images, contact forms and embeds.</td></tr>
+      </table>
+      <div class="tip"><strong>Tip</strong> Want an older article back at the top? Change its <b>Published Date</b> to today.</div>
+    </section>
+
+
+    <!-- RESOURCES -->
+    <section id="resources">
+      <div class="eyebrow">Pages</div>
+      <h2><span class="accent">Resources</span></h2>
+      <span class="where">Studio: Pages → Resources</span>
+      <p>The learning library: CV tips, training materials, guides, templates, recordings. Every resource is listed on <span class="path">/resources</span> (with category buttons and a search box) and has its own page at <span class="path">/resources/your-url</span>. The editor has three tabs.</p>
+      <h3>Details</h3>
+      <table>
+        <tr><th>Field</th><th>What it does</th></tr>
+        <tr><td>Title / URL</td><td>The name, and the page address after <span class="path">/resources/</span>. Press <b>Generate</b>.</td></tr>
+        <tr><td>Category</td><td>CV &amp; careers, Training &amp; courses, Finance, Law, Technology, Scholarships &amp; study, Guides &amp; templates or Other. Visitors filter by these.</td></tr>
+        <tr><td>Summary</td><td>One or two sentences on the card and under the page title.</td></tr>
+        <tr><td>Cover image</td><td>Optional wide photo for the card and page header.</td></tr>
+        <tr><td>Card colour</td><td>Colour of the card and the header box. Empty = rotates blue, gold, coral, black.</td></tr>
+        <tr><td>Tags</td><td>Extra search words, e.g. "interviews", "Excel", "2026".</td></tr>
+        <tr><td>Published date / Featured / Hidden</td><td>Newest first; <b>Featured</b> pins it to the top; <b>Hidden</b> removes it from the site.</td></tr>
+      </table>
+      <h3>Page content</h3>
+      <table>
+        <tr><th>Block</th><th>Use it for</th></tr>
+        <tr><td>Text</td><td>Paragraphs, headings, bullet or numbered lists, bold, highlight and links.</td></tr>
+        <tr><td>Tips list</td><td>Numbered tips in a bold black box — e.g. "10 CV tips".</td></tr>
+        <tr><td>Callout box</td><td>A highlighted note: Tip (gold), Info (blue) or Important (coral).</td></tr>
+        <tr><td>Image</td><td>A photo or diagram with caption.</td></tr>
+        <tr><td>Video</td><td>Paste a YouTube or Vimeo link — it plays on the page.</td></tr>
+        <tr><td>Download (inline)</td><td>A file download button in the middle of the article.</td></tr>
+        <tr><td>Link card</td><td>A highlighted link to another website.</td></tr>
+      </table>
+      <h3>Downloads &amp; links</h3>
+      <p><b>Downloads</b> — upload any file (PDF, Word, PowerPoint, Excel, images, audio, video, zip) with a title and short description. They're listed in a <b>Downloads</b> panel beside the article, with the file type and size. <b>Useful links</b> — websites, courses or tools, listed underneath.</p>
+      <div class="tip"><strong>Tip</strong> For a programme with several sessions (e.g. Finance 2026), make one resource and add each session's slides to <b>Downloads</b>, rather than a separate resource per file.</div>
+      <div class="warn"><strong>Note</strong> Uploaded files are public to anyone with the link — don't upload anything confidential or personal.</div>
+    </section>
+
+    <!-- CUSTOM -->
+    <section id="custom">
+      <div class="eyebrow">Pages</div>
+      <h2>Custom <span class="accent">pages</span></h2>
+      <span class="where">Studio: Pages → Custom Pages</span>
+      <p>Build any extra page (e.g. a programme page) at <span class="path">/page/your-slug</span>. Add blocks in <b>Page Content</b> with the <b>+</b> button:</p>
+      <table>
+        <tr><th>Block</th><th>Use it for</th></tr>
+        <tr><td>Text</td><td>Paragraphs, headings, quotes, bold/italic, links and the <b>Highlight</b> style.</td></tr>
+        <tr><td>Image</td><td>A photo in Small, Medium, Large or Full Width.</td></tr>
+        <tr><td>Contact Form</td><td>Embed one of the forms from <span class="path">Components → Contact Forms</span>.</td></tr>
+        <tr><td>Call to Action</td><td>A button (primary, outline or text link) to any page or website.</td></tr>
+        <tr><td>Divider / Spacer</td><td>A line or a gap between sections.</td></tr>
+        <tr><td>Two Column Layout</td><td>Text and images side by side (50/50, 60/40, 70/30…).</td></tr>
+        <tr><td>Info Box</td><td>A highlighted note: info, success, warning or note.</td></tr>
+        <tr><td>Embed Code</td><td>Ticket Tailor widgets, YouTube videos, donation forms.</td></tr>
+        <tr><td>Events List</td><td>A list of events, filtered by category, with or without past events.</td></tr>
+      </table>
+      <p>Also set the <b>Hero Image</b> and <b>Hero Style</b>, tick <b>Show in Navigation</b> to add it to the menu (with <b>Navigation Order</b>), and fill in <b>SEO Settings</b> for search engines.</p>
+    </section>
+
+    <!-- DONATION -->
+    <section id="donation">
+      <div class="eyebrow">Pages</div>
+      <h2>Donation <span class="accent">page</span></h2>
+      <span class="where">Studio: Pages → Donation Page</span>
+      <p>One document controls the whole <span class="path">/donate</span> page: hero title and image, introduction, "Why donate" items, impact statistics (e.g. "£8,000" / "Raised at our gala"), achievements, the donate button text and link, and any additional content. Sponsorship packages on this page come from <a href="#sponsors">Sponsorship Tiers</a>.</p>
+    </section>
+
+    <!-- HERO -->
+    <section id="hero">
+      <div class="eyebrow">Components</div>
+      <h2>Hero <span class="accent">slides</span></h2>
+      <span class="where">Studio: Components → Hero Slides</span>
+      <p>The big photo at the top of the homepage, with a colour box overlapping it. The fixed "Opening doors to education" slide always shows first; your slides follow in <b>Display Order</b>.</p>
+      <table>
+        <tr><th>Field</th><th>What it does</th></tr>
+        <tr><td>Title</td><td>The big heading in the box. Keep it short — four to six words.</td></tr>
+        <tr><td>Subtitle / Description</td><td>One or two sentences under the title.</td></tr>
+        <tr><td>Card colour</td><td>The colour of the box. Default: black.</td></tr>
+        <tr><td>Title &amp; button colour</td><td>One colour for the title <b>and</b> both buttons, so they always match. Default: gold. The subtitle switches to black or white automatically.</td></tr>
+        <tr><td>Background image</td><td>The wide photo behind the box. Use landscape, 2000px wide, and set the hotspot.</td></tr>
+        <tr><td>Primary / Secondary button</td><td>Text and link for each button, e.g. "/donate" or a full web address.</td></tr>
+        <tr><td>Duration</td><td>Seconds before moving to the next slide (default 6).</td></tr>
+        <tr><td>Display order / Active</td><td>Lower numbers show first; switch <b>Active</b> off to hide a slide.</td></tr>
+      </table>
+      <div class="tip"><strong>Good pairs</strong> Black + gold (signature) · Coral + black · Gold + black · White + blue.</div>
+      <div class="warn"><strong>Ignored</strong> The older fields <b>Background Type</b>, <b>Background Colour</b>, <b>Custom Hex</b>, <b>Overlay Darkness</b> and <b>Text Alignment</b> are no longer used by the design.</div>
+    </section>
+
+    <!-- WHAT'S ON -->
+    <section id="whatson">
+      <div class="eyebrow">Components</div>
+      <h2>What's On <span class="accent">(events cards)</span></h2>
+      <span class="where">Studio: Components → What's On (Events cards)</span>
+      <p>Controls the "What's on" section on the homepage. You only need <b>one</b> of these documents.</p>
+      <table>
+        <tr><th>Field</th><th>What it does</th></tr>
+        <tr><td>Section title</td><td>Heading above the cards (default "What's on").</td></tr>
+        <tr><td>Which events to show</td><td><b>Automatic</b> — the next upcoming events, soonest first. <b>Hand-picked</b> — you choose exactly which events and in what order.</td></tr>
+        <tr><td>How many events</td><td>Automatic mode only. Default 3.</td></tr>
+        <tr><td>Event cards</td><td>Hand-picked mode only. Each card links to an event you pick; date, venue, photo and ticket link come from that event. You can override the card's colour, title, description or image.</td></tr>
+        <tr><td>"View all" link text</td><td>Text of the link to the Events page (default "All events").</td></tr>
+      </table>
+      <p>Clicking a card or <b>More info →</b> opens the event page; <b>Book now</b> opens the ticket link. With no upcoming events, a friendly "New events are on the way" message shows instead.</p>
+      <div class="tip"><strong>Tip</strong> Leave it on <b>Automatic</b> day to day — new events appear and past ones drop off without you touching it.</div>
+    </section>
+
+    <!-- MISSION -->
+    <section id="mission">
+      <div class="eyebrow">Components</div>
+      <h2>Mission <span class="accent">section</span></h2>
+      <span class="where">Studio: Components → Mission Section</span>
+      <p>The black "Who we are" band on the homepage. Set the <b>Eyebrow label</b>, <b>Heading</b>, <b>Mission text</b> and button. <b>Highlighted word</b> puts one word of the heading in the coral highlight block — type it exactly as it appears in the heading. Make sure <b>Active</b> is on. (The four statistics beside it are fixed in the website code.)</p>
+    </section>
+
+    <!-- MODAL -->
+    <section id="modal">
+      <div class="eyebrow">Components</div>
+      <h2>Announcement <span class="accent">popup</span></h2>
+      <span class="where">Studio: Components → Announcement Modal</span>
+      <p>A popup on the homepage, e.g. for a gala. Set the <b>Title</b>, <b>Message</b>, optional <b>Image</b>, button text and link, and the small dismiss text. Choose <b>How often</b> visitors see it (every visit, once per session, once per day, or only once) and a <b>Delay</b> in seconds. Switch <b>Active</b> off when the campaign ends.</p>
+    </section>
+
+    <!-- PROGRAMMES -->
+    <section id="programmes">
+      <div class="eyebrow">Components</div>
+      <h2>Programmes</h2>
+      <span class="where">Studio: Components → Programmes</span>
+      <p>The "What we do" cards on the homepage: <b>Title</b>, <b>Description</b>, <b>Image</b>, optional <b>Link</b> and <b>Display order</b>. Use <b>Hidden</b> to remove one. (The old "Brand colour" field is not used by the current design.)</p>
+    </section>
+
+    <!-- FORMS -->
+    <section id="forms">
+      <div class="eyebrow">Components</div>
+      <h2>Contact <span class="accent">forms</span></h2>
+      <span class="where">Studio: Components → Contact Forms</span>
+      <p>Build forms (contact, mentor applications, volunteering) without code. Give the form a <b>Name</b> and <b>Form ID</b>, then add <b>Form Fields</b>: text, email, dropdowns, checkboxes, file uploads and more. Each field has a label, placeholder, required switch, half-width option and help text. Add text above or below with <b>Header</b> / <b>Footer content</b>, then place the form on a page with the <b>Contact Form</b> block. An email field is always included so you can reply.</p>
+      <div class="warn"><strong>Careful</strong> Don't change a field's <b>Field Name (ID)</b> after the form is live — it's how answers are labelled in the emails you receive.</div>
+    </section>
+
+    <!-- TEAM -->
+    <section id="team">
+      <div class="eyebrow">Components</div>
+      <h2>Team members <span class="accent">&amp;</span> authors</h2>
+      <span class="where">Studio: Components → Team Members / Authors</span>
+      <p><b>Team Members</b> fill the Team page: name, role, category (Lead, Volunteer, Advisor), photo, short bio, LinkedIn and display order. Use square, well-lit head-and-shoulders photos.</p>
+      <p><b>Authors</b> are the names shown on news articles — name, photo and role.</p>
+    </section>
+
+    <!-- SPONSORS -->
+    <section id="sponsors">
+      <div class="eyebrow">Components</div>
+      <h2>Sponsors <span class="accent">&amp;</span> tiers</h2>
+      <span class="where">Studio: Components → Sponsors / Sponsorship Tiers</span>
+      <p><b>Sponsors</b> appear in the scrolling partner logos above the footer and on the Partners page. Each needs a <b>Company Name</b>, <b>Company Logo</b> (required — a transparent PNG or SVG works best), <b>Sponsor Tier</b>, optional tagline, description, website and social links, plus <b>Featured</b>, <b>Display order</b> and <b>Hidden</b>.</p>
+      <p><b>Sponsorship Tiers</b> are the packages on the Donation page: tier name, price, short description, <b>What's included</b> list, an enquiry link, and <b>Highlight this tier</b> to make one stand out.</p>
+    </section>
+
+    <!-- AUTOMATIC -->
+    <section id="automatic">
+      <div class="eyebrow">Help</div>
+      <h2>What updates <span class="accent">automatically</span></h2>
+      <table>
+        <tr><th>On the site</th><th>Driven by</th></tr>
+        <tr><td>Homepage "What's on"</td><td>The next upcoming events (or your hand-picked cards).</td></tr>
+        <tr><td>Events page</td><td>Upcoming events first; past events in the Archive with a year filter.</td></tr>
+        <tr><td>Homepage "Latest updates"</td><td>The 5 newest blog posts by Published Date. Colours are fixed.</td></tr>
+        <tr><td>Book now buttons</td><td>Hidden for past, sold-out and cancelled events.</td></tr>
+        <tr><td>Partner logos</td><td>All sponsors not marked Hidden.</td></tr>
+        <tr><td>Resources page</td><td>All resources not marked Hidden — featured first, then newest.</td></tr>
+      </table>
+      <p><b>Fixed in the website code</b> (ask a developer to change): the first hero slide, the three homepage action cards, the mission statistics, the "You can help, in your way" cards and the footer.</p>
+    </section>
+
+    <!-- TROUBLE -->
+    <section id="trouble">
+      <div class="eyebrow">Help</div>
+      <h2>Trouble<span class="accent">shooting</span></h2>
+      <table>
+        <tr><th>Problem</th><th>Check</th></tr>
+        <tr><td>My change isn't on the site</td><td>Did you press <b>Publish</b>? Are you in the right workspace (Production for the live site)? Wait a minute, then refresh.</td></tr>
+        <tr><td>My event isn't in "What's on"</td><td>Is the date in the future? Is <b>Hidden</b> off? In Automatic mode only the next few (default 3) show — the rest are on the Events page.</td></tr>
+        <tr><td>No Book now button</td><td>Add a <b>Ticket link</b>; check the event isn't past, sold out or cancelled.</td></tr>
+        <tr><td>Article in the wrong place</td><td>Order comes from <b>Published Date</b> — adjust the date.</td></tr>
+        <tr><td>Photo cropped badly</td><td>Open the image, click the crop icon and move the <b>hotspot</b> over the important part.</td></tr>
+        <tr><td>Can't see a new field</td><td>The Studio may need redeploying by a developer (<span class="path">npx sanity deploy</span>).</td></tr>
+      </table>
+    </section>
+
+  </main>
+</div>
+
+<footer class="foot">
+  <div class="tri-bar" aria-hidden="true"><span></span><span></span><span></span></div>
+  <div class="in">
+    <span>UKAP Foundation · UK Registered Charity No. 1215303</span>
+    <span>Editor guide · October 2026</span>
+  </div>
+</footer>
+</body>
+</html>

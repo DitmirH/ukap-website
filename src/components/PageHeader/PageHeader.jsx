@@ -1,4 +1,5 @@
 import { Link } from 'react-router-dom'
+import { swatch } from '../../lib/palette'
 import './PageHeader.css'
 
 /**
@@ -8,6 +9,7 @@ import './PageHeader.css'
  * crumbs: [{ label, to }] — rendered before the current page
  * image: optional URL shown as a square-cut panel on the right
  * children: optional actions (buttons) under the subtitle
+ * colour: optional palette key (e.g. 'blue-main') — overrides tone with any of the 15 brand swatches
  */
 export default function PageHeader({
   eyebrow,
@@ -20,9 +22,12 @@ export default function PageHeader({
   size = 'default',
   photo,
   photoPosition = 'center',
+  colour,
   children,
 }) {
-  const onDark = tone !== 'yellow'
+  const sw = colour ? swatch(colour) : null
+  const onDark = sw ? !(sw.text === '#0B0B0C') : tone !== 'yellow'
+  const colourStyle = sw ? { background: sw.bg, color: sw.text, '--ph-heading': sw.heading } : undefined
 
   // Photo variant: full-bleed image with a solid colour card overlapping its bottom edge
   if (photo) {
@@ -30,7 +35,7 @@ export default function PageHeader({
       <header className="page-header-photo">
         <div className="php-media" style={{ backgroundImage: `url(${photo})`, backgroundPosition: photoPosition }} />
         <div className="php-wrap">
-          <div className={`php-card tone-${tone}`}>
+          <div className={`php-card tone-${tone} ${sw ? 'has-colour' : ''}`} style={colourStyle}>
             {crumbs?.length > 0 && (
               <nav className="phb-crumbs" aria-label="Breadcrumb">
                 <Link to="/">Home</Link>
@@ -53,7 +58,7 @@ export default function PageHeader({
   }
 
   return (
-    <header className={`page-header-block tone-${tone} size-${size} ${image ? 'has-image' : ''}`}>
+    <header className={`page-header-block tone-${tone} size-${size} ${image ? 'has-image' : ''} ${sw ? 'has-colour' : ''}`} style={colourStyle}>
       <div className="phb-inner">
         <div className="phb-text">
           {crumbs?.length > 0 && (

@@ -1,0 +1,102 @@
+.resource-detail-page { min-height: 100vh; display: flex; flex-direction: column; }
+.rd-state { padding: var(--section-y) var(--gutter); color: var(--color-text-muted); }
+.rd-state .btn { margin-top: 1rem; }
+
+/* Layout: article + sticky downloads/links panel */
+.rd-layout { display: grid; grid-template-columns: minmax(0, 1fr); gap: 3rem; }
+.rd-layout.has-side { grid-template-columns: minmax(0, 1fr) 360px; }
+.rd-body { max-width: 760px; font-size: 1.08rem; line-height: 1.75; }
+.rd-side { display: flex; flex-direction: column; gap: 1.5rem; align-self: start; position: sticky; top: calc(var(--nav-h, 80px) + 1.5rem); }
+
+/* Article typography */
+.rd-body > * + * { margin-top: 1.2rem; }
+.rd-body p { margin: 0; }
+.rd-h2 { font-size: clamp(1.7rem, 1.3rem + 1.2vw, 2.3rem); text-transform: uppercase; line-height: 1; margin-top: 2.6rem !important; }
+.rd-h3 { font-size: 1.35rem; margin-top: 2rem !important; }
+.rd-body ul, .rd-body ol { padding-left: 1.4rem; }
+.rd-body li + li { margin-top: 0.4rem; }
+.rd-body a { color: var(--ukap-blue-deep); text-decoration: underline; text-underline-offset: 3px; }
+.rd-mark { background: var(--ukap-red); color: var(--ukap-white); padding: 0 0.15em; }
+.rd-quote { border-left: 6px solid var(--ukap-gold); padding: 0.4rem 0 0.4rem 1.25rem; font-size: 1.2rem; font-weight: var(--fw-semibold); }
+
+.rd-figure img { width: 100%; display: block; }
+.rd-figure figcaption, .rd-video figcaption { font-size: 0.88rem; color: var(--color-text-muted); margin-top: 0.5rem; }
+
+/* Tips list: big numbered blocks */
+.rd-tips { background: var(--ukap-black); color: var(--ukap-white); padding: clamp(1.5rem, 3vw, 2.25rem); }
+.rd-tips h3 { color: var(--ukap-gold); text-transform: uppercase; font-size: clamp(1.5rem, 1.2rem + 1vw, 2rem); line-height: 1; margin-bottom: 1.25rem; }
+.rd-tips ol { list-style: none; padding: 0; counter-reset: tip; display: grid; gap: 0.9rem; }
+.rd-tips li { counter-increment: tip; display: grid; grid-template-columns: 2.6rem 1fr; gap: 0.9rem; align-items: start; margin: 0 !important; }
+.rd-tips li::before {
+  content: counter(tip);
+  display: grid; place-items: center;
+  width: 2.6rem; height: 2.6rem;
+  background: var(--ukap-gold); color: var(--ukap-black);
+  font-family: var(--font-display); font-weight: 900; font-size: 1.35rem;
+}
+
+/* Callouts */
+.rd-callout { padding: 1.1rem 1.3rem; border-left: 6px solid var(--ukap-gold); background: var(--ukap-gold-soft, #fcf0d7); }
+.rd-callout.tone-info { border-color: var(--ukap-blue); background: #e2eef9; }
+.rd-callout.tone-important { border-color: var(--ukap-red); background: #fbe3e3; }
+.rd-callout strong { display: block; font-family: var(--font-display); font-weight: 850; font-stretch: 78%; text-transform: uppercase; font-size: 1.2rem; margin-bottom: 0.25rem; }
+
+/* Video */
+.rd-video-frame { position: relative; aspect-ratio: 16 / 9; background: var(--ukap-black); }
+.rd-video-frame iframe { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; }
+
+/* Panels */
+.rd-panel { border: 2px solid var(--ukap-black); background: var(--ukap-white); }
+.rd-panel-title {
+  display: flex; align-items: center; justify-content: space-between;
+  background: var(--ukap-black); color: var(--ukap-gold);
+  font-size: 1.35rem; text-transform: uppercase; line-height: 1;
+  padding: 0.9rem 1.1rem;
+}
+.rd-panel-title span { font-family: var(--font-body, inherit); font-size: 0.85rem; color: var(--ukap-white); opacity: 0.8; }
+
+/* File + link rows */
+.rd-file, .rd-link {
+  display: grid; grid-template-columns: auto minmax(0, 1fr) auto; align-items: center; gap: 0.9rem;
+  padding: 0.95rem 1.1rem; color: var(--ukap-black); text-decoration: none !important;
+  border-top: 1px solid var(--color-border);
+  transition: background-color var(--speed-fast) ease;
+}
+.rd-panel > .rd-file:first-of-type, .rd-panel > .rd-link:first-of-type { border-top: 0; }
+.rd-link { grid-template-columns: minmax(0, 1fr) auto; }
+.rd-file:hover, .rd-link:hover { background: var(--ukap-gold-soft, #fcf0d7); color: var(--ukap-black); }
+.rd-file-ext {
+  width: 3rem; height: 3rem; display: grid; place-items: center;
+  background: var(--ukap-red); color: var(--ukap-white);
+  font: 900 0.8rem/1 var(--font-display); letter-spacing: 0.04em;
+}
+.rd-file-text { display: flex; flex-direction: column; min-width: 0; line-height: 1.35; }
+.rd-file-text b { font-weight: var(--fw-bold); }
+.rd-file-text span { font-size: 0.9rem; color: var(--color-text-muted); }
+.rd-file-text small { font-size: 0.75rem; font-weight: var(--fw-bold); letter-spacing: 0.1em; text-transform: uppercase; color: var(--color-text-muted); margin-top: 0.15rem; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.rd-file-action { width: 2.4rem; height: 2.4rem; display: grid; place-items: center; background: var(--ukap-black); color: var(--ukap-gold); transition: transform var(--speed-fast) var(--ease-out); }
+.rd-file-action svg { width: 20px; height: 20px; }
+.rd-file:hover .rd-file-action { transform: translateY(2px); }
+.rd-link-arrow { font-family: var(--font-display); font-size: 1.4rem; }
+
+/* Inline download / link in the article */
+.rd-inline { border: 2px solid var(--ukap-black); }
+.rd-inline .rd-file, .rd-inline .rd-link { border-top: 0; }
+.rd-player { display: block; width: 100%; background: var(--ukap-black); padding: 0.75rem; }
+.rd-player.is-video { padding: 0; aspect-ratio: 16 / 9; }
+
+.rd-tagline { list-style: none; padding: 0 !important; display: flex; flex-wrap: wrap; gap: 0.4rem; margin-top: 2.5rem !important; }
+.rd-tagline li { margin: 0 !important; font-size: 0.78rem; font-weight: var(--fw-bold); letter-spacing: 0.1em; text-transform: uppercase; padding: 0.35rem 0.6rem; background: var(--ukap-white-lighter, #f5f3ee); border: 1px solid var(--color-border); }
+
+.rd-related-head { display: flex; align-items: flex-end; justify-content: space-between; gap: 1rem; margin-bottom: 2rem; }
+.rd-related-head h2 { text-transform: uppercase; font-size: clamp(1.9rem, 1.4rem + 1.8vw, 2.8rem); line-height: 1; }
+
+@media (max-width: 960px) {
+  .rd-layout.has-side { grid-template-columns: 1fr; }
+  .rd-side { position: static; order: -1; } /* downloads first on small screens */
+}
+@media (max-width: 640px) {
+  .rd-body { font-size: 1rem; }
+  .rd-tips li { grid-template-columns: 2.2rem 1fr; }
+  .rd-tips li::before { width: 2.2rem; height: 2.2rem; font-size: 1.15rem; }
+}

@@ -6,6 +6,7 @@ const LINKS = [
   { to: '/about', key: 'about', label: 'About' },
   { to: '/events', key: 'events', label: 'Events' },
   { to: '/blog', key: 'blog', label: 'News' },
+  { to: '/resources', key: 'resources', label: 'Resources' },
   { to: '/team', key: 'team', label: 'Team' },
   { to: '/sponsors', key: 'sponsors', label: 'Partners' },
   { to: '/#contact', key: 'contact', label: 'Contact' },

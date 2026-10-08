@@ -12,6 +12,7 @@ export const deskStructure = (S) =>
               S.documentTypeListItem('customPage').title('Custom Pages'),
               S.documentTypeListItem('post').title('Blog Posts'),
               S.documentTypeListItem('event').title('Events'),
+              S.documentTypeListItem('resource').title('Resources'),
               S.documentTypeListItem('donationPage').title('Donation Page'),
             ])
         ),

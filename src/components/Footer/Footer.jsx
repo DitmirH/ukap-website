@@ -36,6 +36,7 @@ const EXPLORE = [
   { to: '/about', label: 'About us' },
   { to: '/events', label: 'Events' },
   { to: '/blog', label: 'News' },
+  { to: '/resources', label: 'Resources' },
   { to: '/team', label: 'Our team' },
 ]
 

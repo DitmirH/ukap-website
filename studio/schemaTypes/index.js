@@ -12,5 +12,6 @@ import missionSection from './missionSection'
 import programme from './programme'
 import announcementModal from './announcementModal'
 import eventsSection from './eventsSection'
+import resource from './resource'
 
-export const schemaTypes = [post, author, teamMember, heroSlide, contactForm, customPage, event, sponsor, donationPage, sponsorshipTier, missionSection, programme, announcementModal, eventsSection]
+export const schemaTypes = [post, author, teamMember, heroSlide, contactForm, customPage, event, sponsor, donationPage, sponsorshipTier, missionSection, programme, announcementModal, eventsSection, resource]

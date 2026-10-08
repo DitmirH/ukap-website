@@ -9,6 +9,8 @@
  * rather than duplicates, and --delete removes exactly what this script created.
  * Photos come from ../public/images (placeholder stock photos, see CREDITS.md).
  * Sponsors are fictional demo companies with generated logos.
+ * Resources use generated PDFs plus sample files in scripts/seed-assets (Word, Excel,
+ * PowerPoint, CSV, text, images, MP3) so every download type can be tested.
  */
 import fs from 'node:fs'
 import path from 'node:path'
@@ -54,6 +56,34 @@ async function logo(slug, name, mark, bg, fg) {
 }
 
 const day = (iso) => new Date(iso).toISOString()
+
+/** Minimal one-page PDF (Helvetica text) — so seeded resources have a real download */
+function makePdf(title, lines) {
+  const esc = (t) => t.replace(/[\\()]/g, (c) => '\\' + c)
+  const ops = ['BT', '/F1 22 Tf', '56 780 Td', `(${esc(title)}) Tj`, '/F1 12 Tf', '0 -34 Td']
+  lines.forEach((l) => ops.push(`(${esc(l)}) Tj`, '0 -20 Td'))
+  ops.push('ET')
+  const stream = ops.join('\n')
+  const objs = [
+    '<< /Type /Catalog /Pages 2 0 R >>',
+    '<< /Type /Pages /Kids [3 0 R] /Count 1 >>',
+    '<< /Type /Page /Parent 2 0 R /MediaBox [0 0 595 842] /Contents 4 0 R /Resources << /Font << /F1 5 0 R >> >> >>',
+    `<< /Length ${Buffer.byteLength(stream)} >>\nstream\n${stream}\nendstream`,
+    '<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica >>',
+  ]
+  let pdf = '%PDF-1.4\n'
+  const offsets = []
+  objs.forEach((o, i) => { offsets.push(Buffer.byteLength(pdf)); pdf += `${i + 1} 0 obj\n${o}\nendobj\n` })
+  const xref = Buffer.byteLength(pdf)
+  pdf += `xref\n0 ${objs.length + 1}\n0000000000 65535 f \n` + offsets.map((o) => `${String(o).padStart(10, '0')} 00000 n \n`).join('')
+  pdf += `trailer\n<< /Size ${objs.length + 1} /Root 1 0 R >>\nstartxref\n${xref}\n%%EOF\n`
+  return Buffer.from(pdf)
+}
+
+async function pdfFile(filename, title, lines) {
+  const asset = await client.assets.upload('file', makePdf(title, lines), { filename, contentType: 'application/pdf' })
+  return { _type: 'file', asset: { _type: 'reference', _ref: asset._id } }
+}
 
 async function seed() {
   console.log(`Seeding demo content into "${DATASET}"…`)
@@ -168,6 +198,185 @@ async function seed() {
       logo: await logo(slug, s.name, s.mark, s.bg, s.fg), tier: s.tier, tagline: s.tagline,
       description: pt(`${s.name} is a demo sponsor added for testing the development site.`),
       featured: i === 0, order: 100 + i, hidden: false,
+    })
+  }
+
+
+  // --- Resources (mixed media: PDF, Word, Excel, PowerPoint, CSV, text, images, audio, video) ---
+  const SEED_ASSETS = path.resolve(process.cwd(), 'scripts/seed-assets')
+  const TYPES = {
+    pdf: 'application/pdf', docx: 'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
+    xlsx: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
+    pptx: 'application/vnd.openxmlformats-officedocument.presentationml.presentation',
+    csv: 'text/csv', txt: 'text/plain', mp3: 'audio/mpeg', png: 'image/png', jpg: 'image/jpeg',
+  }
+  /** Upload a file from scripts/seed-assets as a downloadable file */
+  const seedFile = async (name) => {
+    const asset = await client.assets.upload('file', fs.readFileSync(path.join(SEED_ASSETS, name)), { filename: name, contentType: TYPES[name.split('.').pop()] })
+    return { _type: 'file', asset: { _type: 'reference', _ref: asset._id } }
+  }
+  /** Upload a file from scripts/seed-assets as an image (for image blocks) */
+  const seedImage = async (name, alt, caption) => {
+    const asset = await client.assets.upload('image', fs.readFileSync(path.join(SEED_ASSETS, name)), { filename: name })
+    return { _type: 'image', _key: key(), asset: { _type: 'reference', _ref: asset._id }, alt, caption }
+  }
+  /** Bullet or numbered list blocks */
+  const list = (kind, items) => items.map((text) => ({
+    _type: 'block', _key: key(), style: 'normal', listItem: kind, level: 1, markDefs: [],
+    children: [{ _type: 'span', _key: key(), text, marks: [] }],
+  }))
+  const dl = (title, description, file) => ({ _key: key(), _type: 'resourceFile', title, description, file })
+  const inlineDl = (title, description, file) => ({ _type: 'fileDownload', _key: key(), title, description, file })
+  const lnk = (title, url, description) => ({ _key: key(), _type: 'resourceLink', title, url, description })
+  const linkCard = (title, url, description) => ({ _type: 'linkCard', _key: key(), title, url, description })
+
+  const cvChecklist = await pdfFile('ukap-cv-checklist.pdf', 'UKAP CV checklist', [
+    '1. Keep it to two pages.',
+    '2. Start with a three-line profile tailored to the role.',
+    '3. Lead every bullet with an action verb and a result.',
+    '4. Quantify: numbers, percentages, money, time saved.',
+    '5. Put education first if you graduated in the last two years.',
+    '6. Use one clean font and consistent dates.',
+    '7. Save and send as PDF named Firstname-Lastname-CV.pdf.',
+  ])
+  const cvTemplate = await seedFile('ukap-cv-template.docx')
+  const cvLayoutFile = await seedFile('cv-layout-example.jpg')
+  const financeSlides1 = await pdfFile('finance-2026-session-1.pdf', 'Finance 2026 - Session 1 slides', [
+    'Introduction to financial statements',
+    'Income statement, balance sheet, cash flow',
+    'Exercise: read a real annual report',
+    'Homework: build a three-statement summary in Excel',
+  ])
+  const financeSlides2 = await seedFile('finance-2026-session-2.pptx')
+  const financeModel = await seedFile('finance-2026-practice-model.xlsx')
+  const financeData = await seedFile('finance-2026-sample-data.csv')
+  const financeWorkbook = await pdfFile('finance-2026-workbook.pdf', 'Finance 2026 - Workbook', [
+    'Week 1: Accounting basics',
+    'Week 2: Valuation and DCF',
+    'Week 3: Markets and trading',
+    'Week 4: Interviews and assessment centres',
+  ])
+  const interviewAudio = await seedFile('interview-practice-questions.mp3')
+  const starFile = await seedFile('star-method.png')
+  const scholarshipChecklist = await seedFile('scholarship-application-checklist.txt')
+  const scholarshipGuide = await pdfFile('ukap-scholarship-guide.pdf', 'UKAP scholarship guide', [
+    'Who can apply: students in the UK or Albania starting or continuing a degree.',
+    'What we fund: tuition contributions, books and equipment, travel.',
+    'How to apply: online form, personal statement, two references.',
+    'What happens next: shortlisting, interview, decision within six weeks.',
+  ])
+
+  const resources = [
+    {
+      _id: 'seed-resource-cv-tips', title: 'CV writing tips', slug: 'cv-writing-tips', category: 'careers', colour: 'blue-main',
+      img: 'graduate-yellow.jpg', featured: true, date: '2026-09-20T09:00:00Z', tags: ['CV', 'applications', 'graduates', 'template'],
+      summary: 'Practical advice from UKAP mentors on writing a CV that gets you to interview — with a Word template and printable checklist.',
+      content: [
+        ...pt('A strong CV is the single most useful thing you can prepare for your career. These tips come from UKAP mentors who read hundreds of applications a year.'),
+        { _type: 'tipList', _key: key(), title: '7 CV tips from our mentors', tips: [
+          'Keep it to two pages — recruiters spend seconds on the first scan.',
+          'Open with a three-line profile tailored to the job you are applying for.',
+          'Start every bullet with an action verb and finish with a result.',
+          'Quantify wherever you can: numbers, percentages, money, time saved.',
+          'Recent graduate? Put education first, with relevant modules and grades.',
+          'Use one clean font, consistent dates and no photos.',
+          'Send it as a PDF named Firstname-Lastname-CV.pdf.',
+        ] },
+        ...pt(['h2', 'A layout that works']),
+        await seedImage('cv-layout-example.jpg', 'Example one-page CV layout', 'A clean layout: name and contact details, profile, education, experience, skills.'),
+        ...pt('Start from our Word template — replace the placeholder text and keep the structure.'),
+        inlineDl('CV template (Word)', 'Edit in Word or Google Docs, then save as PDF.', cvTemplate),
+        { _type: 'callout', _key: key(), tone: 'tip', title: 'Ask for a review', text: 'UKAP mentees can ask their mentor for a CV review at any session — bring a printed copy.' },
+        ...pt(['h2', 'Cover letters'], 'Keep cover letters to one page. Cover three things:'),
+        ...list('number', ['Why this company — something specific you admire.', 'Why this role — how it fits your skills and plans.', 'What you will bring — one or two examples with results.']),
+        ...pt(['blockquote', '“Mirror the language of the job advert. If they ask for ‘stakeholder management’, use those words.” — UKAP mentor, Finance']),
+        linkCard('National Careers Service — CV advice', 'https://nationalcareers.service.gov.uk/careers-advice/cv-sections', 'Free government guidance on each CV section'),
+      ],
+      downloads: [
+        dl('CV template', 'Word document — edit and save as PDF', cvTemplate),
+        dl('CV checklist', 'One-page printable checklist', cvChecklist),
+        dl('Example CV layout', 'Image you can print or keep as a reference', cvLayoutFile),
+      ],
+      links: [
+        lnk('National Careers Service — CV advice', 'https://nationalcareers.service.gov.uk/careers-advice/cv-sections', 'Free government guidance on each CV section'),
+        lnk('Prospects — example CVs', 'https://www.prospects.ac.uk/careers-advice/cvs-and-cover-letters', 'Graduate CV examples and templates'),
+      ],
+    },
+    {
+      _id: 'seed-resource-finance-2026', title: 'Training materials — Finance 2026', slug: 'training-materials-finance-2026', category: 'finance', colour: 'black-main',
+      img: 'training.jpg', date: '2026-09-05T09:00:00Z', tags: ['finance', 'Excel', '2026', 'training', 'DCF'],
+      summary: 'Slides, an Excel practice model, sample data and a workbook from the 2026 finance training programme.',
+      content: [
+        ...pt('Everything from the 2026 finance training programme in one place. Download the slides for each session and work through the exercises using the practice model.'),
+        { _type: 'callout', _key: key(), tone: 'info', title: 'Programme dates', text: 'Sessions run monthly from January to April 2026. New materials are added within a week of each session.' },
+        ...pt(['h2', 'What you will cover']),
+        ...list('bullet', ['Financial statements — income statement, balance sheet, cash flow', 'Valuation — discounted cash flow and comparable companies', 'Markets — how trading desks work', 'Interviews — technical questions and assessment centres']),
+        ...pt(['h2', 'Sessions'], ['h3', 'Session 1 — Financial statements']),
+        inlineDl('Session 1 slides (PDF)', 'Introduction to the three financial statements', financeSlides1),
+        ...pt(['h3', 'Session 2 — Valuation']),
+        inlineDl('Session 2 slides (PowerPoint)', 'Valuation basics and DCF', financeSlides2),
+        { ...(await photo('training.jpg')), _key: key(), alt: 'Mentees at a finance training session', caption: 'Session 1 at our London venue.' },
+        ...pt(['h2', 'Practice'], 'Open the Excel model and complete the three exercises on the second tab. Use the sample company data to try your own comparisons.'),
+        { _type: 'tipList', _key: key(), title: 'Before session 3', tips: ['Complete the exercises in the practice model.', 'Value one of the sample companies using a simple DCF.', 'Bring one question for the panel.'] },
+      ],
+      downloads: [
+        dl('Session 1 slides', 'PDF — financial statements', financeSlides1),
+        dl('Session 2 slides', 'PowerPoint — valuation and DCF', financeSlides2),
+        dl('Practice model', 'Excel — three-statement model with exercises', financeModel),
+        dl('Sample company data', 'CSV — open in Excel or Google Sheets', financeData),
+        dl('Programme workbook', 'PDF — exercises for weeks 1–4', financeWorkbook),
+      ],
+      links: [lnk('Corporate Finance Institute — free courses', 'https://corporatefinanceinstitute.com/', 'Free introductory finance courses')],
+    },
+    {
+      _id: 'seed-resource-interview-prep', title: 'Interview preparation guide', slug: 'interview-preparation-guide', category: 'careers', colour: 'gold-main',
+      img: 'mentor-chat.jpg', date: '2026-08-15T09:00:00Z', tags: ['interviews', 'STAR', 'audio', 'video'],
+      summary: 'How to prepare for competency interviews using the STAR method — with a practice audio, a talk to watch and a printable guide.',
+      content: [
+        ...pt('Most graduate interviews ask competency questions: "Tell me about a time when…". The STAR method keeps your answers clear and complete.'),
+        await seedImage('star-method.png', 'The STAR method: Situation, Task, Action, Result', 'Use STAR to structure every competency answer.'),
+        ...pt(['h2', 'Prepare five stories'], 'Pick five experiences from your studies, work or volunteering. Write each one out using STAR. Most questions can be answered with one of them.'),
+        ...pt(['h2', 'Practise out loud'], 'Play the practice questions below, pause after each one and answer out loud as if you were in the room.'),
+        inlineDl('Practice questions (audio)', 'Three common questions — about one minute', interviewAudio),
+        ...pt(['h2', 'Confidence on the day'], 'Body language changes how others see you — and how you feel. This well-known talk is worth ten minutes before an interview.'),
+        { _type: 'video', _key: key(), url: 'https://www.youtube.com/watch?v=Ks-_Mh1QhMc', caption: 'Amy Cuddy — Your body language may shape who you are (TED)' },
+        { _type: 'tipList', _key: key(), title: 'On the day', tips: ['Arrive ten minutes early, or log in five minutes early online.', 'Bring two questions for the interviewer.', 'Send a short thank-you email the same day.'] },
+        { _type: 'callout', _key: key(), tone: 'important', title: 'Online interviews', text: 'Test your camera and microphone the day before, and sit facing a window or lamp.' },
+      ],
+      downloads: [
+        dl('STAR method guide', 'Image — print it or keep it on your phone', starFile),
+        dl('Practice questions', 'MP3 audio — about one minute', interviewAudio),
+      ],
+      links: [lnk('Prospects — interview tips', 'https://www.prospects.ac.uk/careers-advice/interview-tips', 'Common questions and how to answer them')],
+    },
+    {
+      _id: 'seed-resource-scholarship-guide', title: 'Scholarship application guide', slug: 'scholarship-application-guide', category: 'scholarships', colour: 'red-main',
+      img: 'scholarships.jpg', date: '2026-07-01T09:00:00Z', tags: ['scholarships', 'personal statement', 'checklist'],
+      summary: 'Everything you need to apply for a UKAP scholarship: eligibility, a step-by-step checklist and how to write a strong personal statement.',
+      content: [
+        ...pt('UKAP scholarships support students in the UK and Albania. Read this guide before you start your application.'),
+        { _type: 'callout', _key: key(), tone: 'important', title: 'Deadline', text: 'Applications for the 2027 cohort open in spring 2027.' },
+        ...pt(['h2', 'Who can apply']),
+        ...list('bullet', ['Students starting or continuing a degree in the UK or Albania', 'Applicants with financial need', 'People who can show commitment to their community']),
+        ...pt(['h2', 'Your personal statement'], 'Tell us who you are, what you want to study and why, and what you will do with your degree. Be specific and honest — we want to hear your voice.'),
+        ...pt(['blockquote', '“Talent is equally distributed; opportunity is not. Our scholarships exist to close that gap.” — UKAP Foundation']),
+        ...pt('Persistence matters as much as grades. This talk explains why:'),
+        { _type: 'video', _key: key(), url: 'https://www.youtube.com/watch?v=H14bBuluwB8', caption: 'Angela Lee Duckworth — Grit: the power of passion and perseverance (TED)' },
+        inlineDl('Application checklist', 'Plain-text checklist — tick off each item', scholarshipChecklist),
+        linkCard('UCAS — student finance', 'https://www.ucas.com/finance', 'Other funding you may be entitled to'),
+      ],
+      downloads: [
+        dl('Scholarship guide', 'PDF — eligibility, funding and process', scholarshipGuide),
+        dl('Application checklist', 'Text file', scholarshipChecklist),
+      ],
+      links: [lnk('UCAS — student finance', 'https://www.ucas.com/finance', 'Other funding you may be entitled to')],
+    },
+  ]
+  for (const r of resources) {
+    tx.createOrReplace({
+      _id: r._id, _type: 'resource', title: r.title, slug: { _type: 'slug', current: r.slug }, category: r.category,
+      summary: r.summary, coverImage: { ...(await photo(r.img)), alt: r.title }, cardColour: r.colour, tags: r.tags,
+      publishedAt: r.date, featured: !!r.featured, hidden: false, content: r.content, downloads: r.downloads, links: r.links,
     })
   }
 

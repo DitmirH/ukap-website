@@ -74,6 +74,7 @@ docs/concepts/          agreed design mockups + specs for features not built yet
 | `SectionHead` | Uppercase section title + optional "View all" link. |
 | `WhatsOn` | Homepage "What's on" section. Driven by the Sanity **What's On (Events cards)** document (`eventsSection`): *Automatic* shows the next N upcoming events; *Hand-picked* shows cards that each reference an Event. Shows `EventsEmpty` when there's nothing upcoming. |
 | `EventCard` | Poster-style event card (approved design). Whole card + "More info →" → `/events/{slug}`; "Book now" → `ticketLink` (hidden for past, sold-out, cancelled, or no link). Colour from `event.cardColour` / card override, else cycles coral → black → gold. Grid wrapper: `.event-card-grid`. |
+| `ResourceCard` | Colour-block card for a Resource (`/resources`). Colour from `resource.cardColour`, else rotates blue → gold → coral → black. Grid: `.resource-grid`. |
 | `BlogCard` | News card (same style as event cards). Variants: default card (News page); `feature` = lead story (photo + overlapping black panel); `compact` = list row. Home "Latest updates" shows the latest 5: feature left + 4 compact rows right (`.news-layout`). |
 | `EventsList`, `TeamCard`, `SponsorsCarousel`, `ContactForm`, `AnnouncementModal` | Sanity-driven content components. |
 
@@ -99,6 +100,11 @@ Untracked work-in-progress components (`AnnouncementBanner`, `AudiencePathways`,
   `studio/lib/palette.js` (Studio) and `src/lib/palette.js` (site, `swatch()` helper gives bg/text
   colours). Studio fields use `colourField()` (`studio/schemaTypes/colourField.js`), which renders
   the clickable `ColourSwatchInput` grid.
+- **Resources**: Sanity `resource` (Pages → Resources), tabs Details / Page content / Downloads & links.
+  `/resources` lists them (category filter + search, featured first); `/resources/{slug}` renders rich
+  content (text, tips list, callout, image, YouTube/Vimeo video, inline download, link card) with a sticky
+  Downloads / Useful links panel. Categories are defined in `studio/schemaTypes/resource.js` **and**
+  `src/lib/resources.js` — keep in sync. `PageHeader` takes an optional `colour` (palette key).
 - **Events**: `event.cardColour` sets the card colour. `/events` lists upcoming events, then an
   **Archive** of past events (newest first) with a year filter. "Upcoming" = `date >= today`.
   Shared GROQ fields live in `src/lib/eventQueries.js`.
@@ -109,18 +115,20 @@ Untracked work-in-progress components (`AnnouncementBanner`, `AudiencePathways`,
 - Import as a **single Vite project** at the repo root. Do **not** use Vercel's "Services"
   multi-app setup — `server/` is local-only and `studio/` deploys to Sanity.
 - Env vars: `VITE_SANITY_PROJECT_ID`, `VITE_SANITY_DATASET` (= `development`; only affects
-  non-live domains), `SMTP_USER`, `SMTP_PASS`, `CONTACT_EMAIL`.
+  non-live domains), `SMTP_USER`, `SMTP_PASS`, `CONTACT_EMAIL`, `EDITOR_GUIDE_PASSWORD` (editor guide).
 - Staging: https://ukap-website-rose.vercel.app (development dataset). Live: ukapfoundation.org
   (production dataset) once the domain is added to the same Vercel project.
 - Sanity CORS origins must include `https://*.vercel.app`, `https://ukapfoundation.org` and
   `https://www.ukapfoundation.org`.
 - `vercel.json` rewrites everything to `index.html` (SPA) except `/api/*`.
 
-## Password gate
+## Editor guide (hidden, password-protected)
 
-Removed for now (October 2026) — the site is public. The old `middleware.js` (Vercel Routing
-Middleware that showed a branded password page when `SITE_PASSWORD` was set) is in git history if
-it's needed again.
+`studio/EDITOR-MANUAL.html` is the branded manual for Sanity editors — update it when you add or
+change Studio fields. `vite.config.js` copies it into the build as `/editor-guide/index.html`, and
+`middleware.js` (Vercel Routing Middleware, `matcher` limited to `/editor-guide`) asks for the
+`EDITOR_GUIDE_PASSWORD` env var before serving it. Without that variable the URL returns 404. The
+page is not linked anywhere and is sent with `noindex`. The rest of the site has no password gate.
 
 ## Known content to clean up
 

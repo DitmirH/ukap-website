@@ -10,3 +10,5 @@ export { default as Donate } from './Donate'
 
 export { default as About } from './About'
 export { PrivacyPolicy, TermsAndConditions } from './Legal'
+export { default as Resources } from './Resources'
+export { default as ResourceDetail } from './ResourceDetail'

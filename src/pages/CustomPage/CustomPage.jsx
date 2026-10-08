@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react'
 import { useParams, Link } from 'react-router-dom'
 import { PortableText } from '@portabletext/react'
-import { Nav, Footer, ContactForm, EventsList, TicketTailorEmbed, EmbedCode } from '../../components'
+import { Nav, Footer, ContactForm, EventsList, TicketTailorEmbed, EmbedCode, PageHeader } from '../../components'
 import { client, urlFor } from '../../lib/sanityClient'
 import './CustomPage.css'
 
@@ -209,13 +209,14 @@ export default function CustomPage({ slug: slugProp, fallbackTitle, fallbackBody
       return (
         <div className="custom-page">
           <Nav />
+          <PageHeader
+            tone="ink"
+            size="compact"
+            title={fallbackTitle}
+            subtitle={fallbackDescription}
+            crumbs={[{ label: fallbackTitle }]}
+          />
           <div className="page-container">
-            <header className="page-header">
-              <h1 className="page-title">{fallbackTitle}</h1>
-              {fallbackDescription && (
-                <p className="page-description">{fallbackDescription}</p>
-              )}
-            </header>
             {fallbackBody ? (
               <div className="page-content">{fallbackBody}</div>
             ) : (
@@ -245,46 +246,40 @@ export default function CustomPage({ slug: slugProp, fallbackTitle, fallbackBody
   }
 
   const heroStyle = page.heroStyle || 'overlay'
+  const imageOverlayHero = page.heroImage && heroStyle === 'overlay'
+  const sideImage =
+    page.heroImage && (heroStyle === 'banner' || heroStyle === 'contained')
+      ? urlFor(page.heroImage).width(900).height(675).url()
+      : null
 
   return (
     <div className="custom-page">
       <Nav />
       
       {/* Hero Section */}
-      {page.heroImage && heroStyle !== 'none' && (
+      {imageOverlayHero ? (
         <div className={`page-hero hero-${heroStyle}`}>
           <img 
             src={urlFor(page.heroImage).width(1400).height(heroStyle === 'banner' ? 400 : 500).url()} 
             alt={page.heroImage.alt || page.title} 
           />
-          {heroStyle === 'overlay' && (
-            <div className="hero-overlay">
-              <h1 className="hero-title">{page.title}</h1>
-              {page.description && <p className="hero-description">{page.description}</p>}
-            </div>
-          )}
+          <div className="hero-overlay">
+            <h1 className="hero-title">{page.title}</h1>
+            {page.description && <p className="hero-description">{page.description}</p>}
+          </div>
         </div>
+      ) : (
+        <PageHeader
+          tone="blue"
+          title={page.title}
+          subtitle={page.description}
+          image={sideImage}
+          imageAlt={page.heroImage?.alt || page.title}
+          crumbs={[{ label: page.title }]}
+        />
       )}
 
       <div className="page-container">
-        {/* Title if no hero or hero without overlay */}
-        {(heroStyle === 'none' || heroStyle === 'banner' || heroStyle === 'contained') && (
-          <header className="page-header">
-            <h1 className="page-title">{page.title}</h1>
-            {page.description && <p className="page-description">{page.description}</p>}
-          </header>
-        )}
-
-        {/* Contained hero image */}
-        {page.heroImage && heroStyle === 'contained' && (
-          <div className="page-hero-contained">
-            <img 
-              src={urlFor(page.heroImage).width(900).url()} 
-              alt={page.heroImage.alt || page.title} 
-            />
-          </div>
-        )}
-
         {/* Page Content */}
         {page.content && (
           <div className="page-content">

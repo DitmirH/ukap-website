@@ -8,6 +8,9 @@
 
 const SELECTORS = [
   '.section-title',
+  '.block-head',
+  '.tile',
+  '.cta-band-inner',
   '.page-title',
   '.events-title',
   '.event-item',

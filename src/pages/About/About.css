@@ -4,257 +4,188 @@
   flex-direction: column;
 }
 
-/* --- Hero --- */
-.about-hero {
-  position: relative;
-  background: var(--gradient-blue);
-  color: var(--ukap-white);
-  text-align: center;
-  padding: clamp(4rem, 8vw, 6.5rem) 1.5rem;
-  overflow: hidden;
+.about-split {
+  display: grid;
+  grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr);
+  gap: clamp(2rem, 6vw, 5rem);
+  align-items: start;
 }
 
-.about-hero::after {
-  content: "";
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  height: 5px;
-  background: var(--gradient-tri);
-}
-
-.about-hero h1 {
-  color: var(--ukap-white);
-  font-size: clamp(2.1rem, 1.4rem + 3vw, 3.4rem);
-}
-
-.about-hero p {
-  margin-top: 0.9rem;
-  font-size: 1.12rem;
-  opacity: 0.9;
-}
-
-/* --- Layout --- */
-.about-container {
-  flex: 1;
-  width: 100%;
-  max-width: 860px;
-  margin: 0 auto;
-  padding: clamp(3rem, 6vw, 4.5rem) clamp(1.25rem, 4vw, 2rem) 5.5rem;
-  font-size: 1.06rem;
-  line-height: 1.75;
-}
-
-.about-section {
-  margin-bottom: 3.5rem;
-}
-
-.about-section .section-title {
-  position: relative;
-  display: inline-block;
-  padding-bottom: 0.5rem;
+.about-prose p {
   margin-bottom: 1.25rem;
+  font-size: 1.08rem;
+  line-height: 1.75;
+  color: var(--color-text-muted);
 }
 
-.about-section .section-title::after {
-  content: "";
-  position: absolute;
-  left: 0;
-  bottom: 0;
-  width: 56px;
-  height: 5px;
-  border-radius: 3px;
-  background: var(--gradient-gold);
-}
-
-.about-section p {
-  margin-bottom: 1.2rem;
+.about-prose .about-lead {
+  font-size: clamp(1.2rem, 1.05rem + 0.5vw, 1.45rem);
+  line-height: 1.55;
+  font-weight: var(--fw-regular);
   color: var(--color-text);
 }
 
-.about-lead {
-  font-size: 1.22rem;
-  line-height: 1.65;
-  font-weight: var(--fw-regular);
-}
-
-/* --- Mission blockquote --- */
+/* Mission — red block */
 .about-mission {
-  background: var(--ukap-blue-deep);
-  border-radius: var(--radius-xl);
-  padding: clamp(2rem, 5vw, 3rem);
-  text-align: center;
-  margin-bottom: 3.5rem;
-}
-
-.about-mission-label {
-  display: inline-block;
-  font-size: 0.8rem;
-  font-weight: var(--fw-bold);
-  letter-spacing: 0.16em;
-  text-transform: uppercase;
-  color: var(--ukap-yellow);
-  margin-bottom: 1rem;
+  position: relative;
+  overflow: hidden;
+  background: var(--ukap-red);
+  color: var(--ukap-white);
+  padding-block: clamp(4rem, 8vw, 6.5rem);
 }
 
 .about-mission blockquote {
-  font-size: clamp(1.25rem, 1.05rem + 1vw, 1.65rem);
-  font-weight: var(--fw-semibold);
-  line-height: 1.5;
-  color: var(--ukap-white);
-  max-width: 24em;
-  margin: 0 auto;
+  position: relative;
+  z-index: 1;
+  font-size: clamp(1.7rem, 1.1rem + 2.4vw, 3rem);
+  font-weight: var(--fw-bold);
+  line-height: 1.15;
+  letter-spacing: -0.025em;
+  max-width: 24ch;
 }
 
-/* --- Programmes --- */
+.about-mission-mark {
+  position: absolute;
+  right: max(-40px, calc((100vw - var(--container)) / 2));
+  top: 50%;
+  transform: translateY(-50%);
+  width: clamp(160px, 20vw, 260px);
+  color: rgba(255, 255, 255, 0.22);
+}
+
+/* Programmes */
 .about-programmes {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  grid-template-columns: repeat(3, 1fr);
   gap: 1.5rem;
-  margin: 1.75rem 0;
 }
 
-/* Layered alternating rows — no cards, typography-led */
 .about-programme {
+  min-height: 280px;
   display: flex;
-  padding: 2.4rem 0;
+  flex-direction: column;
 }
 
-.about-programme + .about-programme {
-  border-top: 1px solid var(--color-border);
+.about-programme-num {
+  font-weight: var(--fw-bold);
+  font-size: 0.85rem;
+  letter-spacing: 0.14em;
+  color: var(--ukap-blue);
+  margin-bottom: auto;
 }
 
-.about-programme.flip {
-  justify-content: flex-end;
-  text-align: right;
+.tint-red .about-programme-num { color: var(--ukap-red); }
+.tint-yellow .about-programme-num { color: var(--ukap-yellow-deep); }
+
+.about-programme h3 {
+  font-size: 1.4rem;
+  margin: 2.5rem 0 0.7rem;
 }
 
-.programme-text {
-  max-width: 34rem;
-}
-
-/* Short brand-colour rule above each title */
-.programme-text::before {
-  content: "";
-  display: block;
-  width: 44px;
-  height: 4px;
-  border-radius: 2px;
-  margin-bottom: 0.9rem;
-  transition: width 0.35s var(--ease-out);
-}
-
-.about-programme.flip .programme-text::before {
-  margin-left: auto;
-}
-
-.about-programme:hover .programme-text::before {
-  width: 72px;
-}
-
-.about-programme.color-blue .programme-text::before { background: var(--ukap-blue); }
-.about-programme.color-red  .programme-text::before { background: var(--ukap-red); }
-.about-programme.color-gold .programme-text::before { background: var(--ukap-yellow); }
-
-.programme-text h3 {
-  font-size: 1.35rem;
-  margin-bottom: 0.5rem;
-}
-
-.about-programme.color-blue .programme-text h3 { color: var(--ukap-blue); }
-.about-programme.color-red  .programme-text h3 { color: var(--ukap-red); }
-.about-programme.color-gold .programme-text h3 { color: var(--ukap-yellow-deep); }
-
-.programme-text p {
-  font-size: 1rem;
-  line-height: 1.7;
+.about-programme p {
   color: var(--color-text-muted);
-  margin: 0;
+  line-height: 1.6;
 }
 
-@media (max-width: 620px) {
-  .about-programme.flip {
-    justify-content: flex-start;
-    text-align: left;
-  }
-
-  .about-programme.flip .programme-text::before {
-    margin-left: 0;
-  }
+.about-after {
+  margin-top: 2rem;
+  max-width: 70ch;
+  color: var(--color-text-muted);
+  font-size: 1.05rem;
 }
 
-/* --- Achievements --- */
+/* Impact */
+.about-stats {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 12px;
+}
+
+.about-stats .tile {
+  min-height: 180px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.about-highlights {
+  margin-top: clamp(3rem, 6vw, 5rem);
+}
+
 .about-subheading {
-  font-size: 1.25rem;
-  margin: 2rem 0 1rem;
+  font-size: clamp(1.5rem, 1.2rem + 1vw, 2rem);
+  margin-bottom: 1rem;
+}
+
+.about-muted {
+  color: var(--color-text-muted);
+  max-width: 44ch;
 }
 
 .about-achievements {
   list-style: none;
-  display: flex;
-  flex-direction: column;
-  gap: 0.75rem;
-  margin-bottom: 1.5rem;
+  border-top: 1px solid var(--color-border-strong);
 }
 
 .about-achievements li {
   position: relative;
-  padding: 0.85rem 1.1rem 0.85rem 2.4rem;
-  background: var(--color-surface-2);
-  border-radius: var(--radius-md);
-  font-size: 0.98rem;
+  display: grid;
+  gap: 0.2rem;
+  padding: 1rem 0 1rem 1.75rem;
+  border-bottom: 1px solid var(--color-border-strong);
 }
 
 .about-achievements li::before {
-  content: "★";
+  content: "";
   position: absolute;
-  left: 1rem;
-  color: var(--ukap-yellow);
+  left: 0;
+  top: 1.35rem;
+  width: 12px;
+  height: 12px;
+  background: var(--ukap-blue);
 }
 
-/* --- Community note --- */
+.about-achievements li:nth-child(3n + 2)::before { background: var(--ukap-red); }
+.about-achievements li:nth-child(3n)::before { background: var(--ukap-yellow); }
+
+.about-achievements strong {
+  font-weight: var(--fw-bold);
+  color: var(--color-heading);
+}
+
+.about-achievements span {
+  color: var(--color-text-muted);
+  font-size: 0.97rem;
+}
+
+/* Note */
+.about-note-wrap { padding-bottom: var(--section-y); }
+
 .about-note {
-  background: var(--ukap-blue-soft);
-  border-left: 5px solid var(--ukap-blue);
-  border-radius: 0 var(--radius-md) var(--radius-md) 0;
-  padding: 1.4rem 1.6rem;
-  margin-bottom: 3.5rem;
+  border-left: 6px solid var(--ukap-yellow);
+  background: var(--ukap-yellow-soft);
+  padding: 1.75rem 2rem;
+  max-width: 860px;
 }
 
 .about-note h3 {
-  font-size: 1.05rem;
-  margin-bottom: 0.4rem;
-}
-
-.about-note p {
-  font-size: 0.97rem;
-  color: var(--color-text-muted);
-  margin: 0;
-}
-
-/* --- CTA --- */
-.about-cta {
-  text-align: center;
-  background: var(--ukap-yellow-soft);
-  border: 1px solid var(--ukap-yellow-light);
-  border-radius: var(--radius-xl);
-  padding: 2.5rem 2rem;
-}
-
-.about-cta h2 {
-  font-size: 1.6rem;
+  font-size: 1.15rem;
   margin-bottom: 0.5rem;
 }
 
-.about-cta p {
+.about-note p {
   color: var(--color-text-muted);
-  margin-bottom: 1.5rem;
 }
 
 .about-cta-buttons {
   display: flex;
-  justify-content: center;
-  gap: 1rem;
   flex-wrap: wrap;
+  gap: 0.85rem;
+}
+
+@media (max-width: 900px) {
+  .about-split,
+  .about-programmes { grid-template-columns: 1fr; }
+  .about-stats { grid-template-columns: 1fr 1fr; }
+  .about-programme { min-height: 0; }
 }

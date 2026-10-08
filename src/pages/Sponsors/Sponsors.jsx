@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react'
-import { Nav, Footer } from '../../components'
+import { Nav, Footer, PageHeader } from '../../components'
 import { client, urlFor } from '../../lib/sanityClient'
 import './Sponsors.css'
 
@@ -97,10 +97,16 @@ export default function Sponsors() {
     <div className="sponsors-page">
       <Nav activePage="sponsors" />
       
-      <div className="sponsors-hero">
-        <h1>Our Sponsors & Partners</h1>
-        <p>We're grateful for the support of these amazing organizations</p>
-      </div>
+      <PageHeader
+        tone="blue"
+        photo="/images/partners.jpg"
+        eyebrow="Sponsors & partners"
+        title={<>Partnering for a brighter <span className="accent">future</span></>}
+        subtitle="The organisations whose support turns volunteer expertise into scholarships, mentoring and events for young people."
+        crumbs={[{ label: 'Partners' }]}
+      >
+        <a href="mailto:ukap@ukapfoundation.org?subject=Partnership%20enquiry" className="btn btn-yellow">Become a partner</a>
+      </PageHeader>
 
       <div className="sponsors-container">
         {Object.entries(groupedSponsors).map(([tier, tierSponsors]) => (
@@ -134,8 +140,13 @@ export default function Sponsors() {
         ))}
 
         {sponsors.length === 0 && (
-          <div className="no-sponsors">
-            <p>Sponsor information coming soon.</p>
+          <div className="no-sponsors tile tint-yellow">
+            <h2>Partner with UKAP</h2>
+            <p>
+              Co-branded events, scholarship funding, product presence and match-funding —
+              every partnership is tailored. Our sponsor list is coming soon.
+            </p>
+            <a href="mailto:ukap@ukapfoundation.org?subject=Partnership%20enquiry" className="btn btn-blue">Start a conversation</a>
           </div>
         )}
       </div>

@@ -36,23 +36,35 @@ const FALLBACK = [
   },
 ]
 
-function CardBody({ programme }) {
+// Placeholder photography per programme until CMS images are added
+const photoFor = (title = '') => {
+  const t = title.toLowerCase()
+  if (t.includes('scholar')) return '/images/scholarships.jpg'
+  if (t.includes('mentor')) return '/images/mentoring.jpg'
+  if (t.includes('network') || t.includes('community')) return '/images/networking.jpg'
+  return '/images/training.jpg'
+}
+
+function Card({ programme }) {
+  const img = programme.image
+    ? urlFor(programme.image).width(600).height(700).url()
+    : photoFor(programme.title)
+  const link = programme.link || '/about'
+  const external = /^https?:/.test(link)
+  const More = external ? 'a' : Link
+  const moreProps = external ? { href: link, target: '_blank', rel: 'noopener noreferrer' } : { to: link }
+
   return (
-    <>
-      {programme.image && (
-        <div className="programme-image">
-          <img
-            src={urlFor(programme.image).width(500).height(280).url()}
-            alt={programme.title}
-          />
-        </div>
-      )}
-      <div className="programme-content">
-        <h3 className="programme-title">{programme.title}</h3>
-        <p className="programme-description">{programme.description}</p>
-        {programme.link && <span className="programme-more">Learn more →</span>}
+    <article className="prog-card">
+      <div className="prog-media">
+        <img src={img} alt="" loading="lazy" />
       </div>
-    </>
+      <div className="prog-body">
+        <h3 className="prog-title">{programme.title}</h3>
+        <p className="prog-text">{programme.description}</p>
+        <More {...moreProps} className="prog-more">Read more</More>
+      </div>
+    </article>
   )
 }
 
@@ -73,51 +85,16 @@ export default function ProgrammesGrid() {
   }, [])
 
   return (
-    <section className="programmes-section">
-      <h2 className="section-title">What we <span className="accent">do</span></h2>
-      <p className="programmes-subtitle">
-        We advance education for the public benefit through our core programmes
-      </p>
-
-      <div className="programmes-grid">
-        {programmes.map((programme) => {
-          const color = programme.color || 'gold'
-          const className = `programme-card color-${color}`
-
-          if (programme.link) {
-            const isExternal = programme.link.startsWith('http')
-            return isExternal ? (
-              <a
-                key={programme._id}
-                href={programme.link}
-                target="_blank"
-                rel="noopener noreferrer"
-                className={className}
-              >
-                <CardBody programme={programme} />
-              </a>
-            ) : (
-              <Link key={programme._id} to={programme.link} className={className}>
-                <CardBody programme={programme} />
-              </Link>
-            )
-          }
-
-          return (
-            <div key={programme._id} className={className}>
-              <CardBody programme={programme} />
-            </div>
-          )
-        })}
-      </div>
-
-      <div className="programmes-cta">
-        <h3>Join our team of volunteers</h3>
-        <p>
-          Join us in making a difference in our community. We believe in the
-          power of volunteering to create positive change.
+    <section className="programmes-section section">
+      <div className="container">
+        <h2 className="section-title">What we do</h2>
+        <p className="programmes-lead">
+          We advance education for the public benefit through our core programmes —
+          every one designed and delivered by volunteers.
         </p>
-        <Link to="/" className="btn-primary">Get in touch</Link>
+        <div className="prog-grid">
+          {programmes.map((p) => <Card key={p._id} programme={p} />)}
+        </div>
       </div>
     </section>
   )

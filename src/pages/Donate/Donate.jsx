@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react'
-import { Nav, Footer, EmbedCode } from '../../components'
+import { Nav, Footer, EmbedCode, PageHeader } from '../../components'
 import { client } from '../../lib/sanityClient'
 import './Donate.css'
 
@@ -48,12 +48,16 @@ export default function Donate() {
       <Nav activePage="donate" />
 
       {/* Hero Section */}
-      <section className="donate-hero">
-        <div className="donate-hero-content">
-          <h1>Help Us Create Brighter Futures Through Education</h1>
-          <p>Your donation helps us provide scholarships, mentoring, and opportunities for young people.</p>
-        </div>
-      </section>
+      <PageHeader
+        tone="red"
+        photo="/images/graduates-red.jpg"
+        eyebrow="Donate"
+        title={<>Help us create brighter <span className="accent">futures</span></>}
+        subtitle="Your donation funds scholarships, mentoring and opportunities for young people — and with Gift Aid, every £1 becomes £1.25."
+        crumbs={[{ label: 'Donate' }]}
+      >
+        <a href="#donate-form" className="btn btn-yellow">Give now</a>
+      </PageHeader>
 
       {/* Main Content */}
       <section className="donate-content">
@@ -86,7 +90,7 @@ export default function Donate() {
           </aside>
 
           {/* Zeffy Donation Form */}
-          <div className="zeffy-widget-container">
+          <div className="zeffy-widget-container" id="donate-form">
             {zeffyReady ? (
               <div className="zeffy-embed">
                 <EmbedCode code={ZEFFY_EMBED_CODE} title="Donate via Zeffy" />
@@ -146,7 +150,8 @@ export default function Donate() {
 
           {/* Why Donate */}
           <div className="donate-why">
-            <h2>Why Your Donation Matters</h2>
+            <span className="eyebrow">Where it goes</span>
+            <h2>Why your donation matters</h2>
             <div className="why-grid">
               <div className="why-card">
                 <h3>Scholarships</h3>
@@ -165,8 +170,8 @@ export default function Donate() {
 
           {/* Impact */}
           <div className="donate-impact">
-            <h2>Our Impact</h2>
-            <p className="impact-subtitle">2025 at a Glance</p>
+            <span className="eyebrow on-dark">2025 at a glance</span>
+            <h2>Our impact</h2>
             <div className="impact-grid">
               <div className="impact-stat">
                 <span className="stat-number">15+</span>

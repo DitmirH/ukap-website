@@ -1,9 +1,10 @@
 .blog-card-link {
   display: block;
-  text-decoration: none;
   color: inherit;
   height: 100%;
 }
+
+.blog-card-link:hover { color: inherit; }
 
 .blog-card {
   height: 100%;
@@ -11,67 +12,86 @@
   flex-direction: column;
   background: var(--color-surface);
   border: 1px solid var(--color-border);
-  border-radius: var(--radius-lg);
-  overflow: hidden;
-  box-shadow: var(--shadow-sm);
-  transition: transform 0.3s var(--ease-out), box-shadow 0.3s var(--ease-out),
-              border-color 0.3s ease;
+  transition: border-color var(--speed-fast) ease, transform var(--speed-med) var(--ease-out);
 }
 
 .blog-card-link:hover .blog-card {
-  transform: translateY(-6px);
-  box-shadow: var(--shadow-lg);
-  border-color: transparent;
+  transform: translateY(-4px);
 }
 
 .blog-card-image {
   aspect-ratio: 3 / 2;
   overflow: hidden;
+  background: var(--ukap-blue);
 }
 
 .blog-card-image img {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  transition: transform 0.5s var(--ease-out);
+  display: block;
+  transition: transform 0.6s var(--ease-out);
 }
 
 .blog-card-link:hover .blog-card-image img {
-  transform: scale(1.06);
+  transform: scale(1.05);
+}
+
+.blog-card-noimg {
+  display: grid;
+  place-items: center;
+}
+
+.blog-card-noimg .ukap-watermark {
+  width: 28%;
+  color: rgba(255, 175, 26, 0.7);
 }
 
 .blog-card-content {
-  padding: 1.4rem 1.5rem 1.6rem;
+  padding: 1.5rem 1.5rem 1.75rem;
   display: flex;
   flex-direction: column;
-  gap: 0.55rem;
+  gap: 0.6rem;
   flex: 1;
 }
 
 .blog-card-date {
-  display: inline-block;
-  font-size: 0.78rem;
+  font-size: 0.76rem;
   font-weight: var(--fw-bold);
-  letter-spacing: 0.08em;
+  letter-spacing: 0.14em;
   text-transform: uppercase;
   color: var(--ukap-red);
 }
 
 .blog-card-title {
-  font-size: 1.25rem;
-  line-height: 1.3;
-  transition: color 0.2s ease;
+  font-size: 1.3rem;
+  font-weight: var(--fw-semibold);
+  color: var(--ukap-blue);
+  line-height: 1.2;
+  transition: color var(--speed-fast) ease;
 }
 
 .blog-card-link:hover .blog-card-title {
-  color: var(--ukap-blue);
+  color: var(--ukap-red);
 }
 
 .blog-card-excerpt {
   color: var(--color-text-muted);
-  font-size: 0.95rem;
+  font-size: 0.97rem;
   display: -webkit-box;
   -webkit-line-clamp: 3;
   -webkit-box-orient: vertical;
   overflow: hidden;
+}
+
+.blog-card-more {
+  margin-top: auto;
+  padding-top: 0.75rem;
+  font-weight: var(--fw-bold);
+  font-size: 0.95rem;
+  color: var(--ukap-blue);
+}
+
+.blog-card-more::after {
+  content: " →";
 }

@@ -5,46 +5,9 @@
 }
 
 /* --- Hero: flat brand red (festive / giving per guidelines) --- */
-.donate-hero {
-  position: relative;
-  background: var(--gradient-red);
-  color: var(--ukap-white);
-  text-align: center;
-  padding: clamp(4.5rem, 9vw, 7rem) 1.5rem;
-  overflow: hidden;
-}
-
-.donate-hero::after {
-  content: "";
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  height: 5px;
-  background: var(--gradient-tri);
-}
-
-.donate-hero-content {
-  position: relative;
-  z-index: 1;
-  max-width: 800px;
-  margin: 0 auto;
-}
-
-.donate-hero h1 {
-  color: var(--ukap-white);
-  font-size: clamp(2.1rem, 1.4rem + 3vw, 3.4rem);
-}
-
-.donate-hero p {
-  margin-top: 1rem;
-  font-size: 1.15rem;
-  opacity: 0.92;
-}
-
 .donate-content {
   flex: 1;
-  padding: clamp(3rem, 6vw, 5rem) clamp(1.25rem, 4vw, 2rem) 5.5rem;
+  padding: var(--section-y) var(--gutter);
 }
 
 .donate-container {
@@ -53,19 +16,18 @@
 }
 
 .donate-intro p {
-  font-size: 1.15rem;
-  line-height: 1.7;
-  color: var(--color-text-muted);
-  text-align: center;
+  font-size: clamp(1.15rem, 1.05rem + 0.4vw, 1.35rem);
+  line-height: 1.6;
+  color: var(--color-text);
   max-width: 780px;
-  margin: 0 auto 3rem;
+  margin: 0 0 3rem;
 }
 
 /* --- Gift Aid --- */
 .giftaid-note-box {
   position: relative;
   background: var(--ukap-yellow-soft);
-  border: 1px solid var(--ukap-yellow-light);
+  border-left: 6px solid var(--ukap-yellow);
   border-radius: var(--radius-lg);
   padding: 2rem 2.25rem 1.75rem;
   margin-bottom: 3rem;
@@ -105,10 +67,11 @@
   margin-bottom: 4rem;
 }
 
+.zeffy-widget-container { scroll-margin-top: calc(var(--nav-h) + 1rem); }
+
 .zeffy-embed {
-  border-radius: var(--radius-lg);
   overflow: hidden;
-  box-shadow: var(--shadow-md);
+  border: 1px solid var(--color-border);
 }
 
 .zeffy-placeholder {
@@ -128,7 +91,6 @@
 
 /* --- Sponsorship tiers --- */
 .sponsorship-tiers {
-  text-align: center;
   margin-bottom: 4.5rem;
 }
 
@@ -254,7 +216,6 @@
 
 /* --- Why donate --- */
 .donate-why {
-  text-align: center;
   margin-bottom: 4.5rem;
 }
 
@@ -270,23 +231,19 @@
   text-align: left;
 }
 
+.why-grid { gap: 12px; }
+
 .why-card {
-  background: var(--color-surface);
-  border: 1px solid var(--color-border);
-  border-top: 5px solid var(--ukap-blue);
-  border-radius: var(--radius-lg);
-  padding: 1.9rem 1.75rem;
-  box-shadow: var(--shadow-sm);
-  transition: transform 0.3s var(--ease-out), box-shadow 0.3s var(--ease-out);
+  background: var(--ukap-blue-soft);
+  padding: 2rem 1.75rem;
+  min-height: 210px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
 }
 
-.why-card:nth-child(2) { border-top-color: var(--ukap-red); }
-.why-card:nth-child(3) { border-top-color: var(--ukap-yellow); }
-
-.why-card:hover {
-  transform: translateY(-5px);
-  box-shadow: var(--shadow-md);
-}
+.why-card:nth-child(2) { background: var(--ukap-red-soft); }
+.why-card:nth-child(3) { background: var(--ukap-yellow-soft); }
 
 .why-card h3 {
   font-size: 1.2rem;
@@ -300,16 +257,15 @@
 
 /* --- Impact stats --- */
 .donate-impact {
-  background: var(--ukap-blue-deep);
-  border-radius: var(--radius-xl);
+  background: var(--ukap-blue);
   padding: clamp(2.5rem, 5vw, 4rem);
-  text-align: center;
   margin-bottom: 3.5rem;
   color: var(--ukap-white);
 }
 
 .donate-impact h2 {
   color: var(--ukap-white);
+  margin-bottom: 2.5rem;
   font-size: clamp(1.7rem, 1.3rem + 1.8vw, 2.4rem);
 }
 
@@ -334,14 +290,16 @@
   gap: 0.35rem;
 }
 
-.stat-number {
+.donate-impact .stat-number {
   font-size: clamp(2.4rem, 2rem + 2vw, 3.4rem);
   font-weight: var(--fw-heavy);
   line-height: 1;
   color: var(--ukap-yellow);
 }
 
-.stat-label {
+.donate-impact .stat-label {
+  margin-top: 0;
+  color: inherit;
   font-size: 0.95rem;
   font-weight: var(--fw-semibold);
   opacity: 0.85;
@@ -349,7 +307,6 @@
 
 /* --- Footer note --- */
 .donate-note {
-  text-align: center;
   color: var(--color-text-muted);
   font-size: 0.95rem;
 }

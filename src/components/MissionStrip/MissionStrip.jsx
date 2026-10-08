@@ -30,6 +30,14 @@ const renderHeading = (heading, highlight) => {
   )
 }
 
+// Headline figures (UKAP Sponsor & Partner Deck 2026)
+const STATS = [
+  { num: '2010', label: 'Founded as a grassroots network of students and graduates', tint: 'blue' },
+  { num: '2,000+', label: 'Young people supported across the UK and internationally', tint: 'red' },
+  { num: '42+', label: 'Volunteers across professions and seniority levels', tint: 'yellow' },
+  { num: '11', label: 'Scholarships awarded with the CFA Institute', tint: 'blue' },
+]
+
 export default function MissionStrip() {
   const [mission, setMission] = useState(FALLBACK)
 
@@ -49,24 +57,33 @@ export default function MissionStrip() {
   const isExternal = mission.ctaLink?.startsWith('http')
 
   return (
-    <section className="mission-strip">
-      <div className="mission-inner">
-        <span className="mission-eyebrow">{mission.eyebrow}</span>
-        <h2 className="section-title">
-          {renderHeading(mission.heading, mission.highlightedWord)}
-        </h2>
-        <p className="mission-body">{mission.body}</p>
-        {mission.ctaText && mission.ctaLink && (
-          isExternal ? (
-            <a href={mission.ctaLink} target="_blank" rel="noopener noreferrer" className="view-all-link">
-              {mission.ctaText}
-            </a>
-          ) : (
-            <Link to={mission.ctaLink} className="view-all-link">
-              {mission.ctaText}
-            </Link>
-          )
-        )}
+    <section className="mission-band">
+      <div className="container mission-inner">
+        <div className="mission-text">
+          <span className="eyebrow on-dark">{mission.eyebrow}</span>
+          <h2 className="section-title">
+            {renderHeading(mission.heading, mission.highlightedWord)}
+          </h2>
+          <p className="mission-body">{mission.body}</p>
+          {mission.ctaText && mission.ctaLink && (
+            isExternal ? (
+              <a href={mission.ctaLink} target="_blank" rel="noopener noreferrer" className="mission-link">
+                {mission.ctaText}
+              </a>
+            ) : (
+              <Link to={mission.ctaLink} className="mission-link">{mission.ctaText}</Link>
+            )
+          )}
+        </div>
+
+        <dl className="mission-stats">
+          {STATS.map((s) => (
+            <div key={s.num} className="mission-stat">
+              <dt>{s.num}</dt>
+              <dd>{s.label}</dd>
+            </div>
+          ))}
+        </dl>
       </div>
     </section>
   )

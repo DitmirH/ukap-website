@@ -9,16 +9,11 @@
   width: 100%;
   max-width: var(--container);
   margin: 0 auto;
-  padding: clamp(3.5rem, 7vw, 5.5rem) clamp(1.25rem, 4vw, 2rem) 5.5rem;
-}
-
-.blog-page-content .page-title {
-  text-align: center;
-  margin-bottom: 3rem;
+  padding: var(--section-y) var(--gutter);
 }
 
 .blog-page-content .blog-grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-  gap: 1.75rem;
+  gap: 1.5rem;
 }

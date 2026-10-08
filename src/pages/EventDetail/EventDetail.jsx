@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react'
 import { useParams, Link } from 'react-router-dom'
 import { PortableText } from '@portabletext/react'
-import { Nav, Footer, EmbedCode } from '../../components'
+import { Nav, Footer, EmbedCode, PageHeader } from '../../components'
 import { client, urlFor } from '../../lib/sanityClient'
 import './EventDetail.css'
 
@@ -107,27 +107,23 @@ export default function EventDetail() {
     <div className="event-detail-page">
       <Nav activePage="events" />
       
-      {event.image && (
-        <div className="event-hero-image">
-          <img src={urlFor(event.image).width(1400).height(500).url()} alt={event.title} />
-          <div className="event-hero-overlay" />
-        </div>
-      )}
-
-      <div className="event-detail-container">
-        <Link to="/events" className="back-link">← Back to events</Link>
-        
-        <header className="event-header">
-          {event.category && (
-            <span className="event-category-tag">{event.category}</span>
-          )}
-          <h1 className="event-title">
+      <PageHeader
+        tone="red"
+        eyebrow={[event.category, isPast ? 'Past event' : null].filter(Boolean).join(' · ') || 'Event'}
+        title={
+          <>
             {event.title}
             {event.status === 'sold-out' && <span className="status-tag sold-out">Sold Out</span>}
             {event.status === 'cancelled' && <span className="status-tag cancelled">Cancelled</span>}
             {event.status === 'postponed' && <span className="status-tag postponed">Postponed</span>}
-          </h1>
-        </header>
+          </>
+        }
+        subtitle={[formatDate(event.date), event.venue].filter(Boolean).join(' — ')}
+        photo={event.image ? urlFor(event.image).width(2000).url() : '/images/audience.jpg'}
+        crumbs={[{ label: 'Events', to: '/events' }, { label: event.title }]}
+      />
+
+      <div className="event-detail-container">
 
         <div className="event-detail-grid">
           <div className="event-main-content">

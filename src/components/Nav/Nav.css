@@ -2,104 +2,89 @@
   position: sticky;
   top: 0;
   z-index: 100;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  gap: 1rem;
-  padding: 0.9rem clamp(1.25rem, 4vw, 4rem);
-  background: rgba(255, 255, 255, 0.85);
-  backdrop-filter: saturate(180%) blur(14px);
-  -webkit-backdrop-filter: saturate(180%) blur(14px);
-  border-bottom: 1px solid var(--color-border);
+  background: var(--ukap-white);
+  border-bottom: 1px solid transparent;
+  transition: border-color var(--speed-fast) ease, box-shadow var(--speed-fast) ease;
 }
 
-/* Tri-colour brand hairline along the top edge */
-.nav::before {
-  content: "";
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  height: 3px;
-  background: var(--gradient-tri);
+.nav.is-scrolled {
+  border-bottom-color: var(--color-border);
+  box-shadow: 0 8px 24px -20px rgba(17, 19, 23, 0.5);
+}
+
+.nav-inner {
+  max-width: var(--container);
+  margin: 0 auto;
+  padding: 0 var(--gutter);
+  height: var(--nav-h);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1.5rem;
 }
 
 .nav-logo {
-  text-decoration: none;
   display: inline-flex;
   align-items: center;
-  gap: 0.65rem;
-}
-
-/* Stacked 2x2 brand mark (per brand guidelines logotype) */
-.nav-logo-mark {
-  display: grid;
-  grid-template-columns: auto auto;
-  justify-items: center;
-  font-weight: var(--fw-heavy);
-  font-size: 1.15rem;
-  line-height: 0.82;
-  letter-spacing: -0.04em;
+  gap: 0.8rem;
   color: var(--ukap-black);
-  transition: transform 0.25s var(--ease-out);
 }
 
-.nav-logo:hover .nav-logo-mark {
-  transform: translateY(-2px) rotate(-3deg);
+.nav-logo img {
+  width: auto;
+  height: 46px;
+  display: block;
 }
 
-.nav-logo-mark .l-blue { color: var(--ukap-blue); }
-.nav-logo-mark .l-red  { color: var(--ukap-red); }
+.nav-logo:hover { color: var(--ukap-black); }
 
 .nav-logo-word {
   display: flex;
   flex-direction: column;
-  font-weight: var(--fw-heavy);
-  font-size: 1.05rem;
-  line-height: 1.05;
-  letter-spacing: 0.04em;
-  color: var(--ukap-black);
+  padding-left: 0.8rem;
+  border-left: 1px solid var(--color-border-strong);
+  font-weight: var(--fw-bold);
+  font-size: 1.2rem;
+  line-height: 1;
+  letter-spacing: 0.02em;
 }
 
 .nav-logo-word em {
   font-style: normal;
   font-weight: var(--fw-semibold);
-  font-size: 0.62rem;
-  letter-spacing: 0.22em;
+  font-size: 0.66rem;
+  letter-spacing: 0.24em;
   text-transform: uppercase;
   color: var(--color-text-muted);
+  margin-top: 0.3rem;
 }
 
 .nav-links {
   display: flex;
   align-items: center;
-  flex-wrap: wrap;
-  gap: clamp(0.9rem, 2.2vw, 2rem);
+  gap: clamp(1.1rem, 2.4vw, 2.2rem);
 }
 
 .nav-links a {
   position: relative;
-  color: var(--color-text-muted);
-  text-decoration: none;
-  font-size: 0.95rem;
+  color: var(--ukap-ink);
+  font-size: 0.98rem;
   font-weight: var(--fw-semibold);
-  padding: 0.25rem 0;
-  transition: color 0.2s ease;
+  padding: 0.4rem 0;
 }
 
-/* Animated underline */
+/* Square block underline */
 .nav-links a:not(.nav-donate)::after {
   content: "";
   position: absolute;
   left: 0;
   right: 0;
-  bottom: -3px;
+  bottom: -2px;
   height: 3px;
-  border-radius: 2px;
-  background: var(--gradient-gold);
+  background: var(--ukap-red);
   transform: scaleX(0);
   transform-origin: left;
-  transition: transform 0.3s var(--ease-out);
+  transition: transform 0.25s var(--ease-out);
 }
 
 .nav-links a:hover,
@@ -112,32 +97,98 @@
   transform: scaleX(1);
 }
 
-/* Donate — the loudest thing in the nav */
 .nav-links .nav-donate {
-  background: var(--gradient-gold);
+  background: var(--ukap-yellow);
   color: var(--ukap-black);
-  padding: 0.5rem 1.3rem;
-  border-radius: var(--radius-pill);
-  box-shadow: var(--shadow-gold);
-  transition: transform 0.2s var(--ease-out), box-shadow 0.2s var(--ease-out);
+  padding: 0.75rem 1.4rem;
+  font-weight: var(--fw-bold);
+  transition: background-color var(--speed-fast) ease, color var(--speed-fast) ease;
 }
 
 .nav-links .nav-donate:hover,
 .nav-links .nav-donate.active {
-  color: var(--ukap-black);
-  transform: translateY(-2px) scale(1.03);
-  box-shadow: 0 14px 32px -8px rgba(232, 148, 0, 0.65);
+  background: var(--ukap-black);
+  color: var(--ukap-white);
 }
 
-@media (max-width: 640px) {
-  .nav {
-    flex-direction: column;
-    gap: 0.75rem;
-    padding-block: 0.75rem;
-  }
+/* Hamburger */
+.nav-toggle {
+  display: none;
+  width: 46px;
+  height: 46px;
+  border: 0;
+  background: var(--ukap-blue);
+  cursor: pointer;
+  position: relative;
+  flex: none;
+}
+
+.nav-toggle span {
+  position: absolute;
+  left: 12px;
+  right: 12px;
+  height: 2px;
+  background: var(--ukap-white);
+  transition: transform 0.25s var(--ease-out), opacity 0.2s ease;
+}
+
+.nav-toggle span:nth-child(1) { top: 15px; }
+.nav-toggle span:nth-child(2) { top: 22px; }
+.nav-toggle span:nth-child(3) { top: 29px; }
+
+.nav.is-open .nav-toggle span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+.nav.is-open .nav-toggle span:nth-child(2) { opacity: 0; }
+.nav.is-open .nav-toggle span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+@media (max-width: 900px) {
+  :root { --nav-h: 68px; }
+
+  .nav-logo img { height: 40px; }
+
+  .nav-toggle { display: block; }
 
   .nav-links {
-    justify-content: center;
-    row-gap: 0.5rem;
+    position: fixed;
+    inset: var(--nav-h) 0 0 0;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 0;
+    padding: 1.5rem var(--gutter) 2rem;
+    background: var(--ukap-blue);
+    transform: translateY(-8px);
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.2s ease, transform 0.25s var(--ease-out), visibility 0s linear 0.25s;
+    overflow-y: auto;
   }
+
+  .nav.is-open .nav-links {
+    transform: none;
+    opacity: 1;
+    visibility: visible;
+    transition: opacity 0.2s ease, transform 0.25s var(--ease-out);
+  }
+
+  .nav-links a {
+    color: var(--ukap-white);
+    font-size: 1.6rem;
+    font-weight: var(--fw-bold);
+    padding: 0.9rem 0;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.15);
+  }
+
+  .nav-links a:hover,
+  .nav-links a.active { color: var(--ukap-yellow); }
+
+  .nav-links a:not(.nav-donate)::after { display: none; }
+
+  .nav-links .nav-donate {
+    margin-top: 1.75rem;
+    text-align: center;
+    font-size: 1.15rem;
+    padding: 1.1rem;
+    border-bottom: 0;
+  }
+
+  body.nav-locked { overflow: hidden; }
 }

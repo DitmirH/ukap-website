@@ -31,20 +31,33 @@ const SOCIALS = [
   },
 ]
 
+const EXPLORE = [
+  { to: '/about', label: 'About us' },
+  { to: '/events', label: 'Events' },
+  { to: '/blog', label: 'News' },
+  { to: '/team', label: 'Our team' },
+]
+
+const INVOLVED = [
+  { to: '/donate', label: 'Donate' },
+  { to: '/sponsors', label: 'Partner with us' },
+  { to: '/#contact', label: 'Volunteer' },
+  { to: '/#contact', label: 'Contact us' },
+]
+
 export default function Footer() {
   return (
     <footer className="footer">
+      <div className="tri-bar" aria-hidden="true"><span /><span /><span /></div>
+
       <div className="footer-inner">
         <div className="footer-brand">
           <Link to="/" className="footer-logo" aria-label="UKAP Foundation home">
-            {/* Stacked 2×2 brand mark — negative monochrome on dark */}
-            <span className="footer-logo-mark" aria-hidden="true">
-              <span>U</span><span>K</span><span>A</span><span>P</span>
-            </span>
-            <span className="footer-logo-word">UKAP<em>Foundation</em></span>
+            <img src="/brand/ukap-logo-white.png" alt="" width="84" height="84" />
           </Link>
           <p className="footer-mission">
-            Advancing the education and life opportunities of young adults.
+            Advancing the education and life opportunities of young adults through
+            scholarships, mentoring and events.
           </p>
           <div className="footer-socials">
             {SOCIALS.map((s) => (
@@ -55,24 +68,27 @@ export default function Footer() {
           </div>
         </div>
 
-        <nav className="footer-links" aria-label="Footer">
-          <Link to="/about">About</Link>
-          <Link to="/events">Events</Link>
-          <Link to="/blog">Blog</Link>
-          <Link to="/team">Team</Link>
-          <Link to="/sponsors">Sponsors</Link>
-          <Link to="/donate" className="footer-donate">Donate</Link>
+        <nav className="footer-col" aria-label="Explore">
+          <h3>Explore</h3>
+          {EXPLORE.map((l) => <Link key={l.label} to={l.to}>{l.label}</Link>)}
         </nav>
+
+        <nav className="footer-col" aria-label="Get involved">
+          <h3>Get involved</h3>
+          {INVOLVED.map((l) => <Link key={l.label} to={l.to}>{l.label}</Link>)}
+        </nav>
+
+        <div className="footer-col">
+          <h3>Contact</h3>
+          <a href="mailto:ukap@ukapfoundation.org">ukap@ukapfoundation.org</a>
+          <p>UK Registered Charity<br />No. 1215303</p>
+        </div>
+
+        <span className="ukap-watermark footer-watermark" aria-hidden="true" />
       </div>
 
       <div className="footer-bottom">
-        <div className="footer-bottom-left">
-          <p>The UKAP Foundation is proudly registered as a UK charity (Charity No. 1215303)</p>
-          <p>
-            © {new Date().getFullYear()} UKAP Foundation ·{' '}
-            <a href="mailto:ukap@ukapfoundation.org">ukap@ukapfoundation.org</a>
-          </p>
-        </div>
+        <p>&copy; {new Date().getFullYear()} UKAP Foundation (UK Albanian Professionals Foundation)</p>
         <div className="footer-legal">
           <Link to="/privacy-policy">Privacy Policy</Link>
           <Link to="/terms-and-conditions">Terms and Conditions</Link>

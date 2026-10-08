@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react'
-import { Nav, Footer, BlogCard } from '../../components'
+import { Nav, Footer, BlogCard, PageHeader } from '../../components'
 import { client } from '../../lib/sanityClient'
 import './Blog.css'
 
@@ -33,8 +33,16 @@ export default function Blog() {
     <div className="blog-page">
       <Nav activePage="blog" />
 
+      <PageHeader
+        tone="blue"
+        photo="/images/celebrate.jpg"
+        eyebrow="News"
+        title={<>Stories from the <span className="accent">community</span></>}
+        subtitle="Updates, event recaps and insights from the UKAP Foundation and the people we support."
+        crumbs={[{ label: 'News' }]}
+      />
+
       <main className="blog-page-content">
-        <h1 className="page-title">Latest <span className="accent">News</span></h1>
         
         {loading && <p className="loading">Loading posts...</p>}
         

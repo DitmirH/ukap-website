@@ -43,7 +43,7 @@
 }
 
 .prog-title {
-  color: var(--ukap-blue);
+  color: var(--ukap-black);
   font-size: 1.35rem;
   font-weight: var(--fw-semibold);
   line-height: 1.2;
@@ -61,11 +61,11 @@
   padding-top: 1.25rem;
   font-weight: var(--fw-bold);
   font-size: 0.92rem;
-  color: var(--ukap-blue);
+  color: var(--ukap-blue-deep);
 }
 
 .prog-more::after { content: " ›"; font-size: 1.1em; }
-.prog-more:hover { color: var(--ukap-red); }
+.prog-more:hover { color: var(--ukap-red-deep); }
 
 @media (max-width: 900px) {
   .prog-grid { grid-template-columns: 1fr; }
@@ -79,10 +79,10 @@
 /* Full-width colour band CTA (shared) */
 .cta-band {
   background: var(--ukap-red);
-  color: var(--ukap-white);
+  color: var(--ukap-black);
 }
 
-.cta-band.tone-blue { background: var(--ukap-blue); }
+.cta-band.tone-blue { background: var(--ukap-black); color: var(--ukap-white); }
 
 .cta-band-inner {
   display: flex;

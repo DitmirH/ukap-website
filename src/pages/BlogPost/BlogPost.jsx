@@ -143,7 +143,7 @@ export default function BlogPost() {
       <Nav activePage="blog" />
       
       <PageHeader
-        tone="blue"
+        tone="black"
         eyebrow={new Date(post.publishedAt).toLocaleDateString('en-GB', {
           day: 'numeric',
           month: 'long',

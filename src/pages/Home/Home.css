@@ -16,7 +16,7 @@
 /* Full-bleed: blue left half, white right half */
 .contact-section {
   scroll-margin-top: var(--nav-h);
-  background: linear-gradient(90deg, var(--ukap-blue) 50%, var(--ukap-white) 50%);
+  background: linear-gradient(90deg, var(--ukap-gold) 50%, var(--ukap-white) 50%);
   border-top: 1px solid var(--color-border);
 }
 
@@ -29,8 +29,8 @@
 
 .contact-intro {
   position: relative;
-  background: var(--ukap-blue);
-  color: var(--ukap-white);
+  background: var(--ukap-gold);
+  color: var(--ukap-black);
   padding: var(--section-y) clamp(1.5rem, 4vw, 4rem) var(--section-y) var(--gutter);
 }
 
@@ -54,21 +54,21 @@
   margin-top: 2rem;
   font-weight: var(--fw-bold);
   font-size: 1.1rem;
-  color: var(--ukap-white);
-  border-bottom: 2px solid var(--ukap-yellow);
+  color: var(--ukap-black);
+  border-bottom: 3px solid var(--ukap-red);
   padding-bottom: 0.2rem;
   position: relative;
   z-index: 1;
 }
 
-.contact-email:hover { color: var(--ukap-yellow); }
+.contact-email:hover { color: var(--ukap-blue-deep); }
 
 .contact-watermark {
   position: absolute;
   right: clamp(1.5rem, 4vw, 4rem);
   bottom: var(--section-y);
   width: 110px;
-  color: rgba(255, 175, 26, 0.45);
+  color: rgba(0, 0, 0, 0.3);
 }
 
 .contact-form-col {

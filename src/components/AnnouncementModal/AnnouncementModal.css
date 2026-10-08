@@ -132,7 +132,7 @@
 }
 
 .announcement-dismiss:hover {
-  color: var(--ukap-red);
+  color: var(--ukap-red-deep);
   text-decoration: underline;
 }
 

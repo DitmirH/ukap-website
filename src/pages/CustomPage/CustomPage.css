@@ -86,7 +86,7 @@
 }
 
 .back-link:hover {
-  color: var(--ukap-blue);
+  color: var(--ukap-blue-deep);
   transform: translateX(-4px);
 }
 
@@ -202,7 +202,7 @@
 }
 
 .cta-button.style-secondary {
-  background: var(--ukap-blue);
+  background: var(--ukap-black);
   color: var(--ukap-white);
 }
 
@@ -215,11 +215,11 @@
 
 .cta-button.style-outline {
   border: 2px solid var(--ukap-blue);
-  color: var(--ukap-blue);
+  color: var(--ukap-blue-deep);
 }
 
 .cta-button.style-outline:hover {
-  background: var(--ukap-blue);
+  background: var(--ukap-black);
   color: var(--ukap-white);
   transform: translateY(-2px);
 }
@@ -270,7 +270,7 @@
 
 .info-box.type-info {
   background: var(--ukap-blue-soft);
-  border-color: var(--ukap-blue);
+  border-color: var(--ukap-blue-deep);
 }
 
 .info-box.type-warning {

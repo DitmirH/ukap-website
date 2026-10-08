@@ -1,4 +1,5 @@
 import { Link } from 'react-router-dom'
+import BrandStrip from '../BrandStrip'
 import './Footer.css'
 
 const SOCIALS = [
@@ -50,48 +51,53 @@ export default function Footer() {
     <footer className="footer">
       <div className="tri-bar" aria-hidden="true"><span /><span /><span /></div>
 
+      <div className="footer-body">
+        <BrandStrip className="footer-strip" />
+        <div className="footer-main">
       <div className="footer-inner">
-        <div className="footer-brand">
-          <Link to="/" className="footer-logo" aria-label="UKAP Foundation home">
-            <img src="/brand/ukap-logo-white.png" alt="" width="84" height="84" />
-          </Link>
-          <p className="footer-mission">
-            Advancing the education and life opportunities of young adults through
-            scholarships, mentoring and events.
-          </p>
-          <div className="footer-socials">
-            {SOCIALS.map((s) => (
-              <a key={s.name} href={s.url} target="_blank" rel="noopener noreferrer" aria-label={s.name}>
-                {s.icon}
-              </a>
-            ))}
+            <div className="footer-brand">
+              <Link to="/" className="footer-logo" aria-label="UKAP Foundation home">
+                <img src="/brand/ukap-logo-white.png" alt="" width="84" height="84" />
+              </Link>
+              <p className="footer-mission">
+                Advancing the education and life opportunities of young adults through
+                scholarships, mentoring and events.
+              </p>
+              <div className="footer-socials">
+                {SOCIALS.map((s) => (
+                  <a key={s.name} href={s.url} target="_blank" rel="noopener noreferrer" aria-label={s.name}>
+                    {s.icon}
+                  </a>
+                ))}
+              </div>
+            </div>
+    
+            <nav className="footer-col" aria-label="Explore">
+              <h3>Explore</h3>
+              {EXPLORE.map((l) => <Link key={l.label} to={l.to}>{l.label}</Link>)}
+            </nav>
+    
+            <nav className="footer-col" aria-label="Get involved">
+              <h3>Get involved</h3>
+              {INVOLVED.map((l) => <Link key={l.label} to={l.to}>{l.label}</Link>)}
+            </nav>
+    
+            <div className="footer-col">
+              <h3>Contact</h3>
+              <a href="mailto:ukap@ukapfoundation.org">ukap@ukapfoundation.org</a>
+              <p>UK Registered Charity<br />No. 1215303</p>
+            </div>
+    
+            <span className="ukap-watermark footer-watermark" aria-hidden="true" />
           </div>
-        </div>
-
-        <nav className="footer-col" aria-label="Explore">
-          <h3>Explore</h3>
-          {EXPLORE.map((l) => <Link key={l.label} to={l.to}>{l.label}</Link>)}
-        </nav>
-
-        <nav className="footer-col" aria-label="Get involved">
-          <h3>Get involved</h3>
-          {INVOLVED.map((l) => <Link key={l.label} to={l.to}>{l.label}</Link>)}
-        </nav>
-
-        <div className="footer-col">
-          <h3>Contact</h3>
-          <a href="mailto:ukap@ukapfoundation.org">ukap@ukapfoundation.org</a>
-          <p>UK Registered Charity<br />No. 1215303</p>
-        </div>
-
-        <span className="ukap-watermark footer-watermark" aria-hidden="true" />
-      </div>
-
-      <div className="footer-bottom">
-        <p>&copy; {new Date().getFullYear()} UKAP Foundation (UK Albanian Professionals Foundation)</p>
-        <div className="footer-legal">
-          <Link to="/privacy-policy">Privacy Policy</Link>
-          <Link to="/terms-and-conditions">Terms and Conditions</Link>
+    
+          <div className="footer-bottom">
+            <p>&copy; {new Date().getFullYear()} UKAP Foundation (UK Albanian Professionals Foundation)</p>
+            <div className="footer-legal">
+              <Link to="/privacy-policy">Privacy Policy</Link>
+              <Link to="/terms-and-conditions">Terms and Conditions</Link>
+            </div>
+          </div>
         </div>
       </div>
     </footer>

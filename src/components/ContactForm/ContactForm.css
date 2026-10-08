@@ -118,7 +118,7 @@
 }
 
 .required-mark {
-  color: var(--ukap-red);
+  color: var(--ukap-red-deep);
   margin-left: 0.2rem;
 }
 
@@ -152,7 +152,7 @@
 .form-field textarea:focus {
   outline: none;
   background: var(--ukap-white);
-  border-color: var(--ukap-blue);
+  border-color: var(--ukap-blue-deep);
   box-shadow: 0 0 0 4px rgba(2, 83, 126, 0.12);
 }
 
@@ -167,7 +167,7 @@
 }
 
 .error-text {
-  color: var(--ukap-red);
+  color: var(--ukap-red-deep);
   font-size: 0.85rem;
   font-weight: var(--fw-semibold);
 }
@@ -206,7 +206,7 @@
 
 .radio-option input,
 .checkbox-option input {
-  accent-color: var(--ukap-blue);
+  accent-color: var(--ukap-blue-deep);
   width: 1.05rem;
   height: 1.05rem;
 }
@@ -223,7 +223,7 @@
 }
 
 .file-upload-wrapper input[type="file"]:hover {
-  border-color: var(--ukap-blue);
+  border-color: var(--ukap-blue-deep);
   background: var(--ukap-blue-soft);
 }
 
@@ -280,6 +280,6 @@
 
 .status-message.error {
   background: var(--ukap-red-soft);
-  color: var(--ukap-red);
+  color: var(--ukap-red-deep);
   border: 1px solid #f5a9af;
 }

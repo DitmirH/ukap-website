@@ -34,7 +34,7 @@ export default function Blog() {
       <Nav activePage="blog" />
 
       <PageHeader
-        tone="blue"
+        tone="gold"
         photo="/images/celebrate.jpg"
         eyebrow="News"
         title={<>Stories from the <span className="accent">community</span></>}

@@ -37,7 +37,7 @@
   background: var(--ukap-yellow);
 }
 
-.sponsors-tier.tier-platinum .tier-title::after { background: var(--ukap-blue); }
+.sponsors-tier.tier-platinum .tier-title::after { background: var(--ukap-black); }
 .sponsors-tier.tier-gold .tier-title::after     { background: var(--ukap-yellow); }
 .sponsors-tier.tier-silver .tier-title::after   { background: var(--color-border-strong); }
 .sponsors-tier.tier-bronze .tier-title::after   { background: var(--ukap-red); }
@@ -254,7 +254,7 @@
 }
 
 .social-link:hover {
-  background: var(--ukap-blue);
+  background: var(--ukap-black);
   color: var(--ukap-white);
   transform: translateY(-3px);
 }

@@ -22,7 +22,7 @@
 .blog-card-image {
   aspect-ratio: 3 / 2;
   overflow: hidden;
-  background: var(--ukap-blue);
+  background: var(--ukap-black);
 }
 
 .blog-card-image img {
@@ -60,19 +60,19 @@
   font-weight: var(--fw-bold);
   letter-spacing: 0.14em;
   text-transform: uppercase;
-  color: var(--ukap-red);
+  color: var(--ukap-red-deep);
 }
 
 .blog-card-title {
   font-size: 1.3rem;
   font-weight: var(--fw-semibold);
-  color: var(--ukap-blue);
+  color: var(--ukap-black);
   line-height: 1.2;
   transition: color var(--speed-fast) ease;
 }
 
 .blog-card-link:hover .blog-card-title {
-  color: var(--ukap-red);
+  color: var(--ukap-red-deep);
 }
 
 .blog-card-excerpt {
@@ -89,7 +89,7 @@
   padding-top: 0.75rem;
   font-weight: var(--fw-bold);
   font-size: 0.95rem;
-  color: var(--ukap-blue);
+  color: var(--ukap-blue-deep);
 }
 
 .blog-card-more::after {

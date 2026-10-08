@@ -86,7 +86,7 @@ export default function Home() {
       <section className="contact-section" id="contact">
         <div className="contact-grid">
           <div className="contact-intro">
-            <span className="eyebrow on-dark">Contact</span>
+            <span className="eyebrow">Contact</span>
             <h2>Get in touch</h2>
             <p>
               Whether you want to volunteer, become a mentor, partner with us or ask about a

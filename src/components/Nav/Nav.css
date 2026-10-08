@@ -89,7 +89,7 @@
 
 .nav-links a:hover,
 .nav-links a.active {
-  color: var(--ukap-blue);
+  color: var(--ukap-black);
 }
 
 .nav-links a:not(.nav-donate):hover::after,
@@ -117,7 +117,7 @@
   width: 46px;
   height: 46px;
   border: 0;
-  background: var(--ukap-blue);
+  background: var(--ukap-black);
   cursor: pointer;
   position: relative;
   flex: none;
@@ -154,7 +154,7 @@
     align-items: stretch;
     gap: 0;
     padding: 1.5rem var(--gutter) 2rem;
-    background: var(--ukap-blue);
+    background: var(--ukap-black);
     transform: translateY(-8px);
     opacity: 0;
     visibility: hidden;

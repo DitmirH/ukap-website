@@ -98,14 +98,14 @@ export default function Sponsors() {
       <Nav activePage="sponsors" />
       
       <PageHeader
-        tone="blue"
+        tone="gold"
         photo="/images/partners.jpg"
         eyebrow="Sponsors & partners"
         title={<>Partnering for a brighter <span className="accent">future</span></>}
         subtitle="The organisations whose support turns volunteer expertise into scholarships, mentoring and events for young people."
         crumbs={[{ label: 'Partners' }]}
       >
-        <a href="mailto:ukap@ukapfoundation.org?subject=Partnership%20enquiry" className="btn btn-yellow">Become a partner</a>
+        <a href="mailto:ukap@ukapfoundation.org?subject=Partnership%20enquiry" className="btn btn-blue">Become a partner</a>
       </PageHeader>
 
       <div className="sponsors-container">

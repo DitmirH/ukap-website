@@ -53,7 +53,6 @@ public/images/          placeholder photography (see public/images/CREDITS.md)
 public/fonts/           Selawik (body) + Archivo (display)
 api/contact.js          Vercel serverless contact-form endpoint (production)
 server/                 Express version of the same endpoint (local dev only)
-middleware.js           Vercel password gate (see below)
 studio/                 Sanity Studio (separate npm app)
 docs/BRAND.md           brand rules for the web
 docs/brand-guide/       screenshots of the original Betsu Works brand guide (source of truth)
@@ -88,8 +87,7 @@ Untracked work-in-progress components (`AnnouncementBanner`, `AudiencePathways`,
 - **Dataset is picked by domain** in `src/lib/sanityClient.js`: `ukapfoundation.org` /
   `www.ukapfoundation.org` → `production`; everything else (the staging site
   https://ukap-website-rose.vercel.app, preview deployments, localhost) → `VITE_SANITY_DATASET`,
-  defaulting to `development`. Add new live domains to `PRODUCTION_HOSTS` there **and** in
-  `middleware.js`.
+  defaulting to `development`. Add new live domains to `PRODUCTION_HOSTS` there.
 - Content must be published in the right workspace: staging shows Development content, the live
   site shows Production content.
 - Hero slides: title, subtitle, image, buttons, duration, card colour and title & button colour are
@@ -111,8 +109,7 @@ Untracked work-in-progress components (`AnnouncementBanner`, `AudiencePathways`,
 - Import as a **single Vite project** at the repo root. Do **not** use Vercel's "Services"
   multi-app setup — `server/` is local-only and `studio/` deploys to Sanity.
 - Env vars: `VITE_SANITY_PROJECT_ID`, `VITE_SANITY_DATASET` (= `development`; only affects
-  non-live domains), `SMTP_USER`, `SMTP_PASS`, `CONTACT_EMAIL`, optionally `SITE_PASSWORD` and
-  `PROTECT_PRODUCTION`.
+  non-live domains), `SMTP_USER`, `SMTP_PASS`, `CONTACT_EMAIL`.
 - Staging: https://ukap-website-rose.vercel.app (development dataset). Live: ukapfoundation.org
   (production dataset) once the domain is added to the same Vercel project.
 - Sanity CORS origins must include `https://*.vercel.app`, `https://ukapfoundation.org` and
@@ -121,10 +118,9 @@ Untracked work-in-progress components (`AnnouncementBanner`, `AudiencePathways`,
 
 ## Password gate
 
-`middleware.js` (Vercel Routing Middleware) shows a branded password page when the env var
-`SITE_PASSWORD` is set. Remove the variable and redeploy to make the site public. Changing the
-password logs everyone out. It never runs in `npm run dev`. The live domains in `PRODUCTION_HOSTS`
-are **not** gated unless `PROTECT_PRODUCTION=true` — so staging stays locked after launch.
+Removed for now (October 2026) — the site is public. The old `middleware.js` (Vercel Routing
+Middleware that showed a branded password page when `SITE_PASSWORD` was set) is in git history if
+it's needed again.
 
 ## Known content to clean up
 

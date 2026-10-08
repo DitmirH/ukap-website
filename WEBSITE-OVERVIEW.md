@@ -15,7 +15,7 @@ The public website for the **UKAP Foundation** (UK Albanian Professionals Founda
 | Styling | Plain CSS, one file per component/page, global design tokens in `src/styles/index.css` (CSS custom properties). No CSS framework, no preprocessor |
 | Contact email | Express + Nodemailer server (local dev, `server/index.js`, port 3001) and a Vercel serverless function (`api/contact.js`) in production. Sends via Microsoft 365 SMTP; supports base64 file attachments |
 | Donations | Zeffy embedded form (third-party); ticketing via TicketTailor embeds |
-| Hosting | Vercel, single Vite project (SPA rewrite of all routes to `index.html`, `/api/*` to serverless functions — see `vercel.json`). Optional password gate in `middleware.js` (`SITE_PASSWORD`). Studio is hosted by Sanity (`npx sanity deploy`). |
+| Hosting | Vercel, single Vite project (SPA rewrite of all routes to `index.html`, `/api/*` to serverless functions — see `vercel.json`). Studio is hosted by Sanity (`npx sanity deploy`). |
 
 ## Repository layout
 
@@ -27,7 +27,6 @@ ukap-web/
 ├── .env.development/.production # VITE_SANITY_PROJECT_ID, VITE_SANITY_DATASET, SMTP creds
 ├── CLAUDE.md / AGENTS.md       # Working rules for AI agents & developers
 ├── docs/BRAND.md               # Brand guidelines for the web (colours, type, logo, patterns)
-├── middleware.js               # Vercel password gate (SITE_PASSWORD)
 ├── public/fonts/               # Selawik (body, 300/400/600/700) + Archivo variable (display)
 ├── public/brand/               # Logo lockups, icon, outline monogram, favicons
 ├── public/images/              # Placeholder photography + CREDITS.md

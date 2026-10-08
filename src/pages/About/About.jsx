@@ -46,7 +46,7 @@ export default function About() {
       <Nav activePage="about" />
 
       <PageHeader
-        tone="blue"
+        tone="black"
         photo="/images/students.jpg"
         eyebrow="About us"
         title={<>About the <span className="accent">UKAP</span> Foundation</>}
@@ -81,7 +81,7 @@ export default function About() {
       {/* Mission statement — full-bleed red block */}
       <section className="about-mission">
         <div className="container">
-          <span className="eyebrow on-dark">Our mission</span>
+          <span className="eyebrow">Our mission</span>
           <blockquote>
             To strengthen social mobility by giving young people access to knowledge,
             skills and professional development opportunities.
@@ -126,7 +126,7 @@ export default function About() {
         text="From finance and law to healthcare, engineering and the creative industries — our volunteers mentor, teach and organise every programme we run."
         cta="Meet the team"
         to="/team"
-        tone="blue"
+        tone="black"
         align="left"
       />
 

@@ -8,7 +8,7 @@ export default function Events() {
       <Nav activePage="events" />
       
       <PageHeader
-        tone="red"
+        tone="coral"
         photo="/images/audience.jpg"
         eyebrow="Events"
         title={<>Learn, connect and <span className="accent">grow</span></>}

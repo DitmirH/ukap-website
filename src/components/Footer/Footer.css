@@ -1,11 +1,20 @@
 .footer {
   margin-top: auto;
-  background: var(--ukap-blue-deep);
+  background: var(--ukap-black);
   color: rgba(255, 255, 255, 0.78);
 }
 
+.footer-body {
+  display: grid;
+  grid-template-columns: auto 1fr;
+}
+
+.footer-strip { padding-top: 2.5rem; }
+
+.footer-main { min-width: 0; }
+
 .footer a { color: rgba(255, 255, 255, 0.85); }
-.footer a:hover { color: var(--ukap-yellow); }
+.footer a:hover { color: var(--ukap-gold); }
 
 /* Closing CTA block */
 .footer-cta {
@@ -81,7 +90,7 @@
 }
 
 .footer-socials a:hover {
-  background: var(--ukap-yellow);
+  background: var(--ukap-gold);
   color: var(--ukap-black);
 }
 
@@ -96,7 +105,7 @@
 }
 
 .footer-col h3 {
-  color: var(--ukap-yellow);
+  color: var(--ukap-gold);
   font-size: 0.78rem;
   font-weight: var(--fw-bold);
   letter-spacing: 0.18em;
@@ -119,7 +128,7 @@
   right: -30px;
   bottom: -120px;
   width: 220px;
-  color: rgba(255, 255, 255, 0.06);
+  color: rgba(226, 190, 116, 0.18);
 }
 
 .footer-bottom {
@@ -148,4 +157,9 @@
 
 @media (max-width: 480px) {
   .footer-inner { grid-template-columns: 1fr; }
+}
+
+@media (max-width: 760px) {
+  .footer-body { grid-template-columns: 1fr; }
+  .footer-strip { display: none; }
 }

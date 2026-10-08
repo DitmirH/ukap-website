@@ -210,7 +210,7 @@ export default function CustomPage({ slug: slugProp, fallbackTitle, fallbackBody
         <div className="custom-page">
           <Nav />
           <PageHeader
-            tone="ink"
+            tone="black"
             size="compact"
             title={fallbackTitle}
             subtitle={fallbackDescription}
@@ -270,7 +270,7 @@ export default function CustomPage({ slug: slugProp, fallbackTitle, fallbackBody
         </div>
       ) : (
         <PageHeader
-          tone="blue"
+          tone="black"
           title={page.title}
           subtitle={page.description}
           image={sideImage}

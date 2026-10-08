@@ -71,12 +71,12 @@
   display: inline-flex;
   margin-top: 2.5rem;
   font-weight: var(--fw-semibold);
-  color: var(--ukap-blue);
+  color: var(--ukap-blue-deep);
   transition: transform 0.2s var(--ease-out), color 0.2s ease;
 }
 
 .sponsors-view-all:hover {
-  color: var(--ukap-red);
+  color: var(--ukap-red-deep);
   transform: translateX(4px);
 }
 

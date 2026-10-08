@@ -39,34 +39,51 @@
   font-display: swap;
 }
 
+/* Display face for big headings — heavy & condensed like the brand guide's
+   "BRAND IDENTITY" lockup. Archivo (OFL), self-hosted. */
+@font-face {
+  font-family: "Archivo";
+  src: url("/fonts/archivo-wdth.woff2") format("woff2-variations");
+  font-weight: 100 900;
+  font-stretch: 62% 125%;
+  font-display: swap;
+}
+
 :root {
-  /* --- Core brand colours (Brand Identity by Betsu Works) --- */
-  --ukap-blue: #02537e;          /* Pantone Process Blue C — professional / academic */
-  --ukap-blue-mid: #0a7ab8;
-  --ukap-blue-light: #33b9ff;
-  --ukap-blue-soft: #ccedfe;     /* tile tint */
-  --ukap-blue-deep: #023853;     /* footer / deep blocks */
+  /* --- Core brand colours — as rendered in the Betsu Works brand guide ---
+     Gold + black lead; blue + coral (from the logo) are accents. */
+  --ukap-gold: #e2be74;          /* brand gold — backgrounds & accents */
+  --ukap-gold-light: #f8dca0;
+  --ukap-gold-soft: #fcf0d7;
+  --ukap-gold-deep: #8a6a24;     /* gold-family text on light backgrounds */
 
-  --ukap-red: #b11823;           /* Pantone Red 032C — mentorship / student */
-  --ukap-red-deep: #8e111a;
-  --ukap-red-light: #ef5a64;
-  --ukap-red-soft: #fbced1;      /* tile tint */
+  --ukap-blue: #3f7ec2;          /* logo blue — professional / academic */
+  --ukap-blue-mid: #3f7ec2;
+  --ukap-blue-light: #55adfa;
+  --ukap-blue-soft: #cce9fc;
+  --ukap-blue-deep: #1f4f86;     /* text-safe blue for links on white */
 
-  --ukap-yellow: #ffaf1a;        /* accent — always with black text */
-  --ukap-yellow-deep: #b26a00;
-  --ukap-yellow-light: #ffdfa5;
-  --ukap-yellow-soft: #fff2da;   /* tile tint */
+  --ukap-red: #db4a47;           /* logo coral — mentorship / student / festive */
+  --ukap-red-deep: #b5322f;
+  --ukap-red-light: #e06e71;
+  --ukap-red-soft: #f3c9cb;
+
+  /* Legacy names → gold (kept so older components follow the brand) */
+  --ukap-yellow: var(--ukap-gold);
+  --ukap-yellow-deep: var(--ukap-gold-deep);
+  --ukap-yellow-light: var(--ukap-gold-light);
+  --ukap-yellow-soft: var(--ukap-gold-soft);
 
   /* --- Neutrals --- */
-  --ukap-black: #111317;
-  --ukap-ink: #1d2027;
+  --ukap-black: #0b0b0c;
+  --ukap-ink: #1a1b1e;
   --ukap-white: #ffffff;
 
   /* --- Semantic roles --- */
   --color-bg: #ffffff;
-  --color-bg-alt: #f4f6f8;
+  --color-bg-alt: var(--ukap-gold-soft);
   --color-surface: #ffffff;
-  --color-surface-2: #f4f6f8;
+  --color-surface-2: #f5f3ee;
   --color-border: #e3e6eb;
   --color-border-strong: #c9ced6;
 
@@ -76,24 +93,25 @@
   --color-heading: var(--ukap-black);
 
   --color-accent: var(--ukap-yellow);
-  --color-accent-hover: #f09e00;
+  --color-accent-hover: #d4ab58;
   --color-accent-contrast: var(--ukap-black);
 
-  --color-link: var(--ukap-blue);
+  --color-link: var(--ukap-blue-deep);
   --color-link-hover: var(--ukap-red);
 
   /* --- Flat colour blocks (brand: no showy gradients) --- */
   --gradient-gold: var(--ukap-yellow);
-  --gradient-blue: var(--ukap-blue);
+  --gradient-blue: var(--ukap-black);
   --gradient-red: var(--ukap-red);
   --gradient-tri: linear-gradient(90deg,
     var(--ukap-blue) 0 33.4%,
     var(--ukap-red) 33.4% 66.7%,
-    var(--ukap-yellow) 66.7% 100%);
+    var(--ukap-gold) 66.7% 100%);
 
   /* --- Typography --- */
   --font-sans: "Selawik", "Segoe Pro Display", "Segoe UI",
     system-ui, -apple-system, "Helvetica Neue", Arial, sans-serif;
+  --font-display: "Archivo", "Selawik", "Segoe UI", system-ui, sans-serif;
   --fw-light: 300;
   --fw-regular: 400;
   --fw-semibold: 600;
@@ -159,6 +177,20 @@ h4, h5, h6 {
   font-weight: var(--fw-semibold);
 }
 
+/* Big brand headings: heavy + condensed */
+.section-title,
+.page-title,
+.hero-title,
+.php-title,
+.phb-title,
+.fb-title,
+.display {
+  font-family: var(--font-display);
+  font-weight: 850;
+  font-stretch: 78%;
+  letter-spacing: -0.005em;
+}
+
 p {
   font-weight: var(--fw-light);
 }
@@ -184,7 +216,7 @@ img {
 }
 
 :focus-visible {
-  outline: 3px solid var(--ukap-blue-light);
+  outline: 3px solid var(--ukap-blue);
   outline-offset: 3px;
 }
 
@@ -231,6 +263,8 @@ button {
 
 .kicker-title .kicker {
   display: block;
+  font-family: var(--font-sans);
+  font-stretch: 100%;
   font-size: clamp(1.3rem, 1rem + 1vw, 1.9rem);
   font-weight: var(--fw-light);
   text-transform: uppercase;
@@ -253,7 +287,7 @@ button {
   font-weight: var(--fw-bold);
   letter-spacing: 0.18em;
   text-transform: uppercase;
-  color: var(--ukap-blue);
+  color: var(--ukap-black);
   margin-bottom: 1rem;
 }
 
@@ -265,12 +299,12 @@ button {
   flex: none;
 }
 
-.eyebrow.on-dark { color: var(--ukap-yellow); }
-.eyebrow.on-dark::before { background: var(--ukap-yellow); }
+.eyebrow.on-dark { color: var(--ukap-gold); }
+.eyebrow.on-dark::before { background: var(--ukap-red); }
 
 /* Highlight-block accent word inside headings (brand collateral pattern) */
 .accent {
-  background: var(--ukap-yellow);
+  background: var(--ukap-red);
   color: var(--ukap-black);
   padding: 0 0.16em;
   -webkit-box-decoration-break: clone;
@@ -357,13 +391,13 @@ button {
 }
 
 .btn-blue {
-  background: var(--ukap-blue);
+  background: var(--ukap-black);
   color: var(--ukap-white);
 }
 
 .btn-blue:hover {
-  background: var(--ukap-black);
-  color: var(--ukap-white);
+  background: var(--ukap-red);
+  color: var(--ukap-black);
 }
 
 .btn-outline {
@@ -396,9 +430,9 @@ button {
   align-items: center;
   gap: 0.5rem;
   font-weight: var(--fw-bold);
-  color: var(--ukap-blue);
+  color: var(--ukap-black);
   padding: 0.35rem 0;
-  border-bottom: 2px solid var(--ukap-yellow);
+  border-bottom: 3px solid var(--ukap-red);
   transition: color var(--speed-fast) ease, gap var(--speed-fast) var(--ease-out);
 }
 
@@ -407,7 +441,7 @@ button {
 }
 
 .view-all-link:hover {
-  color: var(--ukap-red);
+  color: var(--ukap-blue-deep);
   gap: 0.8rem;
 }
 
@@ -442,15 +476,21 @@ button {
 .tile.tint-gold { background: var(--ukap-yellow-soft); }
 
 .stat-num {
+  font-family: var(--font-display);
+  font-stretch: 78%;
   display: block;
   font-size: clamp(2rem, 1.4rem + 2vw, 2.9rem);
   font-weight: var(--fw-bold);
   line-height: 1;
   letter-spacing: -0.03em;
-  color: var(--ukap-blue);
+  color: var(--ukap-blue-deep);
 }
-.tint-red .stat-num { color: var(--ukap-red); }
-.tint-yellow .stat-num { color: var(--ukap-black); }
+.tint-red .stat-num {
+  font-family: var(--font-display);
+  font-stretch: 78%; color: var(--ukap-red-deep); }
+.tint-yellow .stat-num {
+  font-family: var(--font-display);
+  font-stretch: 78%; color: var(--ukap-black); }
 
 .stat-label {
   display: block;
@@ -547,14 +587,14 @@ button {
   position: absolute;
   left: 0;
   bottom: 0;
-  background: var(--ukap-blue);
+  background: var(--ukap-blue-deep);
   color: var(--ukap-white);
   font-size: 0.8rem;
   font-weight: var(--fw-semibold);
   padding: 0.4rem 0.75rem;
 }
 
-.card-tag.tone-red { background: var(--ukap-red); }
+.card-tag.tone-red { background: var(--ukap-red); color: var(--ukap-black); }
 .card-tag.tone-yellow { background: var(--ukap-yellow); color: var(--ukap-black); }
 
 .card-body {
@@ -569,7 +609,7 @@ button {
   font-weight: var(--fw-semibold);
   line-height: 1.2;
   margin-bottom: 0.6rem;
-  color: var(--ukap-blue);
+  color: var(--ukap-black);
 }
 
 .card-text {
@@ -592,11 +632,56 @@ button {
   transition: background-color var(--speed-fast) ease, color var(--speed-fast) ease, border-color var(--speed-fast) ease;
 }
 
-.btn-sm.solid-blue { background: var(--ukap-blue); color: var(--ukap-white); }
-.btn-sm.solid-blue:hover { background: var(--ukap-blue-deep); color: var(--ukap-white); }
-.btn-sm.solid-red { background: var(--ukap-red); color: var(--ukap-white); }
-.btn-sm.solid-red:hover { background: var(--ukap-red-deep); color: var(--ukap-white); }
+.btn-sm.solid-blue { background: var(--ukap-black); color: var(--ukap-white); }
+.btn-sm.solid-blue:hover { background: var(--ukap-gold); color: var(--ukap-black); }
+.btn-sm.solid-red { background: var(--ukap-red); color: var(--ukap-black); }
+.btn-sm.solid-red:hover { background: var(--ukap-black); color: var(--ukap-white); }
 .btn-sm.solid-yellow { background: var(--ukap-yellow); color: var(--ukap-black); }
 .btn-sm.solid-yellow:hover { background: var(--ukap-black); color: var(--ukap-white); }
-.btn-sm.outline-blue { border-color: var(--ukap-blue); color: var(--ukap-blue); }
-.btn-sm.outline-blue:hover { background: var(--ukap-blue); color: var(--ukap-white); }
+.btn-sm.outline-blue { border-color: var(--ukap-black); color: var(--ukap-black); }
+.btn-sm.outline-blue:hover { background: var(--ukap-black); color: var(--ukap-white); }
+
+/* ============================================================
+   Vertical brand strip — gold band with "UKAP FOUNDATION" set
+   vertically (brand guide cover + collateral pattern)
+   ============================================================ */
+.brand-strip {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.25rem;
+  background: var(--ukap-gold);
+  color: var(--ukap-black);
+  padding: 1.5rem 0;
+  overflow: hidden;
+}
+
+.brand-strip img {
+  width: 46px;
+  height: auto;
+  flex: none;
+}
+
+.brand-strip-word {
+  writing-mode: vertical-rl;
+  font-family: var(--font-display);
+  font-weight: 900;
+  font-stretch: 80%;
+  text-transform: uppercase;
+  line-height: 0.85;
+  white-space: nowrap;
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+}
+
+.brand-strip-word b {
+  font-size: 4.2rem;
+  letter-spacing: 0.01em;
+}
+
+.brand-strip-word span {
+  font-size: 1.15rem;
+  letter-spacing: 0.08em;
+  font-weight: 800;
+}

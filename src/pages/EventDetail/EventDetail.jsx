@@ -108,7 +108,7 @@ export default function EventDetail() {
       <Nav activePage="events" />
       
       <PageHeader
-        tone="red"
+        tone="coral"
         eyebrow={[event.category, isPast ? 'Past event' : null].filter(Boolean).join(' · ') || 'Event'}
         title={
           <>

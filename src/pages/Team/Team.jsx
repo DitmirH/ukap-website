@@ -37,7 +37,7 @@ export default function Team() {
       <Nav activePage="team" />
 
       <PageHeader
-        tone="blue"
+        tone="black"
         photo="/images/team.jpg"
         eyebrow="Our people"
         title={<>Meet the <span className="accent">team</span></>}

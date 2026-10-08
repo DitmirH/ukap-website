@@ -24,7 +24,7 @@
 }
 
 .back-link:hover {
-  color: var(--ukap-blue);
+  color: var(--ukap-blue-deep);
   transform: translateX(-4px);
 }
 
@@ -56,7 +56,7 @@
   font-weight: var(--fw-bold);
   letter-spacing: 0.1em;
   text-transform: uppercase;
-  color: var(--ukap-red);
+  color: var(--ukap-red-deep);
   margin-bottom: 0.75rem;
 }
 

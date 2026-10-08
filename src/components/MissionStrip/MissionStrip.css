@@ -1,7 +1,7 @@
 .mission-band {
   position: relative;
   overflow: hidden;
-  background: var(--ukap-blue);
+  background: var(--ukap-black);
   color: var(--ukap-white);
   padding-block: var(--section-y);
 }
@@ -13,7 +13,7 @@
   top: -40px;
   width: 300px;
   aspect-ratio: 484 / 674;
-  background: rgba(255, 175, 26, 0.12);
+  background: rgba(226, 190, 116, 0.35);
   -webkit-mask: url("/brand/ukap-outline.png") no-repeat center / contain;
   mask: url("/brand/ukap-outline.png") no-repeat center / contain;
   pointer-events: none;
@@ -49,7 +49,8 @@
   font-weight: var(--fw-bold);
 }
 
-.mission-link:hover { background: var(--ukap-yellow); color: var(--ukap-black); }
+.mission-link { background: var(--ukap-gold); }
+.mission-link:hover { background: var(--ukap-white); color: var(--ukap-black); }
 
 .mission-stats {
   display: grid;
@@ -58,11 +59,17 @@
 }
 
 .mission-stat {
-  border-top: 3px solid var(--ukap-yellow);
+  border-top: 4px solid var(--ukap-gold);
   padding-top: 1rem;
 }
 
+.mission-stat:nth-child(2) { border-color: var(--ukap-red); }
+.mission-stat:nth-child(3) { border-color: var(--ukap-blue); }
+
 .mission-stat dt {
+  font-family: var(--font-display);
+  font-stretch: 78%;
+  color: var(--ukap-gold);
   font-size: clamp(2.4rem, 1.8rem + 2.2vw, 3.6rem);
   font-weight: var(--fw-bold);
   line-height: 1;

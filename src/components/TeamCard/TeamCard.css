@@ -14,7 +14,7 @@
 .team-card-image {
   aspect-ratio: 1 / 1;
   overflow: hidden;
-  background: var(--ukap-blue);
+  background: var(--ukap-black);
 }
 
 .team-card-image img,
@@ -33,7 +33,7 @@
 .team-card-placeholder {
   display: grid;
   place-items: center;
-  background: var(--ukap-blue);
+  background: var(--ukap-black);
   color: var(--ukap-yellow);
   font-size: 4.5rem;
   font-weight: var(--fw-bold);
@@ -61,7 +61,7 @@
   font-weight: var(--fw-bold);
   letter-spacing: 0.14em;
   text-transform: uppercase;
-  color: var(--ukap-red);
+  color: var(--ukap-red-deep);
   margin-bottom: 0.9rem;
 }
 
@@ -79,9 +79,9 @@
   gap: 0.45rem;
   font-size: 0.9rem;
   font-weight: var(--fw-bold);
-  color: var(--ukap-blue);
+  color: var(--ukap-blue-deep);
 }
 
 .team-card-linkedin:hover {
-  color: var(--ukap-red);
+  color: var(--ukap-red-deep);
 }

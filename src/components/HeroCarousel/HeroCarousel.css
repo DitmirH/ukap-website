@@ -4,9 +4,15 @@
   padding-bottom: 72px; /* room for the card to hang below the photo */
 }
 
+.hero-row {
+  display: grid;
+  grid-template-columns: 1fr;
+  height: clamp(420px, 52vw, 640px);
+}
+
 .hero-media {
   position: relative;
-  height: clamp(420px, 52vw, 640px);
+  height: 100%;
   overflow: hidden;
   background: var(--ukap-blue-deep);
 }
@@ -43,12 +49,24 @@
   pointer-events: auto;
   width: min(100%, 540px);
   padding: clamp(2rem, 3.5vw, 3rem);
-  background: var(--ukap-blue);
+  background: var(--ukap-black);
   color: var(--ukap-white);
   animation: heroCardIn 0.6s var(--ease-out) both;
 }
 
-.hero-card.tone-red { background: var(--ukap-red); }
+.hero-card.tone-black .hero-title { color: var(--ukap-gold); }
+.hero-card.tone-gold { background: var(--ukap-gold); color: var(--ukap-black); }
+.hero-card.tone-coral { background: var(--ukap-red); color: var(--ukap-black); }
+.hero-card.tone-gold .hero-btn-primary,
+.hero-card.tone-coral .hero-btn-primary { background: var(--ukap-black); color: var(--ukap-white); }
+.hero-card.tone-gold .hero-btn-ghost,
+.hero-card.tone-coral .hero-btn-ghost { color: var(--ukap-black); border-color: var(--ukap-black); }
+.hero-card.tone-gold .hero-nav,
+.hero-card.tone-coral .hero-nav { background: rgba(0, 0, 0, 0.12); color: var(--ukap-black); }
+.hero-card.tone-gold .hero-controls,
+.hero-card.tone-coral .hero-controls { border-color: rgba(0, 0, 0, 0.2); }
+.hero-card.tone-gold .hero-dot.active,
+.hero-card.tone-coral .hero-dot.active { background: var(--ukap-black); }
 
 @keyframes heroCardIn {
   from { opacity: 0; transform: translateY(16px); }
@@ -58,9 +76,8 @@
 .hero-title {
   color: inherit;
   text-transform: uppercase;
-  font-size: clamp(2rem, 1.4rem + 2.2vw, 3.1rem);
-  line-height: 1;
-  letter-spacing: -0.01em;
+  font-size: clamp(2.3rem, 1.6rem + 2.6vw, 3.7rem);
+  line-height: 0.92;
 }
 
 .hero-subtitle {
@@ -88,12 +105,12 @@
 }
 
 .hero-btn-primary {
-  background: var(--ukap-white);
+  background: var(--ukap-gold);
   color: var(--ukap-black);
 }
 
 .hero-btn-primary:hover {
-  background: var(--ukap-yellow);
+  background: var(--ukap-white);
   color: var(--ukap-black);
 }
 
@@ -141,11 +158,11 @@
   cursor: pointer;
 }
 
-.hero-dot.active { background: var(--ukap-yellow); }
+.hero-dot.active { background: var(--ukap-gold); }
 
 @media (max-width: 760px) {
   .hero { padding-bottom: 0; }
-  .hero-media { height: 300px; }
+  .hero-row { height: 300px; }
   .hero-wrap {
     position: relative;
     margin-top: -56px;

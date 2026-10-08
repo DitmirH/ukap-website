@@ -156,7 +156,7 @@
 .tier-price {
   font-size: 2rem;
   font-weight: var(--fw-heavy);
-  color: var(--ukap-blue);
+  color: var(--ukap-blue-deep);
   margin-bottom: 0.75rem;
 }
 
@@ -185,14 +185,14 @@
   content: "✓";
   position: absolute;
   left: 0;
-  color: var(--ukap-blue);
+  color: var(--ukap-blue-deep);
   font-weight: var(--fw-bold);
 }
 
 .tier-cta {
   margin-top: auto;
   text-align: center;
-  background: var(--ukap-blue);
+  background: var(--ukap-black);
   color: var(--ukap-white);
   font-weight: var(--fw-bold);
   padding: 0.8rem 1.5rem;
@@ -257,7 +257,7 @@
 
 /* --- Impact stats --- */
 .donate-impact {
-  background: var(--ukap-blue);
+  background: var(--ukap-black);
   padding: clamp(2.5rem, 5vw, 4rem);
   margin-bottom: 3.5rem;
   color: var(--ukap-white);

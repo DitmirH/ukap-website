@@ -10,12 +10,12 @@ const BRAND_SLIDE = {
   subtitle:
     'Scholarships, mentoring and skills training that help young people build the futures they deserve.',
   imageUrl: '/images/hero-graduate.jpg',
-  tone: 'blue',
+  tone: 'black',
   primaryButton: { text: 'Support our work', link: '/donate' },
   secondaryButton: { text: 'About UKAP', link: '/about' },
 }
 
-const TONES = ['blue', 'red', 'blue']
+const TONES = ['black', 'gold', 'coral']
 
 const isExternal = (link) => /^https?:/.test(link || '')
 
@@ -66,14 +66,16 @@ export default function HeroCarousel() {
 
   return (
     <section className="hero">
-      <div className="hero-media">
-        {slides.map((s, i) => (
-          <div
-            key={s._id}
-            className={`hero-slide ${i === current ? 'active' : ''}`}
-            style={s.imageUrl ? { backgroundImage: `url(${s.imageUrl})` } : undefined}
-          />
-        ))}
+      <div className="hero-row">
+        <div className="hero-media">
+          {slides.map((s, i) => (
+            <div
+              key={s._id}
+              className={`hero-slide ${i === current ? 'active' : ''}`}
+              style={s.imageUrl ? { backgroundImage: `url(${s.imageUrl})` } : undefined}
+            />
+          ))}
+        </div>
       </div>
 
       <div className="hero-wrap">

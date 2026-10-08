@@ -49,7 +49,7 @@ export default function Donate() {
 
       {/* Hero Section */}
       <PageHeader
-        tone="red"
+        tone="coral"
         photo="/images/graduates-red.jpg"
         eyebrow="Donate"
         title={<>Help us create brighter <span className="accent">futures</span></>}

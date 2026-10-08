@@ -1,0 +1,231 @@
+/* Poster-style event card — see docs/concepts/events-list/00-FINAL-poster-cards.jpg */
+.event-card-poster {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  background: var(--ec-bg);
+  color: var(--ec-text);
+  transition: transform var(--speed-med) var(--ease-out), box-shadow var(--speed-med) var(--ease-out);
+}
+
+.event-card-poster.is-light { border: 1px solid var(--color-border); }
+
+.event-card-poster:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 24px 40px -24px rgba(0, 0, 0, 0.55);
+}
+
+.event-card-poster:focus-within { outline: 3px solid var(--ukap-blue); outline-offset: 3px; }
+
+/* Media */
+.ecp-media {
+  position: relative;
+  aspect-ratio: 4 / 3;
+  overflow: hidden;
+  background: var(--ukap-black);
+}
+
+.ecp-media img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: transform 0.6s var(--ease-out), filter 0.3s ease;
+}
+
+.event-card-poster:hover .ecp-media img { transform: scale(1.05); }
+
+.ecp-media-fallback {
+  width: 100%;
+  height: 100%;
+  display: grid;
+  place-items: center;
+}
+
+.ecp-media-fallback .ukap-watermark { width: 30%; color: rgba(226, 190, 116, 0.7); }
+
+.ecp-badge {
+  position: absolute;
+  top: 0;
+  left: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 12px 16px 10px;
+  background: var(--ukap-gold);
+  color: var(--ukap-black);
+  text-align: center;
+}
+
+.ecp-badge.on-gold { background: var(--ukap-black); color: var(--ukap-white); }
+.ecp-badge.on-gold .ecp-day { color: var(--ukap-gold); }
+
+.ecp-day {
+  font-family: var(--font-display);
+  font-weight: 900;
+  font-stretch: 78%;
+  font-size: 3rem;
+  line-height: 0.85;
+}
+
+.ecp-month {
+  margin-top: 6px;
+  font-weight: var(--fw-bold);
+  font-size: 0.8rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+}
+
+/* Body */
+.ecp-body {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  padding: 1.6rem 1.6rem 1.75rem;
+}
+
+.ecp-tags { display: flex; flex-wrap: wrap; gap: 0.4rem; }
+
+.ecp-tag {
+  font-size: 0.7rem;
+  font-weight: var(--fw-bold);
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  padding: 0.32rem 0.55rem;
+  background: var(--ec-text);
+  color: var(--ec-bg);
+}
+
+.ecp-tag.is-status { background: transparent; color: var(--ec-text); box-shadow: inset 0 0 0 1.5px currentColor; }
+
+.ecp-title {
+  margin: 0.9rem 0 0.8rem;
+  font-family: var(--font-display);
+  font-weight: 850;
+  font-stretch: 78%;
+  text-transform: uppercase;
+  font-size: clamp(1.8rem, 1.3rem + 1.1vw, 2.35rem);
+  line-height: 0.95;
+  letter-spacing: 0;
+  color: var(--ec-heading);
+}
+
+.ecp-link { color: inherit; }
+.ecp-link:hover { color: inherit; }
+
+/* Stretched link: the whole card is clickable */
+.ecp-link::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+}
+
+.ecp-link:focus-visible { outline: none; }
+
+.ecp-desc {
+  font-size: 1rem;
+  line-height: 1.5;
+  opacity: 0.95;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.ecp-when {
+  margin-top: auto;
+  padding-top: 0.85rem;
+  border-top: 2px solid currentColor;
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+  font-size: 0.95rem;
+}
+
+/* Gap above the date line; margin-top:auto on .ecp-when keeps footers aligned across a row */
+.ecp-body > :has(+ .ecp-when) { margin-bottom: 1.4rem; }
+
+.ecp-when strong { font-weight: var(--fw-bold); }
+.ecp-when span { opacity: 0.88; }
+
+.ecp-foot {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1rem;
+  margin-top: 1.4rem;
+}
+
+/* Book now sits above the stretched link so it stays independently clickable */
+.ecp-book {
+  position: relative;
+  z-index: 2;
+  display: inline-flex;
+  align-items: center;
+  padding: 0.8rem 1.25rem;
+  font-weight: var(--fw-bold);
+  background: var(--ukap-black);
+  color: var(--ukap-white);
+  transition: background-color var(--speed-fast) ease, color var(--speed-fast) ease;
+}
+
+.ecp-book:hover { background: var(--ukap-white); color: var(--ukap-black); }
+
+/* On dark cards the button flips to gold */
+.event-card-poster.is-dark .ecp-book { background: var(--ukap-gold); color: var(--ukap-black); }
+.event-card-poster.is-dark .ecp-book:hover { background: var(--ukap-white); }
+
+.ecp-more {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-weight: var(--fw-bold);
+  font-size: 1.05rem;
+  border-bottom: 3px solid currentColor;
+  padding-bottom: 2px;
+  color: var(--ec-heading);
+}
+
+.ecp-more b {
+  font-family: var(--font-display);
+  font-weight: 900;
+  font-size: 1.5rem;
+  line-height: 1;
+  transition: transform var(--speed-fast) var(--ease-out);
+}
+
+.event-card-poster:hover .ecp-more b { transform: translateX(5px); }
+
+/* Past events: muted photo */
+.event-card-poster.is-past .ecp-media img { filter: grayscale(0.85); }
+.event-card-poster.is-past:hover .ecp-media img { filter: grayscale(0.2); }
+
+/* Grid */
+.event-card-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 1.5rem;
+}
+
+@media (max-width: 1000px) {
+  .event-card-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+
+/* Mobile: keep cards short — wide image, compact badge/title, 2-line description */
+@media (max-width: 640px) {
+  .event-card-grid { grid-template-columns: 1fr; gap: 1rem; }
+  .ecp-media { aspect-ratio: 16 / 9; }
+  .ecp-badge { padding: 8px 11px 7px; }
+  .ecp-day { font-size: 2.1rem; }
+  .ecp-month { margin-top: 4px; font-size: 0.68rem; }
+  .ecp-body { padding: 1.1rem 1.1rem 1.2rem; }
+  .ecp-title { margin: 0.65rem 0 0.5rem; font-size: 1.65rem; }
+  .ecp-desc { font-size: 0.95rem; -webkit-line-clamp: 2; }
+  .ecp-body > :has(+ .ecp-when) { margin-bottom: 0.9rem; }
+  .ecp-when { padding-top: 0.65rem; font-size: 0.9rem; }
+  .ecp-foot { margin-top: 1rem; }
+  .ecp-book { padding: 0.65rem 1rem; }
+  .ecp-more { font-size: 0.98rem; }
+}

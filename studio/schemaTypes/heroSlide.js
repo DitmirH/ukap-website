@@ -1,3 +1,5 @@
+import { colourField } from './colourField'
+
 export default {
   name: 'heroSlide',
   title: 'Hero Slide',
@@ -15,6 +17,22 @@ export default {
       type: 'text',
       rows: 3,
       description: 'Supporting text displayed below the title',
+    },
+    {
+      ...colourField(
+        'cardColour',
+        'Card colour',
+        'Background of the box that sits over the photo. Default: Black.'
+      ),
+      initialValue: 'black-main',
+    },
+    {
+      ...colourField(
+        'textColour',
+        'Title & button colour',
+        'Used for the title and the buttons, so they always match. The small description text switches to black or white automatically for readability. Default: Gold.'
+      ),
+      initialValue: 'gold-main',
     },
     {
       name: 'backgroundType',

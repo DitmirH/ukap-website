@@ -1,4 +1,5 @@
 import { SlugWithPreview } from '../components/SlugWithPreview'
+import { colourField } from './colourField'
 
 export default {
   name: 'event',
@@ -78,6 +79,11 @@ export default {
         { name: 'alt', title: 'Alt Text', type: 'string' },
       ],
     },
+    colourField(
+      'cardColour',
+      'Card colour',
+      'Colour of this event\'s poster card in "What\'s on" and the events list. Leave empty to rotate coral / black / gold automatically.'
+    ),
     {
       name: 'body',
       title: 'Full Description',

@@ -4,12 +4,15 @@
  * - Set SITE_PASSWORD in Vercel → Settings → Environment Variables to turn it on.
  * - Delete SITE_PASSWORD (and redeploy) to make the site public.
  * - Changing the password logs everyone out.
+ * - The live domains (PRODUCTION_HOSTS) stay public unless PROTECT_PRODUCTION=true,
+ *   so the staging vercel.app URL can stay locked after launch.
  * Only runs on Vercel — `npm run dev` is not affected.
  */
 import { next } from '@vercel/functions'
 
 export const config = { runtime: 'nodejs' }
 
+const PRODUCTION_HOSTS = ['ukapfoundation.org', 'www.ukapfoundation.org']
 const COOKIE = 'ukap_preview'
 const LOGIN_PATH = '/__unlock'
 const MAX_AGE = 60 * 60 * 24 * 30 // 30 days
@@ -110,6 +113,7 @@ export default async function middleware(request) {
   if (!password) return next() // gate disabled
 
   const url = new URL(request.url)
+  if (PRODUCTION_HOSTS.includes(url.hostname) && process.env.PROTECT_PRODUCTION !== 'true') return next()
   if (PUBLIC_PREFIXES.some((p) => url.pathname.startsWith(p))) return next()
 
   const expected = await sha256(`ukap:${password}`)

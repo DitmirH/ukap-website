@@ -15,7 +15,7 @@ The public website for the **UKAP Foundation** (UK Albanian Professionals Founda
 | Styling | Plain CSS, one file per component/page, global design tokens in `src/styles/index.css` (CSS custom properties). No CSS framework, no preprocessor |
 | Contact email | Express + Nodemailer server (local dev, `server/index.js`, port 3001) and a Vercel serverless function (`api/contact.js`) in production. Sends via Microsoft 365 SMTP; supports base64 file attachments |
 | Donations | Zeffy embedded form (third-party); ticketing via TicketTailor embeds |
-| Hosting | Vercel, single Vite project (SPA rewrite of all routes to `index.html`, `/api/*` to serverless functions — see `vercel.json`). Optional password gate in `middleware.js` (`SITE_PASSWORD`). Studio is hosted by Sanity (`npx sanity deploy`). |
+| Hosting | Vercel, single Vite project (SPA rewrite of all routes to `index.html`, `/api/*` to serverless functions — see `vercel.json`). Studio is hosted by Sanity (`npx sanity deploy`). |
 
 ## Repository layout
 
@@ -27,7 +27,6 @@ ukap-web/
 ├── .env.development/.production # VITE_SANITY_PROJECT_ID, VITE_SANITY_DATASET, SMTP creds
 ├── CLAUDE.md / AGENTS.md       # Working rules for AI agents & developers
 ├── docs/BRAND.md               # Brand guidelines for the web (colours, type, logo, patterns)
-├── middleware.js               # Vercel password gate (SITE_PASSWORD)
 ├── public/fonts/               # Selawik (body, 300/400/600/700) + Archivo variable (display)
 ├── public/brand/               # Logo lockups, icon, outline monogram, favicons
 ├── public/images/              # Placeholder photography + CREDITS.md
@@ -81,11 +80,14 @@ Homepage sections
 - **MissionStrip** — black impact band: Sanity `missionSection` text (with fallback) + four hard-coded stats in gold.
 - **ProgrammesGrid** — "What we do" 2×2 image-left cards from Sanity `programme` (fallback content + stock photos).
 - **FeatureBanner** — wide photo with a colour card hanging off its corner (used for the Gala on Home, volunteers on About). Not Sanity — content is passed as props in the page file.
+- **WhatsOn** — "What's on" section: Sanity `eventsSection` (Automatic = next N upcoming events; Hand-picked = cards referencing Events, with optional colour/title/description/image overrides). Branded `EventsEmpty` block when nothing is upcoming.
 - **HelpWays** — "You can help, in your way" image cards with tags + strap line. Content hard-coded.
 
 Content components
-- **EventsList** — `timeline`, `cards`, `compact` styles; filters; status badges; branded empty state.
-- **BlogCard / TeamCard** — square image cards.
+- **EventCard** — poster card: image + gold date badge, colour body (15-swatch palette), tags, title, date/venue line, "Book now" (Ticket Tailor, hidden when past/sold out/cancelled) and "More info →" (whole card links to `/events/{slug}`). Past events go greyscale. Used on Home and `/events`.
+- **EventsList** — (older component, still used by `customPage` embeds) — `timeline`, `cards`, `compact` styles; filters; status badges; branded empty state.
+- **BlogCard** — news card matching the event cards (colour bar + tag, uppercase title, "Read more →"); `variant="feature"` (lead story) and `variant="compact"` (list row) are used on Home, which shows the latest 5 posts.
+- **TeamCard** — square image card.
 - **SponsorsCarousel** — logo marquee (hidden when no sponsors).
 - **ContactForm** — Sanity-configurable form engine; posts JSON to `/api/contact`.
 - **AnnouncementModal** — homepage popup driven by `announcementModal`.
@@ -95,7 +97,11 @@ Work in progress (untracked, not wired in): AnnouncementBanner, AudiencePathways
 
 ## Sanity schemas (studio/schemaTypes/)
 
-`post`, `author`, `teamMember`, `heroSlide`, `contactForm`, `customPage`, `event`, `sponsor`, `donationPage`, `sponsorshipTier`, `missionSection`, `programme`, `announcementModal`.
+`post`, `author`, `teamMember`, `heroSlide`, `contactForm`, `customPage`, `event`, `sponsor`, `donationPage`, `sponsorshipTier`, `missionSection`, `programme`, `announcementModal`, `eventsSection` (What's On cards).
+
+Shared: `colourField()` + `ColourSwatchInput` give any field the 15-colour swatch picker (`studio/lib/palette.js`, mirrored in `src/lib/palette.js` — keep in sync). `event.cardColour` uses it.
+
+Events page (`/events`): upcoming cards, then an Archive of past events with a year filter.
 
 Notable: `customPage` composes pages from Portable Text plus custom blocks (images with sizes, CTAs, dividers, two-column layouts, info boxes, embedded contact forms, events lists, TicketTailor and raw embeds, hero styles overlay/banner/contained/none). `event` carries date/venue/tickets/category/status/featured. `contactForm` defines the entire form structure including email routing and subject prefix. The frontend generally treats Sanity as read-only (public dataset, CDN reads in prod).
 
@@ -123,5 +129,6 @@ Full rules: **`docs/BRAND.md`**. Summary:
 - `heroSlide` allows a custom hex colour — the one place an editor can pick an off-brand colour.
 - Contact API expects JSON with dynamic fields plus `recipients`, `emailSubjectPrefix` and optional base64 `attachments`; dev URL is `http://localhost:3001/api/contact`, prod is `/api/contact`.
 - No tests and no linter are currently configured.
-- Local dev must use port 5173 (Sanity CORS). `.env.development` uses the `development` dataset; production uses `production`.
+- Local dev must use port 5173 (Sanity CORS).
+- Dataset is chosen by domain (`src/lib/sanityClient.js`): ukapfoundation.org → `production`; staging (ukap-website-rose.vercel.app), previews and localhost → `development`.
 - Agent/developer working rules live in `CLAUDE.md` (also referenced from `AGENTS.md`).

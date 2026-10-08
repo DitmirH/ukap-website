@@ -51,8 +51,8 @@ export default function Blog() {
         )}
 
         <div className="blog-grid">
-          {posts.map((post) => (
-            <BlogCard key={post._id} post={post} />
+          {posts.map((post, i) => (
+            <BlogCard key={post._id} post={post} index={i} />
           ))}
         </div>
       </main>

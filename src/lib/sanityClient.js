@@ -9,9 +9,21 @@ import { createClient } from '@sanity/client'
 import imageUrlBuilder from '@sanity/image-url'
 
 // Sanity project credentials
-// These can be overridden via environment variables (VITE_SANITY_PROJECT_ID, VITE_SANITY_DATASET)
 const projectId = import.meta.env.VITE_SANITY_PROJECT_ID || 'ijgeixey'
-const dataset = import.meta.env.VITE_SANITY_DATASET || 'production'
+
+/**
+ * Dataset is chosen by the domain the site is served on:
+ *  - the live domains below            → "production"
+ *  - everything else (vercel.app URLs,
+ *    preview deployments, localhost)   → VITE_SANITY_DATASET, defaulting to "development"
+ * Add any new live domain to PRODUCTION_HOSTS.
+ */
+const PRODUCTION_HOSTS = ['ukapfoundation.org', 'www.ukapfoundation.org']
+
+const host = typeof window !== 'undefined' ? window.location.hostname : ''
+const dataset = PRODUCTION_HOSTS.includes(host)
+  ? 'production'
+  : import.meta.env.VITE_SANITY_DATASET || 'development'
 
 /**
  * Sanity Client

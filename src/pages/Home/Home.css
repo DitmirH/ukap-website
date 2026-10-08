@@ -5,11 +5,13 @@
   background: var(--color-bg);
 }
 
-/* --- Latest news --- */
-.blog-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-  gap: 1.5rem;
+/* --- Latest news: lead story + side list of the next four --- */
+.news-layout { display: grid; grid-template-columns: 1fr; gap: 2rem; }
+.news-layout.has-list { grid-template-columns: minmax(0, 7fr) minmax(0, 5fr); }
+.news-list { display: flex; flex-direction: column; gap: 0.6rem; }
+
+@media (max-width: 960px) {
+  .news-layout.has-list { grid-template-columns: 1fr; gap: 1.5rem; }
 }
 
 /* --- Contact: split block --- */

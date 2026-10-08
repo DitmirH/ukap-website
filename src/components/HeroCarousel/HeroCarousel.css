@@ -46,27 +46,21 @@
 }
 
 .hero-card {
+  /* Colours come from Sanity (card colour + title/button colour) via cardStyle() */
+  --hc-bg: var(--ukap-black);
+  --hc-ink: var(--ukap-white);
+  --hc-accent: var(--ukap-gold);
+  --hc-accent-ink: var(--ukap-black);
   pointer-events: auto;
   width: min(100%, 540px);
   padding: clamp(2rem, 3.5vw, 3rem);
-  background: var(--ukap-black);
-  color: var(--ukap-white);
+  background: var(--hc-bg);
+  color: var(--hc-ink);
   animation: heroCardIn 0.6s var(--ease-out) both;
 }
 
-.hero-card.tone-black .hero-title { color: var(--ukap-gold); }
-.hero-card.tone-gold { background: var(--ukap-gold); color: var(--ukap-black); }
-.hero-card.tone-coral { background: var(--ukap-red); color: var(--ukap-black); }
-.hero-card.tone-gold .hero-btn-primary,
-.hero-card.tone-coral .hero-btn-primary { background: var(--ukap-black); color: var(--ukap-white); }
-.hero-card.tone-gold .hero-btn-ghost,
-.hero-card.tone-coral .hero-btn-ghost { color: var(--ukap-black); border-color: var(--ukap-black); }
-.hero-card.tone-gold .hero-nav,
-.hero-card.tone-coral .hero-nav { background: rgba(0, 0, 0, 0.12); color: var(--ukap-black); }
-.hero-card.tone-gold .hero-controls,
-.hero-card.tone-coral .hero-controls { border-color: rgba(0, 0, 0, 0.2); }
-.hero-card.tone-gold .hero-dot.active,
-.hero-card.tone-coral .hero-dot.active { background: var(--ukap-black); }
+/* White/light cards need an edge against the page */
+.hero-card { box-shadow: 0 0 0 1px color-mix(in srgb, var(--hc-ink) 8%, transparent); }
 
 @keyframes heroCardIn {
   from { opacity: 0; transform: translateY(16px); }
@@ -74,7 +68,7 @@
 }
 
 .hero-title {
-  color: inherit;
+  color: var(--hc-accent);
   text-transform: uppercase;
   font-size: clamp(2.3rem, 1.6rem + 2.6vw, 3.7rem);
   line-height: 0.92;
@@ -105,23 +99,20 @@
 }
 
 .hero-btn-primary {
-  background: var(--ukap-gold);
-  color: var(--ukap-black);
-}
-
-.hero-btn-primary:hover {
-  background: var(--ukap-white);
-  color: var(--ukap-black);
+  background: var(--hc-accent);
+  color: var(--hc-accent-ink);
 }
 
 .hero-btn-ghost {
-  color: var(--ukap-white);
-  border-color: rgba(255, 255, 255, 0.65);
+  color: var(--hc-accent);
+  border-color: var(--hc-accent);
 }
 
+.hero-btn-primary:hover,
 .hero-btn-ghost:hover {
-  background: var(--ukap-white);
-  color: var(--ukap-black);
+  background: var(--hc-ink);
+  border-color: var(--hc-ink);
+  color: var(--hc-bg);
 }
 
 .hero-controls {
@@ -130,7 +121,7 @@
   gap: 0.75rem;
   margin-top: 2rem;
   padding-top: 1.25rem;
-  border-top: 1px solid rgba(255, 255, 255, 0.2);
+  border-top: 1px solid color-mix(in srgb, var(--hc-ink) 20%, transparent);
 }
 
 .hero-nav {
@@ -139,12 +130,12 @@
   display: grid;
   place-items: center;
   border: 0;
-  background: rgba(255, 255, 255, 0.14);
-  color: var(--ukap-white);
+  background: color-mix(in srgb, var(--hc-ink) 14%, transparent);
+  color: var(--hc-ink);
   cursor: pointer;
 }
 
-.hero-nav:hover { background: var(--ukap-white); color: var(--ukap-black); }
+.hero-nav:hover { background: var(--hc-ink); color: var(--hc-bg); }
 .hero-nav svg { width: 18px; height: 18px; }
 
 .hero-dots { display: flex; gap: 6px; }
@@ -154,11 +145,11 @@
   height: 4px;
   border: 0;
   padding: 0;
-  background: rgba(255, 255, 255, 0.35);
+  background: color-mix(in srgb, var(--hc-ink) 35%, transparent);
   cursor: pointer;
 }
 
-.hero-dot.active { background: var(--ukap-gold); }
+.hero-dot.active { background: var(--hc-accent); }
 
 @media (max-width: 760px) {
   .hero { padding-bottom: 0; }

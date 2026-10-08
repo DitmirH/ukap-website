@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react'
 import { useLocation } from 'react-router-dom'
-import { Nav, Footer, ContactForm, BlogCard, HeroCarousel, EventsList, SponsorsCarousel, MissionStrip, ProgrammesGrid, AnnouncementModal, SectionHead, ActionCards, FeatureBanner, HelpWays } from '../../components'
+import { Nav, Footer, ContactForm, BlogCard, HeroCarousel, SponsorsCarousel, MissionStrip, ProgrammesGrid, AnnouncementModal, SectionHead, ActionCards, FeatureBanner, HelpWays, WhatsOn } from '../../components'
 import { client } from '../../lib/sanityClient'
 import './Home.css'
 
@@ -11,7 +11,7 @@ export default function Home() {
   useEffect(() => {
     client
       .fetch(
-        `*[_type == "post"] | order(publishedAt desc)[0...3] {
+        `*[_type == "post"] | order(publishedAt desc)[0...5] {
           _id,
           title,
           slug,
@@ -59,22 +59,23 @@ export default function Home() {
         tone="red"
       />
 
-      {/* Upcoming Events */}
-      <section className="events-preview section section-alt">
-        <div className="container">
-          <SectionHead title="Upcoming events" action={{ to: '/events', label: 'All events' }} />
-          <EventsList title="" limit={3} style="cards" showViewAll={false} />
-        </div>
-      </section>
+      {/* What's on — Sanity "What's On (Events cards)" */}
+      <WhatsOn />
 
       {posts.length > 0 && (
         <section className="blog-preview section">
           <div className="container">
             <SectionHead title="Latest updates" action={{ to: '/blog', label: 'All news' }} />
-            <div className="blog-grid">
-              {posts.map((post) => (
-                <BlogCard key={post._id} post={post} />
-              ))}
+            {/* Lead story left, next four as a list on the right */}
+            <div className={`news-layout ${posts.length > 1 ? 'has-list' : ''}`}>
+              <BlogCard post={posts[0]} variant="feature" />
+              {posts.length > 1 && (
+                <div className="news-list">
+                  {posts.slice(1).map((post, i) => (
+                    <BlogCard key={post._id} post={post} index={i} variant="compact" />
+                  ))}
+                </div>
+              )}
             </div>
           </div>
         </section>

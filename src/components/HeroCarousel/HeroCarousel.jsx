@@ -1,6 +1,7 @@
 import { useState, useEffect, useCallback, useRef } from 'react'
 import { Link } from 'react-router-dom'
 import { client, urlFor } from '../../lib/sanityClient'
+import { swatch } from '../../lib/palette'
 import './HeroCarousel.css'
 
 // Campaign slide that always leads the carousel (Sanity slides follow it)
@@ -10,12 +11,33 @@ const BRAND_SLIDE = {
   subtitle:
     'Scholarships, mentoring and skills training that help young people build the futures they deserve.',
   imageUrl: '/images/hero-graduate.jpg',
-  tone: 'black',
+  cardColour: 'black-main',
+  textColour: 'gold-main',
   primaryButton: { text: 'Support our work', link: '/donate' },
   secondaryButton: { text: 'About UKAP', link: '/about' },
 }
 
-const TONES = ['black', 'gold', 'coral']
+// Fallback colours for Sanity slides with no colours picked (card, title/button)
+const DEFAULT_COLOURS = [
+  ['gold-main', 'black-main'],
+  ['red-main', 'black-main'],
+  ['black-main', 'gold-main'],
+]
+
+/** Card colour + title/button colour → CSS variables. */
+function cardStyle(cardKey, textKey) {
+  const card = swatch(cardKey)
+  // Same colour for card and title would be invisible — fall back to black/white text
+  const accent = textKey && textKey !== card.key ? swatch(textKey) : null
+  const accentBg = accent ? accent.bg : card.text
+  const accentInk = accent ? accent.text : card.bg
+  return {
+    '--hc-bg': card.bg,
+    '--hc-ink': card.text,
+    '--hc-accent': accentBg,
+    '--hc-accent-ink': accentInk,
+  }
+}
 
 const isExternal = (link) => /^https?:/.test(link || '')
 
@@ -38,16 +60,20 @@ export default function HeroCarousel() {
     client
       .fetch(
         `*[_type == "heroSlide" && active == true] | order(order asc) {
-          _id, title, subtitle, backgroundType, backgroundColor, customColor,
+          _id, title, subtitle, cardColour, textColour,
           image, duration, primaryButton, secondaryButton
         }`
       )
       .then((data) => {
-        const cms = (data || []).map((s, i) => ({
-          ...s,
-          imageUrl: s.image ? urlFor(s.image).width(2000).height(1100).url() : null,
-          tone: TONES[(i + 1) % TONES.length],
-        }))
+        const cms = (data || []).map((s, i) => {
+          const [card, text] = DEFAULT_COLOURS[i % DEFAULT_COLOURS.length]
+          return {
+            ...s,
+            imageUrl: s.image ? urlFor(s.image).width(2000).height(1100).url() : null,
+            cardColour: s.cardColour || card,
+            textColour: s.textColour || (s.cardColour ? null : text),
+          }
+        })
         setSlides([BRAND_SLIDE, ...cms])
       })
       .catch((err) => console.error(err))
@@ -79,7 +105,7 @@ export default function HeroCarousel() {
       </div>
 
       <div className="hero-wrap">
-        <div className={`hero-card tone-${slide.tone}`} key={slide._id}>
+        <div className="hero-card" key={slide._id} style={cardStyle(slide.cardColour, slide.textColour)}>
           <h1 className="hero-title">{slide.title}</h1>
           {slide.subtitle && <p className="hero-subtitle">{slide.subtitle}</p>}
           <div className="hero-buttons">
